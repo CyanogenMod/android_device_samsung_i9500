@@ -887,6 +887,7 @@ static int out_standby(struct audio_stream *stream)
 
     pthread_mutex_unlock(&out->lock);
     pthread_mutex_unlock(&out->dev->lock);
+
     return ret;
 }
 
@@ -918,6 +919,14 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
             /* force output standby to stop SCO pcm stream if needed */
             if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
                     (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
+                do_out_standby(out);
+            }
+
+            /* Force standby if moving to/from SPDIF or if the output
+             * device changes when in SPDIF mode */
+            if (((val & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) ^
+                 (adev->devices & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) ||
+                (adev->devices & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) {
                 do_out_standby(out);
             }
 
