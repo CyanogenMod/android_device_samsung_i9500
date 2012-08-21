@@ -954,6 +954,14 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
     if (ret >= 0) {
         val = atoi(value);
         if (((adev->out_device) != val) && (val != 0)) {
+            /* Force standby if moving to/from SPDIF or if the output
+             * device changes when in SPDIF mode */
+            if (((val & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) ^
+                 (out->device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) ||
+                (out->device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) {
+                do_out_standby(out);
+            }
+
             /* force output standby to stop SCO pcm stream if needed */
             if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
                     (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
