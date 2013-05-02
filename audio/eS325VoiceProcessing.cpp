@@ -1283,17 +1283,21 @@ int Adnc_ApplySettingsFromSessionContextInt_l(adnc_pfx_session_t * session)
     status = Adnc_SetNoiseSuppressionInt_l(ns_on /*ns_on*/);
 
     // AEC
-    if ((session->createdMsk & (1 << PFX_ID_AEC))         /* the effect has been created */
-            && (session->activeMsk  & (1 << PFX_ID_AEC))) /* the effect is active        */
-    {
-        Adnc_SetEchoCancellationInt_l(true /*aec_on*/);
+    if (session->createdMsk & (1 << PFX_ID_AEC)) {        /* the effect has been created */
+        const bool aec_on = ((session->activeMsk & (1 << PFX_ID_AEC)) != 0);
+        int aec_status = Adnc_SetEchoCancellationInt_l(aec_on /*aec_on*/);
+        if (status == 0) {
+            status = aec_status;
+        }
     }
 
     // AGC
-    if ((session->createdMsk & (1 << PFX_ID_AGC))         /* the effect has been created */
-            && (session->activeMsk  & (1 << PFX_ID_AGC))) /* the effect is active        */
-    {
-        Adnc_SetAutomaticGainControlInt_l(true /*agc_on*/);
+    if (session->createdMsk & (1 << PFX_ID_AGC)) {        /* the effect has been created */
+        const bool agc_on = ((session->activeMsk & (1 << PFX_ID_AGC)) != 0);
+        int agc_status = Adnc_SetAutomaticGainControlInt_l(agc_on /*agc_on*/);
+        if (status == 0) {
+            status = agc_status;
+        }
     }
 
     return status;
