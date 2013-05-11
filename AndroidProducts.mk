@@ -1,0 +1,2 @@
+PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/full_i9500.mk
