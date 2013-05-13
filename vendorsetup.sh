@@ -1,1 +1,1 @@
-add_lunch_combo full_i9500-userdebug
+add_lunch_combo cm_i9500-userdebug

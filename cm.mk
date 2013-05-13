@@ -8,7 +8,7 @@ PRODUCT_RELEASE_NAME := i9500
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/samsung/i9500/device_i9500.mk)
+$(call inherit-product, device/samsung/i9500/full_i9500.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := i9500
