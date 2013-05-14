@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+LOCAL_PATH := device/samsung/i9500
+
 USE_CAMERA_STUB := true
 
 TARGET_ARCH := arm
@@ -38,13 +40,14 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x105c0000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/i9500/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Recovery
+TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/recovery/init.rc
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-TARGET_PREBUILT_KERNEL := device/samsung/i9500/kernel
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
 
 # inherit from the proprietary version
 -include vendor/samsung/i9500/BoardConfigVendor.mk
