@@ -28,9 +28,14 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 
 TARGET_BOOTLOADER_BOARD_NAME := universal5410
 
+# Kernel
 BOARD_KERNEL_CMDLINE := 
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
+
+# Inline kernel building
+TARGET_KERNEL_SOURCE := kernel/samsung/exynos5410
+TARGET_KERNEL_CONFIG := cyanogenmod_i9500_defconfig
 
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x105c0000
@@ -46,8 +51,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/recovery/init.rc
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
-
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
 
 # inherit from the proprietary version
 -include vendor/samsung/i9500/BoardConfigVendor.mk

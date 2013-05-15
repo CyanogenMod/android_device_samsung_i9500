@@ -39,13 +39,4 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/init.wifi.rc:root/init.wifi.rc \
     $(LOCAL_PATH)/rootdir/ueventd.universal5410.rc:root/ueventd.universal5410.rc
 
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
-
 $(call inherit-product-if-exists, vendor/samsung/i9500/i9500-vendor.mk)
