@@ -1,0 +1,75 @@
+/dev/pvrsrvkm             0666   system     graphics
+/dev/pvr_sync             0666   system     graphics
+/dev/ump                  0666   system     system
+/dev/ion                  0666   system     system
+/dev/video6               0660   media      media
+/dev/video7               0660   media      media
+
+# gscalers
+/dev/video23              0660   media      graphics
+/dev/video26              0660   media      graphics
+/dev/video29              0660   media      graphics
+/dev/video32              0660   media      graphics
+
+/dev/video24              0660   media      graphics
+/dev/video27              0660   media      graphics
+/dev/video30              0660   media      graphics
+/dev/video33              0660   media      graphics
+
+/dev/video36              0660   media      camera
+/dev/video37              0660   media      camera
+/dev/video38              0660   media      camera
+
+/dev/video34              0660   system     system
+/dev/v4l-subdev*          0660   system     system
+/dev/media0               0660   system     camera
+/dev/media1               0660   system     camera
+
+# camera
+/dev/video40              0660   media      media
+/dev/video41              0660   media      media
+/dev/video42              0660   media      media
+/dev/video43              0660   media      media
+/dev/video44              0660   media      media
+/dev/video45              0660   media      media
+/dev/video46              0660   media      media
+/dev/video47              0660   media      media
+/dev/video48              0660   media      media
+/dev/media2               0660   media      media
+
+# mixer
+/dev/video16              0660   system     audio
+/dev/video17              0660   system     system
+/dev/video18              0660   system     system
+/dev/video19              0660   system     system
+
+# FIMG2D
+/dev/fimg2d               0666   system     graphics
+
+#JPEG
+/dev/video11              0660   media      media
+/dev/video12              0660   media      media
+/dev/video13              0660   media      media
+/dev/video14              0660   media      media
+
+# FIMG2D
+/dev/fimg2d               0666   system     graphics
+
+# sensor sysfs properties
+/sys/devices/virtual/input/input*	poll_delay	0660	system	radio
+/sys/devices/virtual/input/input*	enable		0660	system	radio
+
+# sensorhub
+/dev/ssp_sensorhub		  0660	 system     system
+
+/dev/ttySAC*	          0660	 root	 system
+/dev/umts*                0660   system     radio
+/dev/block/mmcblk0p13     0660   system     radio
+
+# USB Acessory
+/dev/ttyUSB*              0660   system     usb
+/dev/usb/lp*              0660   system     usb
+
+#ALP Audio
+/dev/srp                  0660   system     audio
+
