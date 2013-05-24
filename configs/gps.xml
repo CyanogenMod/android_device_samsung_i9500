@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<glgps xmlns="http://www.glpals.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.glpals.com/glconfig.xsd" >
+  <!--HAL Confguration  -->
+  <hal
+       PortName="/dev/ttySAC1"
+       BaudRate="921600"
+       GpioNStdbyPath="/sys/class/sec/gps/GPS_PWR_EN/value"
+       GpioDelayMs="250"
+       NvStorageDir="/data/system/gps/"
+       FactoryTestFilePath="/data/"
+
+       Log="JAVA"
+       LogDirectory="/storage/sdcard0/gps/broadcom/storage"
+
+       TISEnabled="true"
+       LPmode="false"
+       CpColdStart="false"
+       CpGuardTimeSec="1"
+
+       SuplEnable="true"
+       SuplUseApn="false"
+       SuplTlsCertPath="/system/bin/gps.cer"
+       SuplTlsEnable="false"
+       SuplUT1Seconds="20"
+       SuplUT2Seconds="20"
+       SuplUT3Seconds="20"
+       SuplVersion="1"
+
+       LbsEnable="true"
+       LbsServer="BCMLS2.glpals.com"
+       HttpSyncLto="true"
+       LtoDir="/data/system/gps/"
+       LtoSyncThresholdDays="1"
+       LbsTAC="10101401"
+
+       IgnoreJniTime="true"
+       AssertEnabled="false"
+   />
+
+  <gll
+       LogPriMask="LOG_INFO"
+       LogFacMask="LOG_GLLIO | LOG_RAWDATA | LOG_DEVKF | LOG_GLLAPI | LOG_NMEA"
+       FrqPlan="FRQ_PLAN_26MHZ_2PPM_26MHZ_300PPB"
+       RfType="GL_RF_47521_BRCM_EXT_LNA"
+       WarmStandbyTimeout1Seconds="10"
+       WarmStandbyTimeout2Seconds="15"
+  >
+  </gll>
+
+  <gll_features
+       EnableLowPowerPmm="true"
+  />
+
+</glgps>
