@@ -1,18 +1,15 @@
-## Specify phone tech before including full_phone
+$(call inherit-product, device/samsung/i9500/full_i9500.mk)
+
+# Inherit some common CM stuff
 $(call inherit-product, vendor/cm/config/gsm.mk)
 
-# Release name
-PRODUCT_RELEASE_NAME := i9500
+# Enhanced NFC
+$(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-# Inherit device configuration
-$(call inherit-product, device/samsung/i9500/full_i9500.mk)
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=i9500 BUILD_FINGERPRINT="samsung/ja3gxx/ja3g:4.2.2/JDQ39/I9500XXUAMDK:user/release-keys" PRIVATE_BUILD_DESC="ja3gxx-user 4.2.2 JDQ39 I9500XXUAMDK release-keys"
 
-## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := i9500
 PRODUCT_NAME := cm_i9500
-PRODUCT_BRAND := Samsung
-PRODUCT_MODEL := GT-I9500
-PRODUCT_MANUFACTURER := Samsung
+PRODUCT_DEVICE := i9500

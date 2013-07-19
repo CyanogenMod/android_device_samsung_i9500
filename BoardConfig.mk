@@ -16,13 +16,10 @@
 
 LOCAL_PATH := device/samsung/i9500
 
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
-
-# This variable is set first, so it can be overridden
-# by BoardConfigVendor.mk
-USE_CAMERA_STUB := true
-
 BOARD_VENDOR := samsung
+
+# Include path
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := universal5410
@@ -52,9 +49,15 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
+# Camera
+USE_CAMERA_STUB := true
+
 # Graphics
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
+
+# NFC
+BOARD_NFC_HAL_SUFFIX := universal5410
 
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
@@ -63,14 +66,14 @@ BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
 BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
-WIFI_DRIVER_MODULE_NAME          := "bcmdhd"
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcmdhd.ko"
-WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcm4335_b0.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcm4335_apsta_b0.bin"
-WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/firmware/fw_bcm4335_p2p_b0.bin"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/firmware/fw_bcm4335_b0.bin nvram_path=/system/etc/calibration"
-WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/system/etc/firmware/fw_bcm4335_apsta_b0.bin nvram=/system/etc/calibration"
+WIFI_DRIVER_MODULE_NAME          := "dhd"
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/dhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/bcmdhd_sta.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/wifi/bcmdhd_p2p.bin"
+WIFI_DRIVER_MODULE_ARG           := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram=/system/etc/wifi/nvram_net.txt"
 WIFI_BAND                        := 802_11_ABG
 
 # Webkit
@@ -88,6 +91,9 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 TARGET_USERIMAGES_USE_EXT4 := true
+
+# Releasetools
+#TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 
 # inherit from the proprietary version
 -include vendor/samsung/i9500/BoardConfigVendor.mk
