@@ -39,4 +39,8 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/rootdir/init.wifi.rc:root/init.wifi.rc \
     $(LOCAL_PATH)/rootdir/ueventd.universal5410.rc:root/ueventd.universal5410.rc
 
+# Recovery
+PRODUCT_COPY_FILES := \
+    init.recovery.universal5410.rc
+
 $(call inherit-product-if-exists, vendor/samsung/i9500/i9500-vendor.mk)

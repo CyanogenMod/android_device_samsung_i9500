@@ -50,9 +50,9 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Recovery
-TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/recovery/init.rc
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 
 # inherit from the proprietary version
 -include vendor/samsung/i9500/BoardConfigVendor.mk

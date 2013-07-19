@@ -1,0 +1,5 @@
+on init
+    # Touchscreen
+    write /sys/devices/platform/s3c2440-i2c.0/i2c-0/0-0020/input/input1/enabled 0
+    write /sys/devices/platform/s3c2440-i2c.0/i2c-0/0-0020/input/input1/power/control on
+    write /sys/devices/platform/s3c2440-i2c.0/i2c-0/0-0020/input/input1/enabled 1
