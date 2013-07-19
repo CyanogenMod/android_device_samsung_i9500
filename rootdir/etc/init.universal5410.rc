@@ -1,9 +1,9 @@
 import init.universal5410.usb.rc
-import init.wifi.rc
+import init.universal5410.wifi.rc
 
 on init
     start watchdogd
-    
+
      # For Absolute Persistence Partition
     mkdir /persdata 0755 system system
     mkdir /persdata/absolute 0750 system system
@@ -61,7 +61,7 @@ on init
     mkdir /dev/pipes 0771 shell shell
     restorecon /dev/pipes
 
-	symlink /dev/block/mmcblk0p8 /dev/block/param
+    symlink /dev/block/mmcblk0p8 /dev/block/param
 
 on post-fs
     # Increase max readahead size to 256 KB
@@ -279,27 +279,27 @@ on boot
     chown system radio /sys/class/camera/front/front_camtype
 
 # SVC LED
-	chown system system /sys/class/sec/led/led_r
-	chown system system /sys/class/sec/led/led_g
-	chown system system /sys/class/sec/led/led_b
+    chown system system /sys/class/sec/led/led_r
+    chown system system /sys/class/sec/led/led_g
+    chown system system /sys/class/sec/led/led_b
 
-	chown system system /sys/class/leds/led_r/brightness
-	chown system system /sys/class/leds/led_g/brightness
-	chown system system /sys/class/leds/led_b/brightness
-	chown system system /sys/class/leds/led_r/delay_on
-	chown system system /sys/class/leds/led_g/delay_on
-	chown system system /sys/class/leds/led_b/delay_on
-	chown system system /sys/class/leds/led_r/delay_off
-	chown system system /sys/class/leds/led_g/delay_off
-	chown system system /sys/class/leds/led_b/delay_off
-	chown system system /sys/class/leds/led_r/blink
-	chown system system /sys/class/leds/led_g/blink
-	chown system system /sys/class/leds/led_b/blink
+    chown system system /sys/class/leds/led_r/brightness
+    chown system system /sys/class/leds/led_g/brightness
+    chown system system /sys/class/leds/led_b/brightness
+    chown system system /sys/class/leds/led_r/delay_on
+    chown system system /sys/class/leds/led_g/delay_on
+    chown system system /sys/class/leds/led_b/delay_on
+    chown system system /sys/class/leds/led_r/delay_off
+    chown system system /sys/class/leds/led_g/delay_off
+    chown system system /sys/class/leds/led_b/delay_off
+    chown system system /sys/class/leds/led_r/blink
+    chown system system /sys/class/leds/led_g/blink
+    chown system system /sys/class/leds/led_b/blink
 
-	chown system system /sys/class/sec/led/led_pattern
-	chown system system /sys/class/sec/led/led_blink
-	chown system system /sys/class/sec/led/led_br_lev
-	chown system system /sys/class/sec/led/led_lowpower
+    chown system system /sys/class/sec/led/led_pattern
+    chown system system /sys/class/sec/led/led_blink
+    chown system system /sys/class/sec/led/led_br_lev
+    chown system system /sys/class/sec/led/led_lowpower
 
 # Switch Device
     chown system radio /sys/class/sec/switch/otg_test
@@ -412,8 +412,8 @@ on boot
     chown system radio /sys/module/asv_exynos/parameters/asv_group
 
 # terminal mode
-	chmod 0660 /sys/class/android_usb/android0/terminal_version
-	chown system system /sys/class/android_usb/android0/terminal_version
+    chmod 0660 /sys/class/android_usb/android0/terminal_version
+    chown system system /sys/class/android_usb/android0/terminal_version
 
 # for datarouter
     chown system system /dev/dun
@@ -546,10 +546,10 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     ioprio be 0
 
 # TVout
-service TvoutService_C /system/bin/bintvoutservice
-class main
-user system
-group graphics
+    service TvoutService_C /system/bin/bintvoutservice
+    class main
+    user system
+    group graphics
 
 # Vibetonz
 service immvibed /system/bin/immvibed

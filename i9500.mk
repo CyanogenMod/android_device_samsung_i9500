@@ -31,13 +31,13 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# Rootdir
+# Ramdisk
 PRODUCT_COPY_FILES := \
-    $(LOCAL_PATH)/rootdir/fstab.universal5410:root/fstab.universal5410 \
-    $(LOCAL_PATH)/rootdir/init.universal5410.rc:root/init.universal5410.rc \
-    $(LOCAL_PATH)/rootdir/init.universal5410.usb.rc:root/init.universal5410.usb.rc \
-    $(LOCAL_PATH)/rootdir/init.wifi.rc:root/init.wifi.rc \
-    $(LOCAL_PATH)/rootdir/ueventd.universal5410.rc:root/ueventd.universal5410.rc
+    fstab.universal5410 \
+    init.universal5410.rc \
+    init.universal5410.usb.rc \
+    init.universal5410.wifi.rc \
+    ueventd.universal5410.rc
 
 # Recovery
 PRODUCT_COPY_FILES := \
