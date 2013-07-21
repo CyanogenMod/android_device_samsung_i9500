@@ -42,6 +42,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
+# Camera
+PRODUCT_PACKAGES += \
+    libhwjpeg
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
@@ -57,10 +61,33 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powervr.ini:system/etc/powervr.ini
 
+PRODUCT_PACKAGES += \
+    libOMX.Exynos.MPEG4.Decoder \
+    libOMX.Exynos.AVC.Decoder \
+    libOMX.Exynos.VP8.Decoder \
+    libOMX.Exynos.MPEG4.Encoder \
+    libOMX.Exynos.AVC.Encoder
+
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libExynosOMX_Core
+
+PRODUCT_PACKAGES += \
+    hwcomposer.exynos5 \
+    gralloc.exynos5 \
+    libion
+
+PRODUCT_PACKAGES += \
+    mcDriverDaemon
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.exynos5
 
 # Media profile
 PRODUCT_COPY_FILES += \
