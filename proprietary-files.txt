@@ -37,6 +37,9 @@ lib/hw/gps.default.so
 
 # HWC
 vendor/lib/hw/gralloc.exynos5.so
+vendor/lib/hw/hwcomposer.exynos5.so
+lib/libExynosHWCService.so
+lib/libfimg.so
 
 # Lights
 vendor/lib/hw/lights.exynos5.so
