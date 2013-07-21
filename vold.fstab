@@ -12,11 +12,9 @@
 ## <sysfs_path> - List of sysfs paths to source devices
 ## storage_struct - ex) series, "/mnt/sdcard/extStorages" / parallel
 ######################
-# internal sdcard
-#dev_mount emmc /mnt/emmc 28 /devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0
 
 # external sdcard
-#dev_mount sdcard /storage/sdcard1 auto /devices/platform/msm_sdcc.4/mmc_host/mmc2/ /devices/platform/msm_sdcc.2/mmc_host/mmc2/
+dev_mount sdcard /storage/sdcard1 auto /devices/platform/dw_mmc.2/mmc_host/mmc2/
 
-#otg sdcard
-#dev_mount sda /storage/usbdisk0 auto /devices/platform/msm_hsusb_host/usb1
+# Mounts the first usable partition of the specified device
+dev_mount usbdisk /storage/usbdisk auto /devices/platform/s5p-ehci
