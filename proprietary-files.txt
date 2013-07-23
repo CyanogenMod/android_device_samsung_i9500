@@ -61,7 +61,6 @@ lib/libsec-ril.so
 
 # Sensors
 lib/hw/sensors.universal5410.so
-lib/hw/sensorhubs.universal5410.so
 lib/libakm.so
 lib/libsensirion_j1.so
 
