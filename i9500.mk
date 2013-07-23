@@ -74,7 +74,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     hwcomposer.exynos5 \
-    gralloc.exynos5 \
     libion
 
 PRODUCT_PACKAGES += \
