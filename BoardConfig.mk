@@ -27,6 +27,7 @@ TARGET_NO_BOOTLOADER := true
 
 # Platform
 TARGET_BOARD_PLATFORM := exynos5
+TARGET_SOC := exynos5410
 
 # Architecture
 TARGET_ARCH := arm
