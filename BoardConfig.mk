@@ -44,6 +44,9 @@ BOARD_KERNEL_CMDLINE := console=ttySAC2,115200n8 vmalloc=512M androidboot.consol
 TARGET_KERNEL_CONFIG := cyanogenmod_i9500_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos5410
 
+# Audio
+BOARD_USES_LIBMEDIA_WITH_AUDIOPARAMETER := true
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
