@@ -520,7 +520,7 @@ service container /system/bin/sdcard /data/container /mnt/shell/container 1000 1
 
     start container
 
-service cpboot-daemon /sbin/cbd -d -p 13
+service cpboot-daemon /system/bin/cbd -d -p 13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
