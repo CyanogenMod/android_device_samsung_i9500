@@ -64,31 +64,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powervr.ini:system/etc/powervr.ini
 
 PRODUCT_PACKAGES += \
-    libOMX.Exynos.MPEG4.Decoder \
-    libOMX.Exynos.AVC.Decoder \
-    libOMX.Exynos.VP8.Decoder \
-    libOMX.Exynos.MPEG4.Encoder \
-    libOMX.Exynos.AVC.Encoder
-
-PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libExynosOMX_Core
-
-PRODUCT_PACKAGES += \
-    hwcomposer.exynos5 \
     libion
-
-PRODUCT_PACKAGES += \
-    mcDriverDaemon
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
-
-# Keystore
-PRODUCT_PACKAGES += \
-    keystore.exynos5
 
 # Media profile
 PRODUCT_COPY_FILES += \
@@ -152,6 +133,8 @@ PRODUCT_COPY_FILES += \
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi xxhdpi
+
+$(call inherit-product-if-exists, hardware/samsung_slsi/exynos5/exynos5.mk)
 
 # call dalvik heap config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
