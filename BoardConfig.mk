@@ -36,6 +36,7 @@ TARGET_ARCH_VARIANT_CPU := cortex-a15
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
+TARGET_CPU_VARIANT := cortex-a15
 
 # Kernel
 BOARD_KERNEL_BASE := 0x10000000
