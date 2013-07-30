@@ -39,10 +39,12 @@ PRODUCT_PACKAGES += \
     init.recovery.universal5410.rc
 
 # Audio
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/default_gain.conf:system/etc/default_gain.conf \
-    $(LOCAL_PATH)/configs/tinyucm.conf:system/etc/tinyucm.conf
+PRODUCT_PACKAGES += \
+    audio.a2dp.default \
+    audio.primary.universal5410 \
+    audio.usb.default \
+    mixer_paths.xml \
+    tinymix
 
 # Bluetooth
 PRODUCT_COPY_FILES += \

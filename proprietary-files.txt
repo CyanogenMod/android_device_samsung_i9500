@@ -3,21 +3,6 @@ vendor/firmware/es325_fw.bin
 vendor/firmware/srp_cga.bin
 vendor/firmware/srp_data.bin
 vendor/firmware/srp_vliw.bin
-lib/hw/audio_policy.universal5410.so
-lib/hw/audio.primary.universal5410.so
-lib/libaudio-ril.so
-lib/libaudiopolicy_sec.so
-lib/libcontrolcsc.so
-lib/lib_DNSe_NRSS_ver224b.so
-lib/lib_DNSe_EP_ver214.so
-lib/lib_Samsung_SB_AM_for_ICS_v04004.so
-lib/lib_Samsung_Resampler.so
-lib/lib_SamsungRec_V03010.so
-lib/libsamsungearcare.so
-lib/libsamsungRecord.so
-lib/libsamsungRecord_ns.so
-lib/libsamsungSoundbooster.so
-lib/libtinyalsa.so
 
 # Bluetooth
 vendor/firmware/bcm4335.hcd
