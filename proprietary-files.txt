@@ -57,9 +57,6 @@ vendor/lib/hw/hwcomposer.exynos5.so
 lib/libExynosHWCService.so
 lib/libfimg.so
 
-# Lights
-vendor/lib/hw/lights.exynos5.so
-
 # Media
 vendor/firmware/fimc_is_gumi_fw2.bin
 vendor/firmware/fimc_is_sec_fw2.bin
@@ -113,5 +110,3 @@ etc/wifi/nvram_net.txt_muratafem2
 etc/wifi/nvram_net.txt_semco3rd
 etc/wifi/nvram_net.txt_semcosh
 etc/wifi/wpa_supplicant.conf
-
-
