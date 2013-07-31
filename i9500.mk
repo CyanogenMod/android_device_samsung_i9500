@@ -44,6 +44,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/default_gain.conf:system/etc/default_gain.conf \
     $(LOCAL_PATH)/configs/tinyucm.conf:system/etc/tinyucm.conf
 
+# Bluetooth
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/bluetooth/bcm4335_prepatch.hcd:system/vendor/firmware/bcm4335_prepatch.hcd
+
 # Camera
 PRODUCT_PACKAGES += \
     libhwjpeg
