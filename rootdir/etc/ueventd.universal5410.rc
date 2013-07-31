@@ -73,3 +73,5 @@
 #ALP Audio
 /dev/srp                  0660   system     audio
 
+# rfkill
+/dev/rfkill               0660   root       wifi
