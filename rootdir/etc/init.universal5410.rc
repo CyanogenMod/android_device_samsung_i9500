@@ -148,6 +148,9 @@ on boot
     setprop ro.product.device universal_5410
     chmod 0666 /dev/pvrsrvkm
 
+    # 4.3 needs this
+    chmod 0644 /proc/cmdline
+
 # Vibetonz
     chmod 0660 /dev/tspdrv
     chown root shell /dev/tspdrv
