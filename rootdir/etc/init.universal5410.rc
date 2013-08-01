@@ -484,7 +484,6 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     class main
     user gps
     group system inet net_raw
-    ioprio be 0
 
 # Vibetonz
 service immvibed /system/bin/immvibed
