@@ -117,6 +117,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
+# System properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=131072 \
+    wifi.interface=wlan0
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \

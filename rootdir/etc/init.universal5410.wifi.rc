@@ -15,9 +15,6 @@ on post-fs-data
     chown system system /efs/wifi/.mac.info
     chmod 0664 /efs/wifi/.mac.info
 
-on boot
-    setprop wifi.interface wlan0
-
 service macloader /system/bin/macloader
     class main
     oneshot
