@@ -129,7 +129,6 @@ on post-fs-data
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
-    # setprop ro.radio.noril yes
 
     # Reduce reserved lowmem from ~48MB to ~12MB
     write /proc/sys/vm/lowmem_reserve_ratio "128 128"
@@ -484,7 +483,6 @@ service cpboot-daemon /system/bin/cbd -d -p 13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
-    seclabel u:r:cbd:s0
 
 # AT Distributor for factory test
 service at_distributor /system/bin/at_distributor
