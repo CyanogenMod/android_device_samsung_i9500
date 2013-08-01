@@ -123,6 +123,10 @@ PRODUCT_PACKAGES += \
     libOMX.Exynos.AVC.Encoder \
     libstagefrighthw
 
+# Samsung
+PRODUCT_PACKAGES += \
+    SamsungServiceMode
+
 # Torch
 PRODUCT_PACKAGES += \
     Torch
