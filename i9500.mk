@@ -32,6 +32,7 @@ PRODUCT_PACKAGES += \
     init.universal5410.rc \
     init.universal5410.usb.rc \
     init.universal5410.wifi.rc \
+    lpm.rc \
     ueventd.universal5410.rc
 
 # Recovery
