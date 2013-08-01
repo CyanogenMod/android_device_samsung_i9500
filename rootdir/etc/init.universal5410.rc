@@ -59,10 +59,6 @@ on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
 
-# we will remap this as /storage/container with the sdcard fuse tool
-    mkdir /data/container 0770 system system
-    chown system system /data/container
-
 # SA, System SW, SAMSUNG create log directory
     mkdir /data/log 0775 system log
     mkdir /data/anr 0775 system system
@@ -472,23 +468,10 @@ service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class late_start
     oneshot
 
-# virtual sdcard daemon running as system (1000)
-service container /system/bin/sdcard /data/container /mnt/shell/container 1000 1000
-    class late_start
-    oneshot
-
-    start container
-
 service cpboot-daemon /system/bin/cbd -d -p 13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
-
-# AT Distributor for factory test
-service at_distributor /system/bin/at_distributor
-    class main
-    user root
-    group radio misc log
 
 #sensorhubservice start
 service sensorhubservice /system/bin/sensorhubservice
@@ -502,12 +485,6 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
-
-# TVout
-    service TvoutService_C /system/bin/bintvoutservice
-    class main
-    user system
-    group graphics
 
 # Vibetonz
 service immvibed /system/bin/immvibed
