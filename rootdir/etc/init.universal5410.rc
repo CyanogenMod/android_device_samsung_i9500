@@ -80,15 +80,9 @@ on post-fs-data
 # Permissions for bluetooth
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth bluetooth ro.bt.bdaddr_path
-    chown bluetooth bluetooth /dev/ttySAC0
-    chmod 0600 /dev/ttySAC0
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-
-    # For kernel lock in BT/WiFi race condtion
-    chmod 0600 /dev/btlock
-    chown bluetooth bluetooth /dev/btlock
 
 #[ SEC_MM_DRM
 
@@ -146,14 +140,9 @@ on boot
 
     setprop ro.build.product universal_5410
     setprop ro.product.device universal_5410
-    chmod 0666 /dev/pvrsrvkm
 
     # 4.3 needs this
     chmod 0644 /proc/cmdline
-
-# Vibetonz
-    chmod 0660 /dev/tspdrv
-    chown root shell /dev/tspdrv
 
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
@@ -215,7 +204,6 @@ on boot
     chown system radio /sys/class/sensors/barometer_sensor/name
     chown system radio /sys/class/sensors/barometer_sensor/calibration
 # Magnetic_sensor
-    chown system radio /dev/akm8963
     chown system radio /sys/class/sensors/magnetic_sensor/raw_data
     chown system radio /sys/class/sensors/magnetic_sensor/vendor
     chown system radio /sys/class/sensors/magnetic_sensor/name
@@ -298,14 +286,7 @@ on boot
     chown system radio /sys/class/host_notify/usb_otg/booster
     chmod 0660 /sys/class/host_notify/usb_otg/booster
 
-# NFC
-    setprop ro.nfc.port "I2C"
-    chmod 0600 /dev/pn544
-    chown nfc nfc /dev/pn544
-
 # Broadcom NFC
-    chmod 0600 /dev/bcm2079x
-    chown nfc nfc /dev/bcm2079x
     mkdir /data/bcmnfc
     mkdir /data/bcmnfc/param
     chmod 0700 /data/bcmnfc
@@ -336,10 +317,6 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/up_conservative_mode
 
 # Core Control
-    chown radio system /dev/b.L_operator
-    chmod 0660 /dev/b.L_operator
-    chown radio system /dev/bL_status
-    chmod 0660 /dev/bL_status
     chown radio system /sys/devices/system/cpu/cpu0/cpuidle/state1/disable
     chown radio system /sys/devices/system/cpu/cpu1/cpuidle/state1/disable
     chown radio system /sys/devices/system/cpu/cpu2/cpuidle/state1/disable
@@ -403,13 +380,6 @@ on boot
     chmod 0660 /sys/class/android_usb/android0/terminal_version
     chown system system /sys/class/android_usb/android0/terminal_version
 
-# for datarouter
-    chown system system /dev/dun
-    chown system system /dev/ttyGS0
-    chown system system /dev/ttyGS1
-    chown system system /dev/ttyGS2
-    chown system system /dev/ttyGS3
-
 # MTP device permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system system /dev/usb_mtp_gadget
@@ -462,8 +432,6 @@ on fs
     chown media audio /sys/class/2mic/es325/veq
 
 # create data/gps for GPS daemon
-    chown root system /dev/ttySAC1
-    chmod 0660 /dev/ttySAC1
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value
     chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
     mkdir /data/gps 771 system system
@@ -546,13 +514,6 @@ service immvibed /system/bin/immvibed
     group shell
     oneshot
 
-service powersnd /system/bin/samsungpowersoundplay
-    class main
-    user media
-    group system
-    disabled
-    oneshot
-
 # SA, System SW, SAMSUNG
 service bugreport /system/bin/bugmailer.sh -v
     class main
@@ -563,29 +524,6 @@ service bugreport /system/bin/bugmailer.sh -v
 on property:ro.dumpstate.dmesg=1
     write /proc/sys/kernel/dmesg_restrict 0
 
-# Runtime Compcache
-service rtccinit /system/bin/rtcc_init -a 400M
-    class core
-    user root
-    oneshot
-
-# Bluetooth LE 2 wired Test
-service LE_dut_cmd_on /system/bin/bttestintf enable
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service LE_dut_cmd_off /system/bin/bttestintf disable
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service bttestdaemon /system/bin/bttestd
-    class main
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
 #MHL
 on property:ro.debuggable=1
     chmod 666 /sys/class/mhl/hdcp_support
@@ -593,6 +531,3 @@ on property:ro.debuggable=1
     chmod 666 /sys/class/mhl/timing
 on property:ro.debuggable=1
     chmod 666 /sys/class/mhl/swing
-
-#WFD
-    chmod 0666 /dev/graphics/fb1

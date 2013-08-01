@@ -46,7 +46,7 @@
 # FIMG2D
 /dev/fimg2d               0666   system     graphics
 
-#JPEG
+# JPEG
 /dev/video11              0660   media      media
 /dev/video12              0660   media      media
 /dev/video13              0660   media      media
@@ -62,7 +62,12 @@
 # sensorhub
 /dev/ssp_sensorhub		  0660	 system     system
 
-/dev/ttySAC*	          0660	 root	 system
+# TTY
+/dev/ttySAC0              0600   bluetooth  bluetooth
+/dev/ttySAC1              0660   root       system
+/dev/ttySAC2              0660   root       system
+/dev/ttySAC3              0660   root       system
+
 /dev/umts*                0660   system     radio
 /dev/block/mmcblk0p13     0660   system     radio
 
@@ -70,8 +75,34 @@
 /dev/ttyUSB*              0660   system     usb
 /dev/usb/lp*              0660   system     usb
 
-#ALP Audio
+# ALP Audio
 /dev/srp                  0660   system     audio
 
 # rfkill
 /dev/rfkill               0660   root       wifi
+
+# datarouter
+/dev/dun                  0600   system     system
+/dev/ttyGS0               0600   system     system
+/dev/ttyGS1               0600   system     system
+/dev/ttyGS2               0600   system     system
+/dev/ttyGS3               0600   system     system
+
+# WFD
+/dev/graphics/fb1         0666   root       root
+
+# Core control
+/dev/b.L_operator         0660   radio      system
+/dev/bL_status            0660   radio      system
+
+# NFC
+/dev/bcm2079x             0600   nfc        nfc
+
+# BT lock
+/dev/btlock               0600   bluetooth  bluetooth
+
+# AKM8963
+/dev/akm8963              0600   system     radio
+
+# Vibetonz
+/dev/tspdrv               0660   root       shell
