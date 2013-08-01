@@ -123,6 +123,11 @@ PRODUCT_PACKAGES += \
     libOMX.Exynos.AVC.Encoder \
     libstagefrighthw
 
+# Radio
+PRODUCT_PACKAGES += \
+    libsecril-client \
+    libsecril-client-sap
+
 # Samsung
 PRODUCT_PACKAGES += \
     SamsungServiceMode

@@ -68,6 +68,10 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 # NFC
 BOARD_NFC_HAL_SUFFIX := universal5410
 
+# Radio
+#BOARD_PROVIDES_LIBRIL := true
+#BOARD_MODEM_TYPE := xmm6360
+
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
 BOARD_WLAN_DEVICE                := bcmdhd
