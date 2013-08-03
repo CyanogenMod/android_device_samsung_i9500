@@ -65,23 +65,15 @@ struct pcm_config pcm_config = {
     .channels = 2,
     .rate = 48000,
     .period_size = 960,
-    .period_count = 2,
-    .format = PCM_FORMAT_S16_LE,
-};
-
-struct pcm_config pcm_config_deep = {
-    .channels = 2,
-    .rate = 48000,
-    .period_size = 960,
-    .period_count = 2,
+    .period_count = 4,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_in = {
     .channels = 2,
     .rate = 48000,
-    .period_size = 1024,
-    .period_count = 4,
+    .period_size = 960,
+    .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
 };
 
