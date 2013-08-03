@@ -111,7 +111,9 @@ int Adnc_SleepInt_l();
 //------------------------------------------------------------------------------
 // eS325 control
 //------------------------------------------------------------------------------
-#define ES325_SYSFS_PATH "/sys/class/i2c-dev/i2c-4/device/4-003e/"
+/* TODO: figure out how to use VEQ mode */
+#define ES325_SYSFS_PATH "/sys/class/2mic/es325/"
+#define ES325_VEQ_PATH              ES325_SYSFS_PATH "veq"
 #define ES325_VOICE_PROCESSING_PATH ES325_SYSFS_PATH "voice_processing"
 #define ES325_PRESET_PATH           ES325_SYSFS_PATH "preset"
 #define ES325_TX_NS_LEVEL_PATH      ES325_SYSFS_PATH "tx_ns_level"

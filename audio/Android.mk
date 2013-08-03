@@ -30,7 +30,7 @@ LOCAL_C_INCLUDES += \
 	$(call include-path-for, audio-route)
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libtinyalsa libaudioutils libdl \
-	libaudioroute
+	libaudience_voicefx libaudioroute
 
 include $(BUILD_SHARED_LIBRARY)
 

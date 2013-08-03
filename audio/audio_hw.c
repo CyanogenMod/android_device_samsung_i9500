@@ -42,8 +42,8 @@
 #include <audio_utils/resampler.h>
 #include <audio_utils/echo_reference.h>
 #include <audio_route/audio_route.h>
-#include <hardware/audio_effect.h>
-#include <audio_effects/effect_aec.h>
+
+#include "eS325VoiceProcessing.h"
 
 #include "ril_interface.h"
 
@@ -168,6 +168,7 @@ struct stream_in {
     int read_status;
 
     audio_source_t input_source;
+    audio_io_handle_t io_handle;
     audio_devices_t device;
 
     audio_channel_mask_t channel_mask;
@@ -214,22 +215,6 @@ enum {
     ES325_MODE_DEFAULT,
     ES325_MODE_LEVEL,
     ES325_NUM_MODES,
-};
-
-/* TODO: do a better job of ES325 support */
-enum {
-    ES325_PRESET_INIT = -3,
-    ES325_PRESET_CURRENT = -2,
-    ES325_PRESET_OFF = -1,
-    ES325_PRESET_VOIP_HANDHELD = 0,
-    ES325_PRESET_ASRA_HANDHELD = 1,
-    ES325_PRESET_VOIP_DESKTOP = 2,
-    ES325_PRESET_ASRA_DESKTOP = 3,
-    ES325_PRESET_VOIP_HEADSET = 4,
-    ES325_PRESET_ASRA_HEADSET = 5,
-    ES325_PRESET_VOIP_HEADPHONES = 6,
-    ES325_PRESET_VOIP_HP_DESKTOP = 7,
-    ES325_PRESET_CAMCORDER = 8,
 };
 
 int get_output_device_id(audio_devices_t device)
@@ -497,12 +482,11 @@ void select_devices(struct audio_device *adev)
             (new_es325_preset != adev->es325_preset)) {
         ALOGV("  select_devices() changing es325 preset from %d to %d",
               adev->es325_preset, new_es325_preset);
-#if 0
-        /* TODO: figure out how to use ES325 */
+
         if (eS325_UsePreset(new_es325_preset) == 0) {
             adev->es325_preset = new_es325_preset;
         }
-#endif
+
     }
 
     audio_route_update_mixer(adev->ar);
@@ -682,9 +666,7 @@ static int start_input_stream(struct stream_in *in)
     adev->in_device = in->device;
     adev->in_channel_mask = in->channel_mask;
 
-#if 0
-    eS305_SetActiveIoHandle(in->io_handle);
-#endif
+    eS325_SetActiveIoHandle(in->io_handle);
     select_devices(adev);
 
 #if 0
@@ -694,105 +676,6 @@ static int start_input_stream(struct stream_in *in)
 
     return 0;
 }
-
-#if 0
-static void add_echo_reference(struct stream_out *out,
-                               struct echo_reference_itfe *reference)
-{
-    pthread_mutex_lock(&out->lock);
-    out->echo_reference = reference;
-    pthread_mutex_unlock(&out->lock);
-}
-
-static void remove_echo_reference(struct stream_out *out,
-                                  struct echo_reference_itfe *reference)
-{
-    pthread_mutex_lock(&out->lock);
-    if (out->echo_reference == reference) {
-        /* stop writing to echo reference */
-        reference->write(reference, NULL);
-        out->echo_reference = NULL;
-    }
-    pthread_mutex_unlock(&out->lock);
-}
-
-static void put_echo_reference(struct audio_device *adev,
-                          struct echo_reference_itfe *reference)
-{
-    if (adev->echo_reference != NULL &&
-            reference == adev->echo_reference) {
-        /* echo reference is taken from the low latency output stream used
-         * for voice use cases */
-        if (adev->outputs[OUTPUT_LOW_LATENCY] != NULL &&
-                !adev->outputs[OUTPUT_LOW_LATENCY]->standby)
-            remove_echo_reference(adev->outputs[OUTPUT_LOW_LATENCY], reference);
-        release_echo_reference(reference);
-        adev->echo_reference = NULL;
-    }
-}
-
-static struct echo_reference_itfe *get_echo_reference(struct audio_device *adev,
-                                               audio_format_t format,
-                                               uint32_t channel_count,
-                                               uint32_t sampling_rate)
-{
-    put_echo_reference(adev, adev->echo_reference);
-    /* echo reference is taken from the low latency output stream used
-     * for voice use cases */
-    if (adev->outputs[OUTPUT_LOW_LATENCY] != NULL &&
-            !adev->outputs[OUTPUT_LOW_LATENCY]->standby) {
-        struct audio_stream *stream =
-                &adev->outputs[OUTPUT_LOW_LATENCY]->stream.common;
-        uint32_t wr_channel_count = popcount(stream->get_channels(stream));
-        uint32_t wr_sampling_rate = stream->get_sample_rate(stream);
-
-        int status = create_echo_reference(AUDIO_FORMAT_PCM_16_BIT,
-                                           channel_count,
-                                           sampling_rate,
-                                           AUDIO_FORMAT_PCM_16_BIT,
-                                           wr_channel_count,
-                                           wr_sampling_rate,
-                                           &adev->echo_reference);
-        if (status == 0)
-            add_echo_reference(adev->outputs[OUTPUT_LOW_LATENCY],
-                               adev->echo_reference);
-    }
-    return adev->echo_reference;
-}
-
-static int get_playback_delay(struct stream_out *out,
-                       size_t frames,
-                       struct echo_reference_buffer *buffer)
-{
-    size_t kernel_frames;
-    int status;
-    int primary_pcm = 0;
-
-    /* Find the first active PCM to act as primary */
-    while ((primary_pcm < PCM_TOTAL) && !out->pcm[primary_pcm])
-        primary_pcm++;
-
-    status = pcm_get_htimestamp(out->pcm[primary_pcm], &kernel_frames, &buffer->time_stamp);
-    if (status < 0) {
-        buffer->time_stamp.tv_sec  = 0;
-        buffer->time_stamp.tv_nsec = 0;
-        buffer->delay_ns           = 0;
-        ALOGV("%s: pcm_get_htimestamp error,"
-                "setting playbackTimestamp to 0", __func__);
-        return status;
-    }
-
-    kernel_frames = pcm_get_buffer_size(out->pcm[primary_pcm]) - kernel_frames;
-
-    /* adjust render time stamp with delay added by current driver buffer.
-     * Add the duration of current frame as we want the render time of the last
-     * sample being written. */
-    buffer->delay_ns = (long)(((int64_t)(kernel_frames + frames)* 1000000000)/
-                            MM_FULL_POWER_SAMPLING_RATE);
-
-    return 0;
-}
-#endif
 
 static size_t get_input_buffer_size(unsigned int sample_rate,
                                     audio_format_t format,
@@ -1006,14 +889,6 @@ static int do_out_standby(struct stream_out *out)
         /* Skip resetting the mixer if no output device is active */
         if (adev->out_device)
             select_devices(adev);
-
-#if 0
-        /* stop writing to echo reference */
-        if (out->echo_reference != NULL) {
-            out->echo_reference->write(out->echo_reference, NULL);
-            out->echo_reference = NULL;
-        }
-#endif
     }
     return 0;
 }
@@ -1256,9 +1131,7 @@ static int do_in_standby(struct stream_in *in)
         in->standby = true;
     }
 
-#if 0
-    eS305_SetActiveIoHandle(ES305_IO_HANDLE_NONE);
-#endif
+    eS325_SetActiveIoHandle(ES325_IO_HANDLE_NONE);
     return 0;
 }
 
@@ -1414,9 +1287,7 @@ static int in_add_audio_effect(const struct audio_stream *stream,
         pthread_mutex_lock(&in->dev->lock);
         pthread_mutex_lock(&in->lock);
 
-#if 0
-        eS305_AddEffect(&descr, in->io_handle);
-#endif
+        eS325_AddEffect(&descr, in->io_handle);
 
         pthread_mutex_unlock(&in->lock);
         pthread_mutex_unlock(&in->dev->lock);
@@ -1435,9 +1306,7 @@ static int in_remove_audio_effect(const struct audio_stream *stream,
         pthread_mutex_lock(&in->dev->lock);
         pthread_mutex_lock(&in->lock);
 
-#if 0
-        eS305_RemoveEffect(&descr, in->io_handle);
-#endif
+        eS325_RemoveEffect(&descr, in->io_handle);
 
         pthread_mutex_unlock(&in->lock);
         pthread_mutex_unlock(&in->dev->lock);
@@ -1707,6 +1576,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
     in->input_source = AUDIO_SOURCE_DEFAULT;
     /* strip AUDIO_DEVICE_BIT_IN to allow bitwise comparisons */
     in->device = devices & ~AUDIO_DEVICE_BIT_IN;
+    in->io_handle = handle;
     in->channel_mask = config->channel_mask;
 
     in->buffer = malloc(pcm_config_in.period_size * pcm_config_in.channels
@@ -1773,9 +1643,7 @@ static int adev_close(hw_device_t *device)
 
     audio_route_free(adev->ar);
 
-#if 0
-    eS305_Release();
-#endif
+    eS325_Release();
 
 #if 0
     /* RIL */
