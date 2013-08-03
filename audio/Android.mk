@@ -14,6 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
+# Audio HAL
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := audio.primary.$(TARGET_BOOTLOADER_BOARD_NAME)
@@ -33,6 +34,24 @@ LOCAL_SHARED_LIBRARIES := liblog libcutils libtinyalsa libaudioutils libdl \
 
 include $(BUILD_SHARED_LIBRARY)
 
+
+# Audience voice preprocessing library
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := libaudience_voicefx
+LOCAL_MODULE_TAGS := optional
+
+LOCAL_SRC_FILES:= eS325VoiceProcessing.cpp
+
+LOCAL_C_INCLUDES += \
+	$(call include-path-for, audio-effects)
+
+LOCAL_SHARED_LIBRARIES := liblog libutils
+
+include $(BUILD_SHARED_LIBRARY)
+
+
+# Mixer configurations
 include $(CLEAR_VARS)
 LOCAL_MODULE := mixer_paths.xml
 LOCAL_MODULE_TAGS := optional eng
