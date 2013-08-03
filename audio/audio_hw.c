@@ -1738,7 +1738,13 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
             ret = -EINVAL;
             goto err_resampler;
         }
+
+        ALOGV("%s: Created resampler converting %d -> %d\n",
+              __func__, pcm_config_in.rate, in->requested_rate);
     }
+
+    ALOGV("%s: Requesting input stream with rate: %d, channels: 0x%x\n",
+          __func__, config->sample_rate, config->channel_mask);
 
     *stream_in = &in->stream;
     return 0;
