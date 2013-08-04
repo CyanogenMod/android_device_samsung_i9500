@@ -173,6 +173,34 @@ INPUT_CHANNEL_MAP {
   <ctl name="3rd Mic Switch" value="0" />
   <ctl name="Headset Mic Switch" value="0" />
 
+  <!-- Channels -->
+
+  <path name="channel-left">
+    <ctl name="AIF1TX1 Input 1" value="LHPF1" />
+    <ctl name="AIF1TX2 Input 1" value="LHPF1" />
+    <ctl name="ASRC1L Input" value="LHPF1" />
+    <ctl name="ASRC1R Input" value="LHPF1" />
+  </path>
+
+  <path name="channel-right">
+    <ctl name="AIF1TX1 Input 1" value="LHPF2" />
+    <ctl name="AIF1TX2 Input 1" value="LHPF2" />
+    <ctl name="ASRC1L Input" value="LHPF2" />
+    <ctl name="ASRC1R Input" value="LHPF2" />
+  </path>
+
+  <path name="channel-stereo">
+    <ctl name="AIF1TX1 Input 1" value="LHPF1" />
+    <ctl name="AIF1TX2 Input 1" value="LHPF2" />
+    <ctl name="ASRC1L Input" value="LHPF1" />
+    <ctl name="ASRC1R Input" value="LHPF2" />
+  </path>
+
+  <path name="channel-none">
+    <ctl name="ASRC1L Input" value="AIF1RX1" />
+    <ctl name="ASRC1R Input" value="AIF1RX2" />
+  </path>
+
   <!-- Paths that roughly correspond to devices -->
 
   <path name="speaker">
@@ -242,6 +270,16 @@ INPUT_CHANNEL_MAP {
     <ctl name="LHPF2 Input 1 Volume" value="32" />
   </path>
 
+  <path name="third-mic">
+    <ctl name="3rd Mic Switch" value="1" />
+    <ctl name="LHPF1 Input 1" value="IN2R" />
+    <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
+    <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
+    <ctl name="IN2R Volume" value="18" />
+    <ctl name="IN2R Digital Volume" value="128" />
+    <ctl name="LHPF1 Input 1 Volume" value="32" />
+  </path>
+
   <path name="headset-in">
     <ctl name="Headset Mic Switch" value="1" />
     <ctl name="HPOUT1L Input 3" value="None" />
@@ -302,34 +340,42 @@ INPUT_CHANNEL_MAP {
   <!-- Capture paths -->
 
   <path name="media-main-mic">
+      <path name="channel-left" />
       <path name="builtin-mic" />
   </path>
 
   <path name="voice-rec-main-mic">
+      <path name="channel-left" />
       <path name="builtin-mic" />
   </path>
 
   <path name="communication-main-mic">
+      <path name="channel-left" />
       <path name="builtin-mic" />
   </path>
 
   <path name="media-second-mic">
+      <path name="channel-right" />
       <path name="back-mic" />
   </path>
 
   <path name="media-headset-mic">
+      <path name="channel-left" />
       <path name="headset-in" />
   </path>
 
   <path name="bt-sco-mic">
+      <path name="channel-none" />
       <path name="sco-in" />
   </path>
 
   <path name="voice-rec-headset-mic">
+      <path name="channel-left" />
       <path name="headset-in" />
   </path>
 
   <path name="communication-headset-mic">
+      <path name="channel-left" />
       <path name="headset-in" />
   </path>
 
