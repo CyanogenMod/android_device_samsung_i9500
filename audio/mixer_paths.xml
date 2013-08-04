@@ -257,7 +257,7 @@ INPUT_CHANNEL_MAP {
     <ctl name="LHPF1 Input 1" value="IN1L" />
     <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
     <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
-    <ctl name="IN1L Volume" value="18" />
+    <ctl name="IN1L Volume" value="30" />
     <ctl name="IN1L Digital Volume" value="128" />
     <ctl name="LHPF1 Input 1 Volume" value="32" />
   </path>
@@ -267,7 +267,7 @@ INPUT_CHANNEL_MAP {
     <ctl name="LHPF2 Input 1" value="IN2L" />
     <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
     <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
-    <ctl name="IN2L Volume" value="17" />
+    <ctl name="IN2L Volume" value="18" />
     <ctl name="IN2L Digital Volume" value="128" />
     <ctl name="LHPF2 Input 1 Volume" value="32" />
   </path>
