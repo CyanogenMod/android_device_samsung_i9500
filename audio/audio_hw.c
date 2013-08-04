@@ -57,6 +57,8 @@
 
 #define MIXER_CARD 0
 
+#define CAPTURE_START_RAMP_MS 8
+
 #define MAX_SUPPORTED_CHANNEL_MASKS 1
 
 #define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a[0])))
@@ -178,6 +180,10 @@ struct stream_in {
     audio_source_t input_source;
     audio_io_handle_t io_handle;
     audio_devices_t device;
+
+    uint16_t ramp_vol;
+    uint16_t ramp_step;
+    uint16_t ramp_frames;
 
     audio_channel_mask_t channel_mask;
 
@@ -681,6 +687,11 @@ static int start_input_stream(struct stream_in *in)
     if (in->device & AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET)
         start_bt_sco(adev);
 #endif
+
+    /* initialize volume ramp */
+    in->ramp_frames = (CAPTURE_START_RAMP_MS * in->requested_rate) / 1000;
+    in->ramp_step = (uint16_t)(USHRT_MAX / in->ramp_frames);
+    in->ramp_vol = 0;
 
     return 0;
 }
@@ -1230,6 +1241,31 @@ static int in_set_gain(struct audio_stream_in *stream, float gain)
     return 0;
 }
 
+static void in_apply_ramp(struct stream_in *in, int16_t *buffer, size_t frames)
+{
+    size_t i;
+    uint16_t vol = in->ramp_vol;
+    uint16_t step = in->ramp_step;
+
+    frames = (frames < in->ramp_frames) ? frames : in->ramp_frames;
+
+    if (in->channel_mask == AUDIO_CHANNEL_IN_MONO) {
+        for (i = 0; i < frames; i++) {
+            buffer[i] = (int16_t)((buffer[i] * vol) >> 16);
+            vol += step;
+        }
+    } else {
+        for (i = 0; i < frames; i++) {
+            buffer[2*i] = (int16_t)((buffer[2*i] * vol) >> 16);
+            buffer[2*i + 1] = (int16_t)((buffer[2*i + 1] * vol) >> 16);
+            vol += step;
+        }
+    }
+
+    in->ramp_vol = vol;
+    in->ramp_frames -= frames;
+}
+
 static ssize_t in_read(struct audio_stream_in *stream, void* buffer,
                        size_t bytes)
 {
@@ -1263,6 +1299,9 @@ static ssize_t in_read(struct audio_stream_in *stream, void* buffer,
 
     if (ret > 0)
         ret = 0;
+
+    if (in->ramp_frames > 0)
+        in_apply_ramp(in, buffer, frames_rq);
 
     /*
      * Instead of writing zeroes here, we could trust the hardware
