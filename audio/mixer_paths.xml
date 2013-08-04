@@ -107,8 +107,8 @@ INPUT_CHANNEL_MAP {
   <ctl name="AIF1TX2 Input 2" value="ASRC2R" />
 
   <!-- LHPF1 & 2 filter -->
-  <ctl name="LHPF1 COEFF FILTER" value="0" />
-  <ctl name="LHPF2 COEFF FILTER" value="0" />
+  <ctl name="LHPF1 COEFF FILTER" value="64Hz" />
+  <ctl name="LHPF2 COEFF FILTER" value="64Hz" />
 
   <!-- common digital volume -->
   <!-- don't change this common volume -->
@@ -172,6 +172,8 @@ INPUT_CHANNEL_MAP {
   <ctl name="Sub Mic Switch" value="0" />
   <ctl name="3rd Mic Switch" value="0" />
   <ctl name="Headset Mic Switch" value="0" />
+
+  <ctl name="AIF2 Mode" value="Master" />
 
   <!-- Channels -->
 
