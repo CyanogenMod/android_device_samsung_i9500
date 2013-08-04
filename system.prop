@@ -3,6 +3,5 @@
 #
 
 ro.sf.lcd_density=480
-ro.telephony.ril_class=SamsungExynos4RIL
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
