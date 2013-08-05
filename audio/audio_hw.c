@@ -1364,11 +1364,9 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
         if (strcmp(value, "true") == 0) {
             ALOGV("%s: enabling two mic control", __func__);
             ril_set_two_mic_control(&adev->ril, AUDIENCE, TWO_MIC_SOLUTION_ON);
-            /* TODO: Enable 3rd Mic */
         } else {
             ALOGV("%s: disabling two mic control", __func__);
             ril_set_two_mic_control(&adev->ril, AUDIENCE, TWO_MIC_SOLUTION_OFF);
-            /* TODO: Disable 3rd Mic */
         }
     }
 

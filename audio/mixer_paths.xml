@@ -240,8 +240,6 @@ INPUT_CHANNEL_MAP {
     <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
     <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
     <ctl name="IN1L Volume" value="30" />
-    <ctl name="IN1L Digital Volume" value="128" />
-    <ctl name="LHPF1 Input 1 Volume" value="32" />
   </path>
 
   <path name="back-mic">
@@ -249,9 +247,7 @@ INPUT_CHANNEL_MAP {
     <ctl name="LHPF2 Input 1" value="IN2L" />
     <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
     <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
-    <ctl name="IN2L Volume" value="18" />
-    <ctl name="IN2L Digital Volume" value="128" />
-    <ctl name="LHPF2 Input 1 Volume" value="32" />
+    <ctl name="IN2L Volume" value="30" />
   </path>
 
   <path name="third-mic">
@@ -259,9 +255,7 @@ INPUT_CHANNEL_MAP {
     <ctl name="LHPF1 Input 1" value="IN2R" />
     <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
     <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
-    <ctl name="IN2R Volume" value="18" />
-    <ctl name="IN2R Digital Volume" value="128" />
-    <ctl name="LHPF1 Input 1 Volume" value="32" />
+    <ctl name="IN2R Volume" value="30" />
   </path>
 
   <path name="headset-in">
@@ -271,9 +265,7 @@ INPUT_CHANNEL_MAP {
     <ctl name="LHPF1 Input 1" value="IN1R" />
     <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
     <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
-    <ctl name="IN1R Volume" value="32" />
-    <ctl name="IN1R Digital Volume" value="128" />
-    <ctl name="LHPF1 Input 1 Volume" value="32" />
+    <ctl name="IN1R Volume" value="30" />
   </path>
 
   <path name="sco-in">
@@ -290,14 +282,21 @@ INPUT_CHANNEL_MAP {
   <!-- Playback paths -->
   <path name="voice-speaker">
       <path name="speaker" />
+      <ctl name="AIF2 Mode" value="Slave" />
+      <ctl name="SPKOUTL Input 3" value="ASRC2L" />
   </path>
 
   <path name="voice-earpiece">
       <path name="earpiece" />
+      <ctl name="AIF2 Mode" value="Slave" />
+      <ctl name="EPOUT Input 3" value="ASRC2L" />
   </path>
 
   <path name="voice-headphones">
       <path name="headphones" />
+      <ctl name="AIF2 Mode" value="Slave" />
+      <ctl name="HPOUT1L Input 2" value="ASRC2L" />
+      <ctl name="HPOUT1R Input 2" value="ASRC2R" />
   </path>
 
   <path name="media-speaker">
@@ -344,8 +343,9 @@ INPUT_CHANNEL_MAP {
   <!-- Capture paths -->
 
   <path name="voice-main-mic">
-      <path name="channel-left" />
+      <path name="channel-stereo" />
       <path name="builtin-mic" />
+      <path name="back-mic" />
   </path>
 
   <path name="voice-headset-mic">
