@@ -56,6 +56,8 @@ extern "C" {
 
     int eS325_UsePreset(int preset);
 
+    int eS325_SetVeq(bool enable);
+
     /*
      * Sets the IO handle for the current input stream, or ADNC_IO_HANDLE_NONE when stream is
      * stopped.

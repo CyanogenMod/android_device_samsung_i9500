@@ -113,8 +113,8 @@ int Adnc_SleepInt_l();
 //------------------------------------------------------------------------------
 /* TODO: figure out how to use VEQ mode */
 #define ES325_SYSFS_PATH "/sys/class/2mic/es325/"
-#define ES325_VEQ_PATH              ES325_SYSFS_PATH "veq"
 #define ES325_VOICE_PROCESSING_PATH ES325_SYSFS_PATH "voice_processing"
+#define ES325_VEQ_PATH              ES325_SYSFS_PATH "veq"
 #define ES325_PRESET_PATH           ES325_SYSFS_PATH "preset"
 #define ES325_TX_NS_LEVEL_PATH      ES325_SYSFS_PATH "tx_ns_level"
 #define ES325_TX_AGC_ENABLE_PATH    ES325_SYSFS_PATH "tx_agc_enable"
@@ -123,6 +123,7 @@ int Adnc_SleepInt_l();
 
 enum eS325_controls {
     ES325_CTRL_VOICE_PROCESSING = 0,
+    ES325_CTRL_VEQ,
     ES325_CTRL_PRESET,
     ES325_CTRL_TX_NS_LEVEL,
     ES325_CTRL_TX_AGC_ENABLE,
@@ -1167,6 +1168,24 @@ int Adnc_SetVoiceProcessingInt_l(bool vp_on)
     return 0;
 }
 
+int Adnc_SetVeqInt_l(bool veq_on)
+{
+    if (eS325_ctrl.fd[ES325_CTRL_VEQ] < 0) {
+        ALOGV("  opening eS325 path for VEQ");
+        eS325_ctrl.fd[ES325_CTRL_VEQ] = open(ES325_VEQ_PATH, O_RDWR);
+        if (eS325_ctrl.fd[ES325_CTRL_VEQ] < 0) {
+            ALOGE("    cannot open eS325 path for VEQ: %s", strerror(errno));
+            return -ENODEV;
+        }
+    }
+    if (veq_on) {
+        write(eS325_ctrl.fd[ES325_CTRL_VEQ], ES325_ON, strlen(ES325_ON));
+    } else {
+        write(eS325_ctrl.fd[ES325_CTRL_VEQ], ES325_OFF, strlen(ES325_OFF));
+    }
+    return 0;
+}
+
 /*
  * Put the eS325 to sleep
  * Post condition when no error: eS325_ctrl.current_preset == ES325_PRESET_OFF
@@ -1407,6 +1426,28 @@ int eS325_UsePreset(int preset)
     }
 
     status = Adnc_ReevaluateUsageInt_l(eS325_ctrl.ioHandle);
+
+exit:
+    pthread_mutex_unlock(&sAdncBundleLock);
+    return status;
+}
+
+
+int eS325_SetVeq(bool enable)
+{
+    ALOGV("eS325_EnableVeq(%d)", enable);
+
+    int status;
+
+    pthread_mutex_lock(&sAdncBundleLock);
+
+    status = AdncBundle_Init_l();
+    if (status != 0) {
+        ALOGE(" error enabling VEQ, bundle failed to initialize");
+        goto exit;
+    }
+
+    status = Adnc_SetVeqInt_l(enable);
 
 exit:
     pthread_mutex_unlock(&sAdncBundleLock);
