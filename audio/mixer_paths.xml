@@ -306,8 +306,24 @@ INPUT_CHANNEL_MAP {
   <!-- Paths used by HAL -->
 
   <!-- Playback paths -->
+  <path name="voice-speaker">
+      <path name="speaker" />
+  </path>
+
+  <path name="voice-earpiece">
+      <path name="earpiece" />
+  </path>
+
+  <path name="voice-headphones">
+      <path name="headphones" />
+  </path>
+
   <path name="media-speaker">
       <path name="speaker" />
+  </path>
+
+  <path name="media-earpiece">
+      <path name="earpiece" />
   </path>
 
   <path name="media-headphones">
@@ -326,6 +342,10 @@ INPUT_CHANNEL_MAP {
       <path name="speaker" />
   </path>
 
+  <path name="communication-earpiece">
+      <path name="earpiece" />
+  </path>
+
   <path name="communication-headphones">
       <path name="headphones" />
   </path>
@@ -341,17 +361,17 @@ INPUT_CHANNEL_MAP {
 
   <!-- Capture paths -->
 
+  <path name="voice-main-mic">
+      <path name="channel-left" />
+      <path name="builtin-mic" />
+  </path>
+
+  <path name="voice-headset-mic">
+      <path name="channel-left" />
+      <path name="headset-in" />
+  </path>
+
   <path name="media-main-mic">
-      <path name="channel-left" />
-      <path name="builtin-mic" />
-  </path>
-
-  <path name="voice-rec-main-mic">
-      <path name="channel-left" />
-      <path name="builtin-mic" />
-  </path>
-
-  <path name="communication-main-mic">
       <path name="channel-left" />
       <path name="builtin-mic" />
   </path>
@@ -364,6 +384,16 @@ INPUT_CHANNEL_MAP {
   <path name="media-headset-mic">
       <path name="channel-left" />
       <path name="headset-in" />
+  </path>
+
+  <path name="voice-rec-main-mic">
+      <path name="channel-left" />
+      <path name="builtin-mic" />
+  </path>
+
+  <path name="communication-main-mic">
+      <path name="channel-left" />
+      <path name="builtin-mic" />
   </path>
 
   <path name="bt-sco-mic">
@@ -379,6 +409,10 @@ INPUT_CHANNEL_MAP {
   <path name="communication-headset-mic">
       <path name="channel-left" />
       <path name="headset-in" />
+  </path>
+
+  <path name="none">
+      <!-- Empty path -->
   </path>
 
 </mixer>

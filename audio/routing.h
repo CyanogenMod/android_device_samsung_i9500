@@ -33,10 +33,10 @@ enum {
 
 enum {
     IN_SOURCE_MIC,
-    IN_SOURCE_DUAL_MIC,
     IN_SOURCE_CAMCORDER,
     IN_SOURCE_VOICE_RECOGNITION,
     IN_SOURCE_VOICE_COMMUNICATION,
+    IN_SOURCE_VOICE_CALL,
     IN_SOURCE_TAB_SIZE,            /* number of lines in route_configs[][] */
     IN_SOURCE_NONE,
     IN_SOURCE_CNT
@@ -55,8 +55,44 @@ struct route_config {
                                        // -1 means es325 bypass
 };
 
+/* TODO: Figure out whether voice routes need to set ES325 presets */
+const struct route_config voice_speaker = {
+    "voice-speaker",
+    "voice-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
+const struct route_config voice_earpiece = {
+    "voice-earpiece",
+    "voice-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
+const struct route_config voice_headphones = {
+    "voice-headphones",
+    "voice-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
+const struct route_config voice_headset = {
+    "voice-headphones",
+    "voice-headset-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
 const struct route_config media_speaker = {
     "media-speaker",
+    "media-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
+const struct route_config media_earpiece = {
+    "media-earpiece",
     "media-main-mic",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
@@ -118,6 +154,13 @@ const struct route_config communication_speaker = {
       ES325_PRESET_VOIP_DESKTOP }
 };
 
+const struct route_config communication_earpiece = {
+    "communication-earpiece",
+    "communication-main-mic",
+    { ES325_PRESET_OFF,
+      ES325_PRESET_OFF }
+};
+
 const struct route_config communication_headphones = {
     "communication-headphones",
     "communication-main-mic",
@@ -147,8 +190,8 @@ const struct route_config bluetooth_sco = {
 };
 
 const struct route_config none = {
-    "NONE",
-    "NONE",
+    "none",
+    "none",
     { ES325_PRESET_OFF,
       ES325_PRESET_OFF }
 };
@@ -157,15 +200,7 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
                                                [OUT_DEVICE_TAB_SIZE] = {
     {   /* IN_SOURCE_MIC */
         &media_speaker,             /* OUT_DEVICE_SPEAKER */
-        &none,                      /* OUT_DEVICE_EARPIECE */
-        &media_headset,             /* OUT_DEVICE_HEADSET */
-        &media_headphones,          /* OUT_DEVICE_HEADPHONES */
-        &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-    },
-    {   /* IN_SOURCE_DUAL_MIC */
-        &media_speaker,             /* OUT_DEVICE_SPEAKER */
-        &none,                      /* OUT_DEVICE_EARPIECE */
+        &media_earpiece,            /* OUT_DEVICE_EARPIECE */
         &media_headset,             /* OUT_DEVICE_HEADSET */
         &media_headphones,          /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
@@ -189,12 +224,20 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
     },
     {   /* IN_SOURCE_VOICE_COMMUNICATION */
         &communication_speaker,     /* OUT_DEVICE_SPEAKER */
-        &none,                      /* OUT_DEVICE_EARPIECE */
+        &communication_earpiece,    /* OUT_DEVICE_EARPIECE */
         &communication_headset,     /* OUT_DEVICE_HEADSET */
         &communication_headphones,  /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
         &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
-    }
+    },
+    {   /* IN_SOURCE_VOICE_CALL */
+        &voice_speaker,             /* OUT_DEVICE_SPEAKER */
+        &voice_earpiece,            /* OUT_DEVICE_EARPIECE */
+        &voice_headset,             /* OUT_DEVICE_HEADSET */
+        &voice_headphones,          /* OUT_DEVICE_HEADPHONES */
+        &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
+        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+    },
 };
 
 #endif

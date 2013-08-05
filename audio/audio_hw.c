@@ -269,6 +269,10 @@ static int get_input_source_id(audio_source_t source)
         return IN_SOURCE_VOICE_RECOGNITION;
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
+    case AUDIO_SOURCE_VOICE_DOWNLINK:
+    case AUDIO_SOURCE_VOICE_UPLINK:
+    case AUDIO_SOURCE_VOICE_CALL:
+        return IN_SOURCE_VOICE_CALL;
     default:
         return IN_SOURCE_NONE;
     }
@@ -1403,7 +1407,7 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
         ALOGV("%s: Entering IN_CALL mode", __func__);
         if (!adev->in_call) {
             /* TODO: standby? */
-            /* TODO: set up routing */
+            select_devices(adev);
             start_voice_call(adev);
             ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_START);
             adev_set_voice_volume(&adev->hw_device, adev->voice_volume);
@@ -1415,7 +1419,7 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
             adev->in_call = false;
             end_voice_call(adev);
             /* TODO: standby? */
-            /* TODO: set up routing */
+            select_devices(adev);
         }
     }
 
