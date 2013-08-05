@@ -278,6 +278,8 @@ static int get_input_source_id(audio_source_t source)
     }
 }
 
+static void adev_set_call_audio_path(struct audio_device *adev);
+
 /*
  * NOTE: when multiple mutexes have to be acquired, always take the
  * audio_device mutex first, followed by the stream_in and/or
@@ -354,6 +356,8 @@ static void select_devices(struct audio_device *adev)
     }
 
     audio_route_update_mixer(adev->ar);
+
+    adev_set_call_audio_path(adev);
 }
 
 /* Samsung RIL functions */
