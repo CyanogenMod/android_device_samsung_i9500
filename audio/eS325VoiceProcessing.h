@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+#ifndef _ES325_VOICE_PROCESSING_
+#define _ES325_VOICE_PROCESSING_
+
 #include <system/audio.h>
 #include <hardware/audio_effect.h>
 
@@ -69,3 +72,4 @@ extern "C" {
 }
 #endif
 
+#endif
