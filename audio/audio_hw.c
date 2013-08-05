@@ -269,8 +269,6 @@ static int get_input_source_id(audio_source_t source)
         return IN_SOURCE_VOICE_RECOGNITION;
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
         return IN_SOURCE_VOICE_COMMUNICATION;
-    case AUDIO_SOURCE_VOICE_DOWNLINK:
-    case AUDIO_SOURCE_VOICE_UPLINK:
     case AUDIO_SOURCE_VOICE_CALL:
         return IN_SOURCE_VOICE_CALL;
     default:
@@ -1413,14 +1411,20 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
     if (adev->mode == mode)
         return 0;
 
-    /* TODO: locking? */
+    pthread_mutex_lock(&adev->lock);
     adev->mode = mode;
 
-    /* Only support IN_CALL and NORMAL modes */
     if (adev->mode == AUDIO_MODE_IN_CALL) {
         ALOGV("%s: Entering IN_CALL mode", __func__);
         if (!adev->in_call) {
             /* TODO: standby? */
+            if (adev->out_device == AUDIO_DEVICE_NONE ||
+                adev->out_device == AUDIO_DEVICE_OUT_SPEAKER) {
+                adev->out_device = AUDIO_DEVICE_OUT_EARPIECE;
+            } else {
+                adev->out_device &= ~AUDIO_DEVICE_OUT_SPEAKER;
+            }
+            adev->input_source = AUDIO_SOURCE_VOICE_CALL;
             select_devices(adev);
             start_voice_call(adev);
             ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_START);
@@ -1436,6 +1440,7 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
             select_devices(adev);
         }
     }
+    pthread_mutex_unlock(&adev->lock);
 
     return 0;
 }
