@@ -427,15 +427,20 @@ static void adev_set_wb_amr_callback(void *data, int enable)
 {
     struct audio_device *adev = (struct audio_device *)data;
 
+    ALOGV("%s: setting to: %d", __func__, enable);
+
     pthread_mutex_lock(&adev->lock);
     if (adev->wb_amr != enable) {
         adev->wb_amr = enable;
 
         /* reopen the modem PCMs at the new rate */
         if (adev->in_call) {
+#if 0
+            /* TODO: set rate properly */
             end_voice_call(adev);
             select_devices(adev);
             start_voice_call(adev);
+#endif
         }
     }
     pthread_mutex_unlock(&adev->lock);
