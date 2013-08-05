@@ -207,25 +207,14 @@ INPUT_CHANNEL_MAP {
 
   <path name="speaker">
     <ctl name="SPK Switch" value="1" />
-    <ctl name="Speaker Digital Volume" value="112" />
-    <ctl name="SPKOUTL Input 1 Volume" value="32" />
-    <ctl name="SPKOUTL Input 2 Volume" value="32" />
   </path>
 
   <path name="earpiece">
     <ctl name="RCV Switch" value="1" />
-    <ctl name="Noise Gate Switch" value="0" />
-    <ctl name="HPOUT1 Digital Volume" value="112" />
-    <ctl name="HPOUT1L Input 1 Volume" value="32" />
-    <ctl name="HPOUT1R Input 1 Volume" value="32" />
   </path>
 
   <path name="headphones">
     <ctl name="HP Switch" value="1" />
-    <ctl name="Noise Gate Switch" value="0" />
-    <ctl name="HPOUT1 Digital Volume" value="112" />
-    <ctl name="HPOUT1L Input 1 Volume" value="32" />
-    <ctl name="HPOUT1R Input 1 Volume" value="32" />
   </path>
 
   <path name="sco-out">
@@ -235,17 +224,10 @@ INPUT_CHANNEL_MAP {
     <ctl name="AIF3TX2 Input 1" value="ASRC1R" />
     <ctl name="AIF3TX1 Input 2" value="AIF2RX1" />
     <ctl name="AIF3TX2 Input 2" value="AIF2RX2" />
-    <ctl name="AIF3TX1 Input 1 Volume" value="32" />
-    <ctl name="AIF3TX1 Input 2 Volume" value="32" />
-    <ctl name="AIF3TX2 Input 1 Volume" value="32" />
-    <ctl name="AIF3TX2 Input 2 Volume" value="32" />
   </path>
 
   <path name="dock">
     <ctl name="VPS Switch" value="1" />
-    <ctl name="OUT2 Digital Volume" value="124" />
-    <ctl name="HPOUT2L Input 1 Volume" value="32" />
-    <ctl name="HPOUT2R Input 1 Volume" value="32" />
   </path>
 
   <path name="aux-digital">
