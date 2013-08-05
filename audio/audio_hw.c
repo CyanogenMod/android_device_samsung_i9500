@@ -362,7 +362,7 @@ static int start_voice_call(struct audio_device *adev)
 {
     struct pcm_config *voice_config;
 
-    ALOGV("Opening voice PCMs");
+    ALOGV("%s: Opening voice PCMs", __func__);
 
     if (adev->wb_amr)
         voice_config = &pcm_config_voice_wide;
@@ -407,7 +407,7 @@ err_open_rx:
 
 static void end_voice_call(struct audio_device *adev)
 {
-    ALOGV("Closing voice PCMs");
+    ALOGV("%s: Closing voice PCMs", __func__);
 
     pcm_stop(adev->pcm_voice_rx);
     pcm_stop(adev->pcm_voice_tx);
@@ -483,6 +483,7 @@ static int start_output_stream(struct stream_out *out)
     struct audio_device *adev = out->dev;
 
     /* TODO: check for call */
+    ALOGV("%s: starting stream", __func__);
 
     out->pcm[PCM_CARD] = pcm_open(PCM_CARD, out->pcm_device,
                                   PCM_OUT, &out->config);
@@ -501,6 +502,8 @@ static int start_output_stream(struct stream_out *out)
     if (out->device & AUDIO_DEVICE_OUT_ALL_SCO)
         start_bt_sco(adev);
 #endif
+    ALOGV("%s: stream out device: %d, actual: %d",
+          __func__, out->device, adev->out_device);
 
     return 0;
 }
@@ -726,6 +729,8 @@ static int do_out_standby(struct stream_out *out)
 {
     struct audio_device *adev = out->dev;
     int i;
+
+    ALOGV("%s: output standby: %d", __func__, out->standby);
 
     if (!out->standby) {
         for (i = 0; i < PCM_TOTAL; i++) {
@@ -1430,6 +1435,8 @@ static int adev_set_mic_mute(struct audio_hw_device *dev, bool state)
 {
     struct audio_device *adev = (struct audio_device *)dev;
 
+    ALOGV("%s: set mic mute: %d\n", __func__, state);
+
     adev->mic_mute = state;
 
     return 0;
@@ -1447,7 +1454,6 @@ static int adev_get_mic_mute(const struct audio_hw_device *dev, bool *state)
 static size_t adev_get_input_buffer_size(const struct audio_hw_device *dev,
                                          const struct audio_config *config)
 {
-
     return get_input_buffer_size(config->sample_rate, config->format,
                                  popcount(config->channel_mask));
 }
