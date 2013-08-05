@@ -106,11 +106,8 @@ vendor/firmware/bcm2079xB4_pre_firmware.ncd
 
 # Radio
 bin/cbd
-bin/rild
-lib/libril.so
 lib/libsecnativefeature.so
 lib/libsec-ril.so
-lib/libsecril-client.so
 
 # Sensors
 lib/hw/sensors.universal5410.so
