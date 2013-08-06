@@ -800,33 +800,33 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
     int ret;
     unsigned int val;
 
+    ALOGV("%s: key value pairs: %s", __func__, kvpairs);
+
     parms = str_parms_create_str(kvpairs);
 
     ret = str_parms_get_str(parms, AUDIO_PARAMETER_STREAM_ROUTING,
                             value, sizeof(value));
-    pthread_mutex_lock(&adev->lock);
-    pthread_mutex_lock(&out->lock);
     if (ret >= 0) {
         val = atoi(value);
-        if (((out->device) != val) && (val != 0)) {
-            /* Force standby if moving to/from SPDIF or if the output
-             * device changes when in SPDIF mode */
-            if (((val & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) ^
-                 (adev->out_device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) ||
-                (adev->out_device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) {
-                do_out_standby(out);
-            }
-
+        pthread_mutex_lock(&adev->lock);
+        pthread_mutex_lock(&out->lock);
+        /* In-call routing is done using adev->out_device and adev->input_source */
+        if (adev->in_call) {
+            adev->out_device = val;
+            select_devices(adev);
+        } else if (((out->device) != val) && (val != 0)) {
+#if 0
             /* force output standby to start or stop SCO pcm stream if needed */
             if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
                     (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
                 do_out_standby(out);
             }
+#endif
             out->device = val;
         }
+        pthread_mutex_unlock(&out->lock);
+        pthread_mutex_unlock(&adev->lock);
     }
-    pthread_mutex_unlock(&out->lock);
-    pthread_mutex_unlock(&adev->lock);
 
     str_parms_destroy(parms);
     return ret;
