@@ -8,10 +8,6 @@
         "target_path": "hardware/samsung"
     },
     {
-        "repository": "android_hardware_samsung_slsi_exynos5",
-        "target_path": "hardware/samsung/slsi/exynos5"
-    },
-    {
         "repository": "android_kernel_samsung_exynos5410",
         "target_path": "kernel/samsung/exynos5410"
     }
