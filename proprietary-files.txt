@@ -14,6 +14,8 @@ vendor/firmware/bcm4335_semco.hcd
 lib/hw/camera.universal5410.so
 lib/libcsc.so
 lib/libexynoscamera.so
+lib/libexynosutils.so
+lib/libexynosv4l2.so
 lib/libhwjpeg.so
 lib/libvdis.so
 
