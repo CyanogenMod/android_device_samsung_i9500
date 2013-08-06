@@ -1415,7 +1415,6 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
     if (adev->mode == AUDIO_MODE_IN_CALL) {
         ALOGV("%s: Entering IN_CALL mode", __func__);
         if (!adev->in_call) {
-            /* TODO: standby? */
             if (adev->out_device == AUDIO_DEVICE_NONE ||
                 adev->out_device == AUDIO_DEVICE_OUT_SPEAKER) {
                 adev->out_device = AUDIO_DEVICE_OUT_EARPIECE;
@@ -1432,7 +1431,9 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
         if (adev->in_call) {
             adev->in_call = false;
             end_voice_call(adev);
-            /* TODO: standby? */
+            /* remove earpiece, re-add speaker */
+            adev->out_device &= ~AUDIO_DEVICE_OUT_EARPIECE;
+            adev->out_device |= AUDIO_DEVICE_OUT_SPEAKER;
             select_devices(adev);
         }
     }
