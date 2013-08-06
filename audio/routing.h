@@ -236,7 +236,7 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &voice_headset,             /* OUT_DEVICE_HEADSET */
         &voice_headphones,          /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &voice_headphones           /* OUT_DEVICE_SPEAKER_AND_HEADSET */
     },
 };
 

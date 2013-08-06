@@ -1419,8 +1419,6 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
             if (adev->out_device == AUDIO_DEVICE_NONE ||
                 adev->out_device == AUDIO_DEVICE_OUT_SPEAKER) {
                 adev->out_device = AUDIO_DEVICE_OUT_EARPIECE;
-            } else {
-                adev->out_device &= ~AUDIO_DEVICE_OUT_SPEAKER;
             }
             adev->input_source = AUDIO_SOURCE_VOICE_CALL;
             select_devices(adev);
