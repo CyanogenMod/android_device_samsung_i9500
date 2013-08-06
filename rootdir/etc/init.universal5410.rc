@@ -485,6 +485,11 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
 
+service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
+    class main
+    user root
+    oneshot
+
 # Vibetonz
 service immvibed /system/bin/immvibed
     class core
