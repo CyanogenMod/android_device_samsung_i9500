@@ -11,7 +11,7 @@ vendor/firmware/bcm4335_murata.hcd
 vendor/firmware/bcm4335_semco.hcd
 
 # Camera
-lib/hw/camera.universal5410.so
+lib/hw/camera.universal5410.so:lib/hw/vendor-camera.universal5410.so
 lib/libcsc.so
 lib/libexynoscamera.so
 lib/libexynosutils.so
