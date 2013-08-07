@@ -199,6 +199,8 @@ INPUT_CHANNEL_MAP {
   </path>
 
   <path name="channel-none">
+    <ctl name="AIF3TX1 Input 1" value="ASRC1L" />
+    <ctl name="AIF3TX2 Input 1" value="ASRC1R" />
     <ctl name="ASRC1L Input" value="AIF1RX1" />
     <ctl name="ASRC1R Input" value="AIF1RX2" />
   </path>
@@ -218,10 +220,6 @@ INPUT_CHANNEL_MAP {
   </path>
 
   <path name="sco-out">
-    <ctl name="ASRC1L Input" value="AIF1RX1" />
-    <ctl name="ASRC1R Input" value="AIF1RX2" />
-    <ctl name="AIF3TX1 Input 1" value="ASRC1L" />
-    <ctl name="AIF3TX2 Input 1" value="ASRC1R" />
     <ctl name="AIF3TX1 Input 2" value="AIF2RX1" />
     <ctl name="AIF3TX2 Input 2" value="AIF2RX2" />
   </path>
@@ -272,7 +270,7 @@ INPUT_CHANNEL_MAP {
     <ctl name="AIF2TX1 Input 2" value="AIF3RX1" />
     <ctl name="AIF2TX2 Input 2" value="AIF3RX2" />
     <ctl name="ASRC2L Input" value="AIF3RX1" />
-    <ctl name="ASRC2R Input" value="AIF3RX1" />
+    <ctl name="ASRC2R Input" value="AIF3RX2" />
     <ctl name="AIF2TX1 Input 1" value="None" />
     <ctl name="AIF2TX2 Input 1" value="None" />
   </path>
@@ -338,6 +336,7 @@ INPUT_CHANNEL_MAP {
 
   <path name="bt-sco-headset">
       <path name="sco-out" />
+      <ctl name="AIF2 Mode" value="Slave" />
   </path>
 
   <!-- Capture paths -->

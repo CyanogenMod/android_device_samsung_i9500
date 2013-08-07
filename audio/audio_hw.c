@@ -90,10 +90,10 @@ struct pcm_config pcm_config_in = {
 };
 
 struct pcm_config pcm_config_sco = {
-    .channels = 1,
+    .channels = 2,
     .rate = 8000,
-    .period_size = 960,
-    .period_count = 2,
+    .period_size = 2048,
+    .period_count = 6,
     .format = PCM_FORMAT_S16_LE,
 };
 
@@ -138,11 +138,14 @@ struct audio_device {
     int es325_mode;
 
     audio_channel_mask_t in_channel_mask;
-    unsigned int sco_on_count;
 
     /* Call audio */
     struct pcm *pcm_voice_rx;
     struct pcm *pcm_voice_tx;
+
+    /* SCO audio */
+    struct pcm *pcm_sco_rx;
+    struct pcm *pcm_sco_tx;
 
     float voice_volume;
     bool in_call;
@@ -358,6 +361,63 @@ static void select_devices(struct audio_device *adev)
     adev_set_call_audio_path(adev);
 }
 
+/* BT SCO functions */
+
+/* must be called with hw device mutex locked, OK to hold other mutexes */
+static void start_bt_sco(struct audio_device *adev)
+{
+    if (adev->pcm_sco_rx || adev->pcm_sco_tx) {
+        ALOGW("%s: SCO PCMs already open!\n", __func__);
+        return;
+    }
+
+    ALOGV("%s: Opening SCO PCMs", __func__);
+
+    adev->pcm_sco_rx = pcm_open(PCM_CARD, PCM_DEVICE_SCO, PCM_OUT,
+            &pcm_config_sco);
+    if (adev->pcm_sco_rx && !pcm_is_ready(adev->pcm_sco_rx)) {
+        ALOGE("%s: cannot open PCM SCO RX stream: %s",
+              __func__, pcm_get_error(adev->pcm_sco_rx));
+        goto err_sco_rx;
+    }
+
+    adev->pcm_sco_tx = pcm_open(PCM_CARD, PCM_DEVICE_SCO, PCM_IN,
+            &pcm_config_sco);
+    if (adev->pcm_sco_tx && !pcm_is_ready(adev->pcm_sco_tx)) {
+        ALOGE("%s: cannot open PCM SCO TX stream: %s",
+              __func__, pcm_get_error(adev->pcm_sco_tx));
+        goto err_sco_tx;
+    }
+
+    pcm_start(adev->pcm_sco_rx);
+    pcm_start(adev->pcm_sco_tx);
+
+    return;
+
+err_sco_tx:
+    pcm_close(adev->pcm_sco_tx);
+err_sco_rx:
+    pcm_close(adev->pcm_sco_rx);
+}
+
+/* must be called with hw device mutex locked, OK to hold other mutexes */
+static void end_bt_sco(struct audio_device *adev)
+{
+    ALOGV("%s: Closing SCO PCMs", __func__);
+
+    if (adev->pcm_sco_rx) {
+        pcm_stop(adev->pcm_sco_rx);
+        pcm_close(adev->pcm_sco_rx);
+        adev->pcm_sco_rx = NULL;
+    }
+
+    if (adev->pcm_sco_tx) {
+        pcm_stop(adev->pcm_sco_tx);
+        pcm_close(adev->pcm_sco_tx);
+        adev->pcm_sco_tx = NULL;
+    }
+}
+
 /* Samsung RIL functions */
 
 /* must be called with hw device mutex locked, OK to hold other mutexes */
@@ -467,8 +527,6 @@ static void adev_set_call_audio_path(struct audio_device *adev)
         case AUDIO_DEVICE_OUT_WIRED_HEADPHONE:
             device_type = SOUND_AUDIO_PATH_HEADPHONE;
             break;
-#if 0
-        /* TODO: figure out BT */
         case AUDIO_DEVICE_OUT_BLUETOOTH_SCO:
         case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
         case AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT:
@@ -478,7 +536,6 @@ static void adev_set_call_audio_path(struct audio_device *adev)
                 device_type = SOUND_AUDIO_PATH_BLUETOOTH_NO_NR;
             }
             break;
-#endif
         default:
             /* if output device isn't supported, use handset by default */
             device_type = SOUND_AUDIO_PATH_HANDSET;
@@ -495,7 +552,6 @@ static int start_output_stream(struct stream_out *out)
 {
     struct audio_device *adev = out->dev;
 
-    /* TODO: check for call */
     ALOGV("%s: starting stream", __func__);
 
     out->pcm[PCM_CARD] = pcm_open(PCM_CARD, out->pcm_device,
@@ -510,11 +566,9 @@ static int start_output_stream(struct stream_out *out)
     adev->out_device |= out->device;
     select_devices(adev);
 
-#if 0
-    /* TODO: figure out BT */
     if (out->device & AUDIO_DEVICE_OUT_ALL_SCO)
         start_bt_sco(adev);
-#endif
+
     ALOGV("%s: stream out device: %d, actual: %d",
           __func__, out->device, adev->out_device);
 
@@ -546,10 +600,8 @@ static int start_input_stream(struct stream_in *in)
     eS325_SetActiveIoHandle(in->io_handle);
     select_devices(adev);
 
-#if 0
     if (in->device & AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET)
         start_bt_sco(adev);
-#endif
 
     /* initialize volume ramp */
     in->ramp_frames = (CAPTURE_START_RAMP_MS * in->requested_rate) / 1000;
@@ -762,10 +814,8 @@ static int do_out_standby(struct stream_out *out)
         }
 #endif
 
-#if 0
         if (out->device & AUDIO_DEVICE_OUT_ALL_SCO)
-            stop_bt_sco(adev);
-#endif
+            end_bt_sco(adev);
 
         /* re-calculate the set of active devices from other streams */
         adev->out_device = output_devices(out);
@@ -820,14 +870,14 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
         if (adev->in_call) {
             adev->out_device = val;
             select_devices(adev);
+            if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
+                start_bt_sco(adev);
         } else if (((out->device) != val) && (val != 0)) {
-#if 0
             /* force output standby to start or stop SCO pcm stream if needed */
             if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
                     (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
                 do_out_standby(out);
             }
-#endif
             out->device = val;
         }
         pthread_mutex_unlock(&out->lock);
@@ -1003,10 +1053,8 @@ static int do_in_standby(struct stream_in *in)
         pcm_close(in->pcm);
         in->pcm = NULL;
 
-#if 0
         if (in->device & AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET)
-            stop_bt_sco(adev);
-#endif
+            end_bt_sco(adev);
 
         in->dev->input_source = AUDIO_SOURCE_DEFAULT;
         in->dev->in_device = AUDIO_DEVICE_NONE;
@@ -1356,6 +1404,7 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
         }
         pthread_mutex_unlock(&adev->lock);
     }
+#endif
 
     ret = str_parms_get_str(parms, AUDIO_PARAMETER_KEY_BT_NREC, value, sizeof(value));
     if (ret >= 0) {
@@ -1364,7 +1413,7 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
         else
             adev->bluetooth_nrec = false;
     }
-#endif
+
     ret = str_parms_get_str(parms, "noise_suppression", value, sizeof(value));
     if (ret >= 0) {
         if (strcmp(value, "true") == 0) {
@@ -1437,6 +1486,8 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
         if (adev->in_call) {
             adev->in_call = false;
             end_voice_call(adev);
+            if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
+                end_bt_sco(adev);
             /* remove earpiece, re-add speaker */
             adev->out_device &= ~AUDIO_DEVICE_OUT_EARPIECE;
             adev->out_device |= AUDIO_DEVICE_OUT_SPEAKER;
