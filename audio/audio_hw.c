@@ -379,7 +379,7 @@ static int start_voice_call(struct audio_device *adev)
     /* Open modem PCM channels */
     adev->pcm_voice_rx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_OUT,
             voice_config);
-    if (!pcm_is_ready(adev->pcm_voice_rx)) {
+    if (adev->pcm_voice_rx && !pcm_is_ready(adev->pcm_voice_rx)) {
         ALOGE("%s: cannot open PCM voice RX stream: %s",
               __func__, pcm_get_error(adev->pcm_voice_rx));
         goto err_voice_rx;
@@ -387,7 +387,7 @@ static int start_voice_call(struct audio_device *adev)
 
     adev->pcm_voice_tx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_IN,
             voice_config);
-    if (!pcm_is_ready(adev->pcm_voice_tx)) {
+    if (adev->pcm_voice_tx && !pcm_is_ready(adev->pcm_voice_tx)) {
         ALOGE("%s: cannot open PCM voice TX stream: %s",
               __func__, pcm_get_error(adev->pcm_voice_tx));
         goto err_voice_tx;
