@@ -143,6 +143,7 @@ struct audio_device {
     /* Call audio */
     struct pcm *pcm_voice_rx;
     struct pcm *pcm_voice_tx;
+    unsigned int voice_on_count;
 
     float voice_volume;
     bool in_call;
@@ -360,11 +361,15 @@ static void select_devices(struct audio_device *adev)
 
 /* Samsung RIL functions */
 
+/* must be called with hw device mutex locked, OK to hold other mutexes */
 static int start_voice_call(struct audio_device *adev)
 {
     struct pcm_config *voice_config;
 
     ALOGV("%s: Opening voice PCMs", __func__);
+
+    if (adev->voice_on_count++ > 0)
+        return 0;
 
     if (adev->wb_amr)
         voice_config = &pcm_config_voice_wide;
@@ -372,24 +377,20 @@ static int start_voice_call(struct audio_device *adev)
         voice_config = &pcm_config_voice;
 
     /* Open modem PCM channels */
-    if (adev->pcm_voice_rx == NULL) {
-        adev->pcm_voice_rx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_OUT,
-                voice_config);
-        if (!pcm_is_ready(adev->pcm_voice_rx)) {
-            ALOGE("%s: cannot open PCM voice RX stream: %s",
-                  __func__, pcm_get_error(adev->pcm_voice_rx));
-            goto err_open_rx;
-        }
+    adev->pcm_voice_rx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_OUT,
+            voice_config);
+    if (!pcm_is_ready(adev->pcm_voice_rx)) {
+        ALOGE("%s: cannot open PCM voice RX stream: %s",
+              __func__, pcm_get_error(adev->pcm_voice_rx));
+        goto err_voice_rx;
     }
 
-    if (adev->pcm_voice_tx == NULL) {
-        adev->pcm_voice_tx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_IN,
-                voice_config);
-        if (!pcm_is_ready(adev->pcm_voice_tx)) {
-            ALOGE("%s: cannot open PCM voice TX stream: %s",
-                  __func__, pcm_get_error(adev->pcm_voice_tx));
-            goto err_open_tx;
-        }
+    adev->pcm_voice_tx = pcm_open(PCM_CARD, PCM_DEVICE_VOICE, PCM_IN,
+            voice_config);
+    if (!pcm_is_ready(adev->pcm_voice_tx)) {
+        ALOGE("%s: cannot open PCM voice TX stream: %s",
+              __func__, pcm_get_error(adev->pcm_voice_tx));
+        goto err_voice_tx;
     }
 
     pcm_start(adev->pcm_voice_rx);
@@ -397,19 +398,23 @@ static int start_voice_call(struct audio_device *adev)
 
     return 0;
 
-err_open_tx:
+err_voice_tx:
     pcm_close(adev->pcm_voice_tx);
     adev->pcm_voice_tx = NULL;
-err_open_rx:
+err_voice_rx:
     pcm_close(adev->pcm_voice_rx);
     adev->pcm_voice_rx = NULL;
 
     return -ENOMEM;
 }
 
+/* must be called with hw device mutex locked, OK to hold other mutexes */
 static void end_voice_call(struct audio_device *adev)
 {
     ALOGV("%s: Closing voice PCMs", __func__);
+
+    if (adev->voice_on_count == 0 || --adev->voice_on_count > 0)
+        return;
 
     pcm_stop(adev->pcm_voice_rx);
     pcm_stop(adev->pcm_voice_tx);
