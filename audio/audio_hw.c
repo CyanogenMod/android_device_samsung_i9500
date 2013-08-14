@@ -143,7 +143,6 @@ struct audio_device {
     /* Call audio */
     struct pcm *pcm_voice_rx;
     struct pcm *pcm_voice_tx;
-    unsigned int voice_on_count;
 
     float voice_volume;
     bool in_call;
@@ -366,10 +365,12 @@ static int start_voice_call(struct audio_device *adev)
 {
     struct pcm_config *voice_config;
 
-    ALOGV("%s: Opening voice PCMs", __func__);
-
-    if (adev->voice_on_count++ > 0)
+    if (adev->pcm_voice_rx || adev->pcm_voice_tx) {
+        ALOGW("%s: Voice PCMs already open!\n", __func__);
         return 0;
+    }
+
+    ALOGV("%s: Opening voice PCMs", __func__);
 
     if (adev->wb_amr)
         voice_config = &pcm_config_voice_wide;
@@ -413,17 +414,17 @@ static void end_voice_call(struct audio_device *adev)
 {
     ALOGV("%s: Closing voice PCMs", __func__);
 
-    if (adev->voice_on_count == 0 || --adev->voice_on_count > 0)
-        return;
+    if (adev->pcm_voice_rx) {
+        pcm_stop(adev->pcm_voice_rx);
+        pcm_close(adev->pcm_voice_rx);
+        adev->pcm_voice_rx = NULL;
+    }
 
-    pcm_stop(adev->pcm_voice_rx);
-    pcm_stop(adev->pcm_voice_tx);
-
-    pcm_close(adev->pcm_voice_rx);
-    pcm_close(adev->pcm_voice_tx);
-
-    adev->pcm_voice_rx = NULL;
-    adev->pcm_voice_tx = NULL;
+    if (adev->pcm_voice_tx) {
+        pcm_stop(adev->pcm_voice_tx);
+        pcm_close(adev->pcm_voice_tx);
+        adev->pcm_voice_tx = NULL;
+    }
 }
 
 static void adev_set_wb_amr_callback(void *data, int enable)
