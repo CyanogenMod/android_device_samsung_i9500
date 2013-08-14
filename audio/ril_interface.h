@@ -60,6 +60,15 @@ enum ril_clock_state {
     SOUND_CLOCK_START
 };
 
+enum ril_mute_state {
+    TX_UNMUTE,
+    TX_MUTE,
+    RX_UNMUTE,
+    RX_MUTE,
+    RXTX_UNMUTE,
+    RXTX_MUTE
+};
+
 enum ril_two_mic_device {
     AUDIENCE,
     FORTEMEDIA
@@ -77,6 +86,7 @@ int ril_set_call_volume(struct ril_handle *ril, enum ril_sound_type sound_type,
                         float volume);
 int ril_set_call_audio_path(struct ril_handle *ril, enum ril_audio_path path);
 int ril_set_call_clock_sync(struct ril_handle *ril, enum ril_clock_state state);
+int ril_set_mute(struct ril_handle *ril, enum ril_mute_state state);
 void ril_register_set_wb_amr_callback(void *function, void *data);
 int ril_set_two_mic_control(struct ril_handle *ril, enum ril_two_mic_device device, enum ril_two_mic_state state);
 

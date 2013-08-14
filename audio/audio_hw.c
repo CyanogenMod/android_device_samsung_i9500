@@ -1503,10 +1503,14 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
 static int adev_set_mic_mute(struct audio_hw_device *dev, bool state)
 {
     struct audio_device *adev = (struct audio_device *)dev;
+    enum ril_mute_state ril_state = state ? TX_MUTE : TX_UNMUTE;
 
     ALOGV("%s: set mic mute: %d\n", __func__, state);
 
     adev->mic_mute = state;
+
+    if (adev->in_call)
+        ril_set_mute(&adev->ril, ril_state);
 
     return 0;
 }
