@@ -230,10 +230,14 @@ static int get_output_device_id(audio_devices_t device)
 
     if (popcount(device) == 2) {
         if ((device == (AUDIO_DEVICE_OUT_SPEAKER |
-                       AUDIO_DEVICE_OUT_WIRED_HEADSET)) ||
+                        AUDIO_DEVICE_OUT_WIRED_HEADSET)) ||
                 (device == (AUDIO_DEVICE_OUT_SPEAKER |
                         AUDIO_DEVICE_OUT_WIRED_HEADPHONE)))
             return OUT_DEVICE_SPEAKER_AND_HEADSET;
+        else if (device == (AUDIO_DEVICE_OUT_SPEAKER |
+                        AUDIO_DEVICE_OUT_EARPIECE))
+            /* SPEAKER|EARPIECE is routed only post-call it seems */
+            return OUT_DEVICE_SPEAKER;
         else
             return OUT_DEVICE_NONE;
     }
@@ -1488,9 +1492,6 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
             end_voice_call(adev);
             if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
                 end_bt_sco(adev);
-            /* remove earpiece, re-add speaker */
-            adev->out_device &= ~AUDIO_DEVICE_OUT_EARPIECE;
-            adev->out_device |= AUDIO_DEVICE_OUT_SPEAKER;
             select_devices(adev);
         }
     }
