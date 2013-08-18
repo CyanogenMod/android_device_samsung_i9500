@@ -581,8 +581,11 @@ static int start_output_stream(struct stream_out *out)
         return -ENOMEM;
     }
 
-    adev->out_device |= out->device;
-    select_devices(adev);
+    /* in call routing must go through set_parameters */
+    if (!adev->in_call) {
+        adev->out_device |= out->device;
+        select_devices(adev);
+    }
 
     if (out->device & AUDIO_DEVICE_OUT_ALL_SCO)
         start_bt_sco(adev);
@@ -611,12 +614,15 @@ static int start_input_stream(struct stream_in *in)
         in->resampler->reset(in->resampler);
 
     in->frames_in = 0;
-    adev->input_source = in->input_source;
-    adev->in_device = in->device;
-    adev->in_channel_mask = in->channel_mask;
+    /* in call routing must go through set_parameters */
+    if (!adev->in_call) {
+        adev->input_source = in->input_source;
+        adev->in_device = in->device;
+        adev->in_channel_mask = in->channel_mask;
 
-    eS325_SetActiveIoHandle(in->io_handle);
-    select_devices(adev);
+        eS325_SetActiveIoHandle(in->io_handle);
+        select_devices(adev);
+    }
 
     if (in->device & AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET)
         start_bt_sco(adev);
