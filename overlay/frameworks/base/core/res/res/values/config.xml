@@ -248,4 +248,8 @@
     <!-- Panel auto-brightness configuration value -->
     <integer name="config_panelAutoBrightnessValue">1</integer>
 
+    <!-- True if the Irda service should be started at system start. This currently only
+         supports Samsung Galaxy S4. -->
+    <bool name="config_enableIrdaManagerService">true</bool>
+
 </resources>

@@ -81,6 +81,10 @@ PRODUCT_PACKAGES += \
     hwcomposer.exynos5 \
     libion
 
+# IR
+PRODUCT_PACKAGES += \
+    irda.universal5410
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
