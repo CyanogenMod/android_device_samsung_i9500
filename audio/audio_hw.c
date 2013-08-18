@@ -244,8 +244,7 @@ static int get_output_device_id(audio_devices_t device)
             return OUT_DEVICE_SPEAKER_AND_HEADSET;
         else if (device == (AUDIO_DEVICE_OUT_SPEAKER |
                         AUDIO_DEVICE_OUT_EARPIECE))
-            /* SPEAKER|EARPIECE is routed only post-call it seems */
-            return OUT_DEVICE_SPEAKER;
+            return OUT_DEVICE_SPEAKER_AND_EARPIECE;
         else
             return OUT_DEVICE_NONE;
     }

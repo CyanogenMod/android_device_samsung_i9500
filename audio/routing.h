@@ -26,6 +26,7 @@ enum {
     OUT_DEVICE_HEADPHONES,
     OUT_DEVICE_BT_SCO,
     OUT_DEVICE_SPEAKER_AND_HEADSET,
+    OUT_DEVICE_SPEAKER_AND_EARPIECE,
     OUT_DEVICE_TAB_SIZE,           /* number of rows in route_configs[][] */
     OUT_DEVICE_NONE,
     OUT_DEVICE_CNT
@@ -204,7 +205,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &media_headset,             /* OUT_DEVICE_HEADSET */
         &media_headphones,          /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &media_speaker              /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
     },
     {   /* IN_SOURCE_CAMCORDER */
         &camcorder_speaker,         /* OUT_DEVICE_SPEAKER */
@@ -212,7 +214,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &camcorder_headphones,      /* OUT_DEVICE_HEADSET */
         &camcorder_headphones,      /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &camcorder_speaker          /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
     },
     {   /* IN_SOURCE_VOICE_RECOGNITION */
         &voice_rec_speaker,         /* OUT_DEVICE_SPEAKER */
@@ -220,7 +223,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &voice_rec_headset,         /* OUT_DEVICE_HEADSET */
         &voice_rec_headphones,      /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &voice_rec_speaker          /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
     },
     {   /* IN_SOURCE_VOICE_COMMUNICATION */
         &communication_speaker,     /* OUT_DEVICE_SPEAKER */
@@ -228,7 +232,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &communication_headset,     /* OUT_DEVICE_HEADSET */
         &communication_headphones,  /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &speaker_and_headphones     /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &speaker_and_headphones,    /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &communication_earpiece     /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
     },
     {   /* IN_SOURCE_VOICE_CALL */
         &voice_speaker,             /* OUT_DEVICE_SPEAKER */
@@ -236,7 +241,8 @@ const struct route_config * const route_configs[IN_SOURCE_TAB_SIZE]
         &voice_headset,             /* OUT_DEVICE_HEADSET */
         &voice_headphones,          /* OUT_DEVICE_HEADPHONES */
         &bluetooth_sco,             /* OUT_DEVICE_BT_SCO */
-        &voice_headphones           /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &voice_headphones,          /* OUT_DEVICE_SPEAKER_AND_HEADSET */
+        &voice_earpiece             /* OUT_DEVICE_SPEAKER_AND_EARPIECE */
     },
 };
 
