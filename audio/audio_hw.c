@@ -890,19 +890,20 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
         val = atoi(value);
         pthread_mutex_lock(&adev->lock);
         pthread_mutex_lock(&out->lock);
-        /* In-call routing is done using adev->out_device and adev->input_source */
-        if (adev->in_call) {
-            adev->out_device = val;
-            select_devices(adev);
-            if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
-                start_bt_sco(adev);
-        } else if (((out->device) != val) && (val != 0)) {
-            /* force output standby to start or stop SCO pcm stream if needed */
+        if (((adev->out_device) != val) && (val != 0)) {
+            /* force output standby to stop SCO pcm stream if needed */
             if ((val & AUDIO_DEVICE_OUT_ALL_SCO) ^
                     (out->device & AUDIO_DEVICE_OUT_ALL_SCO)) {
                 do_out_standby(out);
             }
+
             out->device = val;
+            adev->out_device = val;
+            select_devices(adev);
+
+            /* start SCO stream if needed */
+            if (val & AUDIO_DEVICE_OUT_ALL_SCO)
+                start_bt_sco(adev);
         }
         pthread_mutex_unlock(&out->lock);
         pthread_mutex_unlock(&adev->lock);
