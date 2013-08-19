@@ -1512,6 +1512,7 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
             end_voice_call(adev);
             if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
                 end_bt_sco(adev);
+            adev->input_source = AUDIO_SOURCE_DEFAULT;
             select_devices(adev);
         }
     }
