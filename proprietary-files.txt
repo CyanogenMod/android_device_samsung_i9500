@@ -42,9 +42,6 @@ lib/libwrappergps.so
 
 # HWC
 vendor/lib/hw/gralloc.exynos5.so
-vendor/lib/hw/hwcomposer.exynos5.so
-lib/libExynosHWCService.so
-lib/libfimg.so
 
 # LPM
 bin/lpmkey
