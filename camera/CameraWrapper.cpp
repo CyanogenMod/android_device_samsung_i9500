@@ -19,6 +19,7 @@
 *
 * This file wraps a vendor camera module.
 *
+* Original authorship: Teamhacksung <info@teamhacksung.org>
 */
 
 //#define LOG_NDEBUG 0
@@ -53,8 +54,8 @@ camera_module_t HAL_MODULE_INFO_SYM = {
          version_major: 1,
          version_minor: 0,
          id: CAMERA_HARDWARE_MODULE_ID,
-         name: "Exynos4x12 Camera Wrapper",
-         author: "Teamhacksung <info@teamhacksung.org>",
+         name: "Exynos5410 Camera Wrapper",
+         author: "The CyanogenMod Project",
          methods: &camera_module_methods,
          dso: NULL,
          reserved: {0},
