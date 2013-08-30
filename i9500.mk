@@ -85,6 +85,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     irda.universal5410
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/com.sec.feature.irda_service.xml:system/etc/permissions/com.sec.feature.irda_service.xml
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
