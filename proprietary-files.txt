@@ -21,10 +21,10 @@ vendor/lib/egl/libGLESv1_CM_POWERVR_SGX544_115.so
 vendor/lib/egl/libGLESv2_POWERVR_SGX544_115.so
 vendor/lib/libglslcompiler.so
 vendor/lib/libIMGegl.so
-vendor/lib/liblvverx_3.18.03.so
-vendor/lib/liblvvetx_3.18.03.so
+vendor/lib/liboclcompiler.so
 vendor/lib/libpvr2d.so
 vendor/lib/libpvrANDROID_WSEGL.so
+vendor/lib/libPVROCL.so
 vendor/lib/libPVRScopeServices.so
 vendor/lib/libsrv_init.so
 vendor/lib/libsrv_um.so
