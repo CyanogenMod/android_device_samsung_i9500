@@ -130,4 +130,3 @@ etc/wifi/nvram_net.txt_muratafem1
 etc/wifi/nvram_net.txt_muratafem2
 etc/wifi/nvram_net.txt_semco3rd
 etc/wifi/nvram_net.txt_semcosh
-etc/wifi/wpa_supplicant.conf
