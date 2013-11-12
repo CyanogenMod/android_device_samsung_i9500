@@ -1061,13 +1061,13 @@ int adnc_get_descriptor(const effect_uuid_t *uuid, effect_descriptor_t *pDescrip
 }
 
 audio_effect_library_t AUDIO_EFFECT_LIBRARY_INFO_SYM = {
-    tag : AUDIO_EFFECT_LIBRARY_TAG,
-    version : EFFECT_LIBRARY_API_VERSION,
-    name : "Audience Voice Preprocessing Library",
-    implementor : "The Android Open Source Project",
-    create_effect : adnc_create,
-    release_effect : adnc_release,
-    get_descriptor : adnc_get_descriptor
+    .tag = AUDIO_EFFECT_LIBRARY_TAG,
+    .version = EFFECT_LIBRARY_API_VERSION,
+    .name = "Audience Voice Preprocessing Library",
+    .implementor = "The Android Open Source Project",
+    .create_effect = adnc_create,
+    .release_effect = adnc_release,
+    .get_descriptor = adnc_get_descriptor
 };
 
 //-------------------------------------------------------
