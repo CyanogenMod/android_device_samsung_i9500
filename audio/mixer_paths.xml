@@ -232,27 +232,26 @@ INPUT_CHANNEL_MAP {
     <ctl name="HDMI Switch" value="1" />
   </path>
 
+  <path name="aif2-stereo-mic">
+    <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
+    <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
+  </path>
+
   <path name="builtin-mic">
     <ctl name="Main Mic Switch" value="1" />
     <ctl name="LHPF1 Input 1" value="IN1L" />
-    <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
-    <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
     <ctl name="IN1L Volume" value="30" />
   </path>
 
   <path name="back-mic">
     <ctl name="Sub Mic Switch" value="1" />
     <ctl name="LHPF2 Input 1" value="IN2L" />
-    <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
-    <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
     <ctl name="IN2L Volume" value="30" />
   </path>
 
   <path name="third-mic">
     <ctl name="3rd Mic Switch" value="1" />
     <ctl name="LHPF1 Input 1" value="IN2R" />
-    <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
-    <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
     <ctl name="IN2R Volume" value="30" />
   </path>
 
@@ -261,8 +260,6 @@ INPUT_CHANNEL_MAP {
     <ctl name="HPOUT1L Input 3" value="None" />
     <ctl name="HPOUT1R Input 3" value="None" />
     <ctl name="LHPF1 Input 1" value="IN1R" />
-    <ctl name="AIF2TX1 Input 1" value="ASRC1L" />
-    <ctl name="AIF2TX2 Input 1" value="ASRC1R" />
     <ctl name="IN1R Volume" value="30" />
   </path>
 
@@ -343,37 +340,44 @@ INPUT_CHANNEL_MAP {
 
   <path name="voice-main-mic">
       <path name="channel-stereo" />
+      <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
       <path name="back-mic" />
   </path>
 
   <path name="voice-headset-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="headset-in" />
   </path>
 
   <path name="media-main-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
   </path>
 
   <path name="media-second-mic">
       <path name="channel-right" />
+      <path name="aif2-stereo-mic" />
       <path name="back-mic" />
   </path>
 
   <path name="media-headset-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="headset-in" />
   </path>
 
   <path name="voice-rec-main-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
   </path>
 
   <path name="communication-main-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
   </path>
 
@@ -384,11 +388,13 @@ INPUT_CHANNEL_MAP {
 
   <path name="voice-rec-headset-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="headset-in" />
   </path>
 
   <path name="communication-headset-mic">
       <path name="channel-left" />
+      <path name="aif2-stereo-mic" />
       <path name="headset-in" />
   </path>
 
