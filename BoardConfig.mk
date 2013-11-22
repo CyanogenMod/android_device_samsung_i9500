@@ -45,7 +45,7 @@ TARGET_CPU_VARIANT := cortex-a15
 # Kernel
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE := console=ttySAC2,115200n8 vmalloc=512M androidboot.console=ttySAC2
+BOARD_KERNEL_CMDLINE := console=ttySAC2,115200n8 vmalloc=512M androidboot.console=ttySAC2 androidboot.selinux=permissive
 TARGET_KERNEL_CONFIG := cyanogenmod_i9500_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos5410
 
