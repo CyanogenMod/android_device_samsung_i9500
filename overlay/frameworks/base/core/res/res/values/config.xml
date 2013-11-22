@@ -251,4 +251,7 @@
     <!-- Set to false to enable CRT-off animation. -->
     <bool name="config_animateScreenLights">false</bool>
 
+    <!-- Disable lockscreen translucent decor by default -->
+    <bool name="config_enableLockScreenTranslucentDecor">true</bool>
+
 </resources>
