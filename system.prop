@@ -4,7 +4,6 @@
 
 ro.sf.lcd_density=480
 ro.zygote.disable_gl_preload=1
-ro.telephony.ril_class=QualcommMSIM42RIL
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
 nfc.app_log_level=2
