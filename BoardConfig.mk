@@ -121,6 +121,7 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5410
 TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_RECOVERY_SWIPE := true
 
 # Charging mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
