@@ -90,18 +90,18 @@ struct pcm_config pcm_config_in = {
 };
 
 struct pcm_config pcm_config_sco = {
-    .channels = 2,
+    .channels = 1,
     .rate = 8000,
-    .period_size = 2048,
-    .period_count = 6,
+    .period_size = 128,
+    .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
 };
 
 struct pcm_config pcm_config_sco_wide = {
-    .channels = 2,
+    .channels = 1,
     .rate = 16000,
-    .period_size = 2048,
-    .period_count = 6,
+    .period_size = 128,
+    .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
 };
 
