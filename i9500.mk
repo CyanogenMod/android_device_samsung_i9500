@@ -165,6 +165,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.hsxpa=1 \
     ro.ril.gprsclass=10
 
+# dex-opt to cache
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dexopt-data-only=0
+
 # System properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
