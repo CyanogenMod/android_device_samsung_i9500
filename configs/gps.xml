@@ -19,7 +19,7 @@
 
        SuplEnable="true"
        SuplUseApn="false"
-       SuplTlsCertPath="/system/bin/gps.cer"
+       SuplTlsCertPath="/system/etc/gps.cer"
        SuplTlsEnable="false"
        SuplUT1Seconds="20"
        SuplUT2Seconds="20"
