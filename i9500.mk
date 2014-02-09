@@ -92,6 +92,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     keystore.exynos5
 
+PRODUCT_TAGS += dalvik.gc.type-precise
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.universal5410
