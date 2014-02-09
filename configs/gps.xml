@@ -9,10 +9,10 @@
        NvStorageDir="/data/system/gps/"
        FactoryTestFilePath="/data/"
 
-       Log="JAVA"
        LogDirectory="/storage/sdcard0/gps/broadcom/storage"
 
-       TISEnabled="true"
+       WakeLock="geo"
+
        LPmode="false"
        CpColdStart="false"
        CpGuardTimeSec="1"
