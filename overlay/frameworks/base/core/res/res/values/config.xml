@@ -199,9 +199,19 @@
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
         <item>10</item>
-        <item>50</item>
-        <item>80</item>
-        <item>300</item>
+        <item>40</item>
+        <item>70</item>
+        <item>100</item>
+        <item>130</item>
+        <item>160</item>
+        <item>190</item>
+        <item>220</item>
+        <item>250</item>
+        <item>280</item>
+        <item>310</item>
+        <item>340</item>
+        <item>390</item>
+        <item>450</item>
         <item>500</item>
     </integer-array>
 
@@ -211,10 +221,20 @@
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
         <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
         <item>60</item>
+        <item>70</item>
+        <item>80</item>
         <item>100</item>
-        <item>150</item>
+        <item>120</item>
+        <item>140</item>
+        <item>160</item>
+        <item>180</item>
         <item>200</item>
+        <item>220</item>
+        <item>240</item>
         <item>255</item>
     </integer-array>
 
@@ -223,6 +243,21 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessButtonBacklightValues">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
         <item>1</item>
         <item>1</item>
         <item>1</item>
@@ -253,5 +288,8 @@
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
+
+    <!-- Boolean to enable stk functionality on Samsung phones -->
+    <bool name="config_samsung_stk">true</bool>
 
 </resources>
