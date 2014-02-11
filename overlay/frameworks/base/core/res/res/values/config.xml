@@ -254,4 +254,7 @@
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 
+    <!-- Boolean to enable STK functionality on Samsung phones -->
+    <bool name="config_samsung_stk">true</bool>
+
 </resources>
