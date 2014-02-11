@@ -21,7 +21,6 @@ on init
     mkdir /cache
     mkdir /efs
     mkdir /tmp
-    mkdir /dbdata
     mkdir /mnt 0775 root root
     #mount /tmp /tmp tmpfs
 
@@ -60,9 +59,6 @@ service console /system/bin/sh
 
 service playlpm /system/bin/playlpm
     user root
-
-service immvibed /system/bin/immvibed
-    oneshot
 
 service lpmkey /system/bin/lpmkey
     user root
