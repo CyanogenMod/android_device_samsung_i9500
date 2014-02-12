@@ -163,6 +163,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # System properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
+    persist.fuse_sdcard=true \
     wifi.interface=wlan0
 
 # Permissions
