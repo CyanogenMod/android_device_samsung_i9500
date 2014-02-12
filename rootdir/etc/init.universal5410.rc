@@ -117,7 +117,7 @@ on post-fs-data
     chmod 0775 /efs/.files/.mp301
 
 # SEAndroid Restore context for efs files
-    restorecon -R /efs
+    restorecon_recursive /efs
 # SEAndroid: it should be set 1 to pass CTS
     setsebool android_cts=1
     setsebool debugfs=1
