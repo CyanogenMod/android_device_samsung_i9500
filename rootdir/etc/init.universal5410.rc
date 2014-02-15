@@ -2,6 +2,9 @@ import init.universal5410.usb.rc
 import init.universal5410.wifi.rc
 
 on init
+    chmod 0701 /mnt/media_rw
+    chown root root /mnt/media_rw
+
     start watchdogd
 
      # For Absolute Persistence Partition
@@ -16,18 +19,18 @@ on init
     chmod 0750 /persdata/absolute
 
     mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage 0550 system sdcard_r
     mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /storage/usbdisk 0700 root root
-
+    mkdir /storage/sdcard1 0775 system system
+    mkdir /storage/usbdisk 0775 system system
+    mkdir /mnt/media_rw/sdcard1 0775 system system
+    mkdir /mnt/media_rw/usbdisk 0775 system system
+ 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
-
+ 
     # for backwards compatibility
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
@@ -465,15 +468,15 @@ service pvrsrvctl /system/vendor/bin/pvrsrvctl --start --no-module
     oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class late_start
-    oneshot
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -l /mnt/media_rw/sdcard1 /storage/sdcard1
+# oneshot
+ 
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -l /mnt/media_rw/usbdisk /storage/usbdisk
+ 
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
     class late_start
     disabled
 
