@@ -4,6 +4,7 @@
 
 ro.sf.lcd_density=480
 ro.zygote.disable_gl_preload=1
+debug.sf.swaprect=0
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
 nfc.app_log_level=2
