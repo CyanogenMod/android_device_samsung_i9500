@@ -15,6 +15,8 @@ on init
     chown system system /persdata/absolute
     chmod 0750 /persdata/absolute
 
+    chmod 0701 /mnt/media_rw
+
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
