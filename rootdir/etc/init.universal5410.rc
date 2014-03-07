@@ -2,19 +2,6 @@ import init.universal5410.usb.rc
 import init.universal5410.wifi.rc
 
 on init
-    start watchdogd
-
-     # For Absolute Persistence Partition
-    mkdir /persdata 0755 system system
-    mkdir /persdata/absolute 0750 system system
-
-    wait /dev/block/mmcblk0p17
-    mount ext4 /dev/block/mmcblk0p17 /persdata/absolute nosuid nodev barrier=1
-    chown system system /persdata
-    chmod 0755 /persdata
-    chown system system /persdata/absolute
-    chmod 0750 /persdata/absolute
-
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
@@ -44,12 +31,11 @@ on init
     symlink /dev/block/mmcblk0p13 /dev/mbin0
     restorecon /dev/mbin0
 
-# Vibetonz
-    export VIBE_PIPE_PATH /dev/pipes
-    mkdir /dev/pipes 0771 shell shell
-    restorecon /dev/pipes
-
     symlink /dev/block/mmcblk0p8 /dev/block/param
+
+on fs
+    mount_all /fstab.universal5410
+    setprop ro.crypto.fuse_sdcard true
 
 on post-fs
     # Increase max readahead size to 256 KB
@@ -61,48 +47,20 @@ on post-fs
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
 
-# SA, System SW, SAMSUNG create log directory
-    mkdir /data/log 0775 system log
-    mkdir /data/anr 0775 system system
-    restorecon /data/log
-    restorecon /data/anr
-    chown system log /data/log
-    setprop vold.post_fs_data_done 1
-
-    chmod 0775 /data/log
-    chmod 0775 /data/anr
-
     mkdir /data/misc/radio 0775 radio system
     mkdir /efs/imei 0775 radio system
 
-# Permissions for bluetooth
-    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-    chown bluetooth bluetooth ro.bt.bdaddr_path
-    chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+# create data/gps for GPS daemon
+    mkdir /data/gps 771 system system
+    chown system system /data/gps
 
-#[ SEC_MM_DRM
-
-    # DRM directory creation
-    mkdir /system/etc/security/.drm 0775
-    chown root root /system/etc/security/.drm
-    chmod 0775 /system/etc/security/.drm
-    restorecon /system/etc/security/.drm
-
-    # Added for Playready DRM Support
-    mkdir /data/data/.drm 0775
-    chown drm system /data/data/.drm
-    chmod 0775 /data/data/.drm
-    mkdir /data/data/.drm/.playready 0775
-    chown drm system /data/data/.drm/.playready
-    chmod 0775 /data/data/.drm/.playready
-
-    # Added drm folder to copy drm plugins
-    mkdir /system/lib/drm 0775
-    chown root root /system/lib/drm
-    chmod 0775 /system/lib/drm
-    restorecon /system/lib/drm
+# Broadcom NFC
+    mkdir /data/bcmnfc
+    mkdir /data/bcmnfc/param
+    chmod 0700 /data/bcmnfc
+    chmod 0700 /data/bcmnfc/param
+    chown nfc nfc /data/bcmnfc
+    chown nfc nfc /data/bcmnfc/param
 
     # DivX DRM
     mkdir /efs/.files 0775
@@ -118,7 +76,6 @@ on post-fs-data
 
 # SEAndroid Restore context for efs files
     restorecon_recursive /efs
-#]
 
 #-----------------------------------------------------------------------
 
@@ -137,6 +94,13 @@ on boot
 
     # 4.3 needs this
     chmod 0644 /proc/cmdline
+
+# Permissions for bluetooth
+    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
+    chown bluetooth bluetooth ro.bt.bdaddr_path
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
 
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
@@ -280,14 +244,6 @@ on boot
     chown system radio /sys/class/host_notify/usb_otg/booster
     chmod 0660 /sys/class/host_notify/usb_otg/booster
 
-# Broadcom NFC
-    mkdir /data/bcmnfc
-    mkdir /data/bcmnfc/param
-    chmod 0700 /data/bcmnfc
-    chmod 0700 /data/bcmnfc/param
-    chown nfc nfc /data/bcmnfc
-    chown nfc nfc /data/bcmnfc/param
-
 # PMS DVFS
     chown radio system /sys/power/cpufreq_table
     chown radio system /sys/power/cpufreq_max_limit
@@ -374,22 +330,7 @@ on boot
     chmod 0660 /sys/class/android_usb/android0/terminal_version
     chown system system /sys/class/android_usb/android0/terminal_version
 
-# MTP device permission
-    chmod 0660 /dev/usb_mtp_gadget
-    chown system system /dev/usb_mtp_gadget
-
-    chown system system /sys/class/timed_output/vibrator/enable
-
-# Torch
-    chown system system /sys/class/leds/torch-sec1/brightness
-    chmod 0666 /sys/class/leds/torch-sec1/brightness
-
-on fs
-    mount_all /fstab.universal5410
-    setprop ro.crypto.fuse_sdcard true
-
-    chown radio system /efs
-    chmod 0771 /efs
+# Permissions
     chown radio radio /sys/devices/virtual/misc/multipdp/waketime
     chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
     chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
@@ -429,26 +370,21 @@ on fs
     chown media audio /sys/class/2mic/es325/sleep
     chown media audio /sys/class/2mic/es325/veq
 
-# create data/gps for GPS daemon
+# GPS
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value
     chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
-    mkdir /data/gps 771 system system
-    chown system system /data/gps
 
-# delete gps Factory file
-    rm /data/gps_started
-    rm /data/glonass_started
-    rm /data/smd_started
-    rm /data/sv_cno.info
+# MTP device permission
+    chmod 0660 /dev/usb_mtp_gadget
+    chown system system /dev/usb_mtp_gadget
 
-# create filesystem if necessary
-service setup_fs /system/bin/setup_fs \
-            /dev/block/mmcblk0p21 \
-            /dev/block/mmcblk0p19
-    class core
-    user root
-    group root
-    oneshot
+    chown system system /sys/class/timed_output/vibrator/enable
+
+# Torch
+    chown system system /sys/class/leds/torch-sec1/brightness
+    chmod 0666 /sys/class/leds/torch-sec1/brightness
+
+# Service begin here
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /sbin/watchdogd 10 20
@@ -478,12 +414,6 @@ service cpboot-daemon /system/bin/cbd -d -p 13
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
 
-#sensorhubservice start
-service sensorhubservice /system/bin/sensorhubservice
-    class main
-    user system
-    group input
-
 # GPS
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     class main
@@ -494,13 +424,6 @@ service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
     class main
     user root
     disabled
-    oneshot
-
-# Vibetonz
-service immvibed /system/bin/immvibed
-    class core
-    user shell
-    group shell
     oneshot
 
 # SA, System SW, SAMSUNG
