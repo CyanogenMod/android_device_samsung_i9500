@@ -15,8 +15,6 @@ on init
     chown system system /persdata/absolute
     chmod 0750 /persdata/absolute
 
-    chmod 0701 /mnt/media_rw
-
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
@@ -62,7 +60,6 @@ on post-fs
 
 on post-fs-data
     mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
 
 # SA, System SW, SAMSUNG create log directory
     mkdir /data/log 0775 system log
@@ -121,9 +118,6 @@ on post-fs-data
 
 # SEAndroid Restore context for efs files
     restorecon_recursive /efs
-# SEAndroid: it should be set 1 to pass CTS
-    setsebool android_cts=1
-    setsebool debugfs=1
 #]
 
 #-----------------------------------------------------------------------
