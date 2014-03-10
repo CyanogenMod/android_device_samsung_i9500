@@ -1,0 +1,1 @@
+allow surfaceflinger appdomain:fd use;
