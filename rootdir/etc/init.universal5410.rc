@@ -426,6 +426,14 @@ service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
     disabled
     oneshot
 
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+    disabled
+    oneshot
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
+    disabled
+    oneshot
+
 # SA, System SW, SAMSUNG
 service bugreport /system/bin/bugmailer.sh -v
     class main
