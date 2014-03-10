@@ -493,6 +493,7 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
 service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
     class main
     user root
+    disabled
     oneshot
 
 # Vibetonz
@@ -508,6 +509,9 @@ service bugreport /system/bin/bugmailer.sh -v
     disabled
     oneshot
     keycodes 114 115 116
+
+on property:init.svc.bootanim=stopped
+    start camera_id
 
 on property:ro.dumpstate.dmesg=1
     write /proc/sys/kernel/dmesg_restrict 0
