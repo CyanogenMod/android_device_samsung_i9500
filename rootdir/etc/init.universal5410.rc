@@ -59,7 +59,7 @@ on post-fs
     chmod 0664 /sys/block/mmcblk0/bkops_en
 
 on post-fs-data
-    mkdir /data/media 0775 media_rw media_rw
+    mkdir /data/media 0770 media_rw media_rw
 
 # SA, System SW, SAMSUNG create log directory
     mkdir /data/log 0775 system log
