@@ -51,8 +51,7 @@ on post-fs-data
     mkdir /efs/imei 0775 radio system
 
 # create data/gps for GPS daemon
-    mkdir /data/gps 771 system system
-    chown system system /data/gps
+    mkdir /data/system/gps 771 gps system
 
 # Broadcom NFC
     mkdir /data/bcmnfc 0700 nfc nfc
@@ -409,6 +408,7 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     class main
     user gps
     group system inet net_raw
+    disabled
 
 service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
     class main
@@ -432,6 +432,8 @@ service bugreport /system/bin/bugmailer.sh -v
     keycodes 114 115 116
 
 on property:init.svc.bootanim=stopped
+    # start gpsd late to prevent it from changing /data/system
+    start gpsd
     start camera_id
 
 on property:ro.dumpstate.dmesg=1
