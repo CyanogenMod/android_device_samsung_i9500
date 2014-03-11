@@ -53,6 +53,9 @@ on post-fs-data
 # create data/gps for GPS daemon
     mkdir /data/system/gps 771 gps system
 
+# restore permissions for gps
+    mkdir /data/system 0775 system system
+
 # Broadcom NFC
     mkdir /data/bcmnfc 0700 nfc nfc
     mkdir /data/bcmnfc/param 0700 nfc nfc
