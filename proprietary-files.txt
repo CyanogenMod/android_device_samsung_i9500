@@ -42,6 +42,7 @@ vendor/lib/hw/gralloc.exynos5.so
 # LPM
 bin/lpmkey
 bin/playlpm
+lib/libQmageDecoder.so
 media/Disconnected.qmg
 media/battery_batteryerror.qmg
 media/battery_charging_5.qmg
