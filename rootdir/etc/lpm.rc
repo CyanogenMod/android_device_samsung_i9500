@@ -45,6 +45,9 @@ on boot
     hostname localhost
     domainname localdomain
 
+    start playlpm
+    start lpmkey
+
 # Services
 
 service ueventd /sbin/ueventd
@@ -52,6 +55,8 @@ service ueventd /sbin/ueventd
 
 service playlpm /system/bin/playlpm
     user root
+    disabled
 
 service lpmkey /system/bin/lpmkey
     user root
+    disabled
