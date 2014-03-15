@@ -1511,6 +1511,7 @@ static int adev_set_mode(struct audio_hw_device *dev, audio_mode_t mode)
         if (adev->in_call) {
             adev->in_call = false;
             end_voice_call(adev);
+            ril_set_call_clock_sync(&adev->ril, SOUND_CLOCK_STOP);
             if (adev->out_device & AUDIO_DEVICE_OUT_ALL_SCO)
                 end_bt_sco(adev);
             adev->input_source = AUDIO_SOURCE_DEFAULT;
