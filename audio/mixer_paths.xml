@@ -32,7 +32,7 @@ INPUT_CHANNEL_MAP {
   <ctl name="SPKOUTR NG SPKOUTR Switch" value="0" />
   <ctl name="SPKDAT1L NG SPKDAT1L Switch" value="0" />
   <ctl name="SPKDAT1R NG SPKDAT1R Switch" value="0" />
-  <ctl name="Noise Gate Threshold Volume" value="3" />
+  <ctl name="Noise Gate Threshold Volume" value="0" />
 
   <!-- Analog output AMP -->
   <!-- AP Side is mixed to Input 1 of each out mixer -->
@@ -107,8 +107,8 @@ INPUT_CHANNEL_MAP {
   <ctl name="AIF1TX2 Input 2" value="ASRC2R" />
 
   <!-- LHPF1 & 2 filter -->
-  <ctl name="LHPF1 COEFF FILTER" value="64Hz" />
-  <ctl name="LHPF2 COEFF FILTER" value="64Hz" />
+  <ctl name="LHPF1 COEFF FILTER" value="130Hz" />
+  <ctl name="LHPF2 COEFF FILTER" value="130Hz" />
 
   <!-- common digital volume -->
   <!-- don't change this common volume -->
@@ -240,21 +240,21 @@ INPUT_CHANNEL_MAP {
   <path name="builtin-mic">
     <ctl name="Main Mic Switch" value="1" />
     <ctl name="LHPF1 Input 1" value="IN1L" />
-    <ctl name="IN1L Volume" value="30" />
+    <ctl name="IN1L Volume" value="18" />
     <ctl name="IN1L Digital Volume" value="150" />
   </path>
 
   <path name="back-mic">
     <ctl name="Sub Mic Switch" value="1" />
     <ctl name="LHPF2 Input 1" value="IN2L" />
-    <ctl name="IN2L Volume" value="30" />
+    <ctl name="IN2L Volume" value="17" />
     <ctl name="IN2L Digital Volume" value="150" />
   </path>
 
   <path name="third-mic">
     <ctl name="3rd Mic Switch" value="1" />
     <ctl name="LHPF1 Input 1" value="IN2R" />
-    <ctl name="IN2R Volume" value="30" />
+    <ctl name="IN2R Volume" value="20" />
     <ctl name="IN2R Digital Volume" value="150" />
   </path>
 
