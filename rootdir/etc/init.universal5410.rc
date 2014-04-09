@@ -401,7 +401,7 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /s
     class late_start
     disabled
 
-service cpboot-daemon /system/bin/cbd -d -p 13
+service cpboot-daemon /system/bin/cbd -d -t xmm626 -bh -mh -p 13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
