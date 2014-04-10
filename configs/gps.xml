@@ -30,8 +30,6 @@
        LbsServer="BCMLS2.glpals.com"
        HttpSyncLto="true"
        LtoDir="/data/system/gps/"
-       LtoSyncThresholdDays="1"
-       LbsTAC="10101401"
 
        IgnoreJniTime="true"
        AssertEnabled="false"
