@@ -40,8 +40,7 @@ lib/libwrappergps.so
 vendor/lib/hw/gralloc.exynos5.so
 
 # LPM
-bin/lpmkey
-bin/playlpm
+bin/lpm
 lib/libQmageDecoder.so
 media/Disconnected.qmg
 media/battery_batteryerror.qmg
@@ -112,7 +111,7 @@ lib/libsensirion_j1.so
 
 # Widevine
 vendor/lib/libwvm.so
-lib/libWVStreamControlAPI_L1.so
+vendor/lib/libWVStreamControlAPI_L1.so
 
 # Wifi
 etc/wifi/bcmdhd_apsta.bin

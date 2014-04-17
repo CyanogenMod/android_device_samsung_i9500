@@ -33,6 +33,8 @@ on init
 
     symlink /dev/block/mmcblk0p8 /dev/block/param
 
+    symlink /sys/devices/platform/s5p-ehci/ehci_power /dev/ehci_power
+
 on fs
     mount_all /fstab.universal5410
     setprop ro.crypto.fuse_sdcard true
@@ -401,7 +403,7 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /s
     class late_start
     disabled
 
-service cpboot-daemon /system/bin/cbd -d -t xmm626 -bh -mh -p 13
+service cpboot-daemon /system/bin/cbd -d -txmm626 -bh -mh -p 13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
