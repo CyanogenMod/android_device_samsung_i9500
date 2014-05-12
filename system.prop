@@ -3,6 +3,7 @@
 #
 
 # Audio
+af.fast_track_multiplier=1
 audio.offload.disable=1
 
 # Camera
