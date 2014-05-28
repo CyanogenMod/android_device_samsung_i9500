@@ -8,3 +8,6 @@ debug.sf.swaprect=0
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
 nfc.app_log_level=2
+ro.ril.hsdpa.category=14
+ro.ril.hsupa.category=6
+ro.ril.hsxpa=4
