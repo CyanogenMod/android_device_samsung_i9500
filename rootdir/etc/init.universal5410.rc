@@ -71,6 +71,8 @@ on post-fs-data
 # SEAndroid Restore context for efs files
     restorecon_recursive /efs
 
+    setprop vold.post_fs_data_done 1
+
 #-----------------------------------------------------------------------
 
 on boot
@@ -88,6 +90,25 @@ on boot
 
     # 4.3 needs this
     chmod 0644 /proc/cmdline
+
+# Define TCP buffer sizes for various networks
+# ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.wifi 524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.lte 524288,1048576,5120000,262144,524288,1220608
+    setprop net.tcp.buffersize.hspap 4096,174760,1572864,4096,16384,1220608
+    setprop net.tcp.buffersize.hspa 4096,174760,1572864,4096,16384,1220608
+    setprop net.tcp.buffersize.hsupa 4096,174760,1572864,4096,16384,1220608
+    setprop net.tcp.buffersize.hsdpa 4096,174760,1572864,4096,16384,1220608
+    setprop net.tcp.buffersize.umts 4096,174760,1572864,4096,16384,110208
+    setprop net.tcp.buffersize.edge 4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs 4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.evdo_b 4094,87380,262144,4096,16384,262144
+
+# Assign TCP buffer thresholds to be ceiling value of technology maximums
+# Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max 1220608
+    write /proc/sys/net/core/wmem_max 1220608
 
 # Permissions for bluetooth
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
@@ -403,7 +424,7 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /s
     class late_start
     disabled
 
-service cpboot-daemon /system/bin/cbd -d -txmm626 -bh -mh -p 13
+service cpboot-daemon /system/bin/cbd -d -t xmm626 -b h -m h -p 13
     class main
     user root
     group radio cache inet misc audio sdcard_rw log sdcard_r shell
@@ -440,6 +461,10 @@ on property:init.svc.bootanim=stopped
     # start gpsd late to prevent it from changing /data/system
     start gpsd
     start camera_id
+
+    # Overwrite ActivityManager's low memory killer settings
+    write /sys/module/lowmemorykiller/parameters/adj "2,4,7,8,9,12"
+    write /sys/module/lowmemorykiller/parameters/minfree "15360,18432,21504,23040,24576,30720"
 
 on property:ro.dumpstate.dmesg=1
     write /proc/sys/kernel/dmesg_restrict 0
