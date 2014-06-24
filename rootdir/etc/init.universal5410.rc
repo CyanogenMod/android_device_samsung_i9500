@@ -68,6 +68,10 @@ on post-fs-data
     mkdir /efs/.files/.dm33 0775 media system
     mkdir /efs/.files/.mp301 0775 media system
 
+    # TZ Playready DRM
+    mkdir /efc/drm 0700 drm system
+    mkdir /efs/drm/playready 0775 drm system
+
 # SEAndroid Restore context for efs files
     restorecon_recursive /efs
 
@@ -435,6 +439,25 @@ service bugreport /system/bin/bugmailer.sh -v
     disabled
     oneshot
     keycodes 114 115 116
+
+# service for TZPR provisioning version check app
+service scranton_RD /system/bin/scranton_RD
+     class main
+     user root
+     disabled
+     oneshot
+
+# start for TZPR provisioning version check app
+on property:sys.mobicoredaemon.enable=true
+    start scranton_RD
+
+# MobiCore startup
+service mobicore /system/bin/mcDriverDaemon \
+    -r /system/vendor/firmware/mcRegistry/FFFFFFF000000000000000000000001.drbin \
+    -r /system/vendor/firmware/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+    class core
+    user system
+    group system
 
 on property:init.svc.bootanim=stopped
     # start gpsd late to prevent it from changing /data/system
