@@ -112,6 +112,7 @@ app/mcRegistry/ffffffff00000000000000000000000f.tlbin:vendor/firmware/mcRegistry
 app/mcRegistry/ffffffff000000000000000000000010.tlbin:vendor/firmware/mcRegistry/ffffffff000000000000000000000010.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin:vendor/firmware/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000a.tlbin:vendor/firmware/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+bin/scranton_RD
 
 # NFC
 vendor/firmware/bcm2079xB4_firmware.ncd
