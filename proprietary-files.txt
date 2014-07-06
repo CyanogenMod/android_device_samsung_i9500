@@ -96,6 +96,7 @@ vendor/firmware/setfile_gumi_imx135.bin
 vendor/firmware/setfile_sec_imx135.bin
 
 # Mobicore
+bin/scranton_RD
 app/mcRegistry/00060308060501020000000000000000.tlbin:vendor/firmware/mcRegistry/00060308060501020000000000000000.tlbin
 app/mcRegistry/02010000080300030000000000000000.tlbin:vendor/firmware/mcRegistry/02010000080300030000000000000000.tlbin
 app/mcRegistry/07010000000000000000000000000000.tlbin:vendor/firmware/mcRegistry/07010000000000000000000000000000.tlbin
