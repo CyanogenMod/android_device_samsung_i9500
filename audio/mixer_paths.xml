@@ -213,10 +213,12 @@ INPUT_CHANNEL_MAP {
 
   <path name="earpiece">
     <ctl name="RCV Switch" value="1" />
+    <ctl name="EPOUT Digital Volume" value="128" />
   </path>
 
   <path name="headphones">
     <ctl name="HP Switch" value="1" />
+    <ctl name="HPOUT1 Digital Volume" value="118" />
   </path>
 
   <path name="sco-out">
@@ -296,6 +298,7 @@ INPUT_CHANNEL_MAP {
       <ctl name="AIF2 Mode" value="Slave" />
       <ctl name="HPOUT1L Input 2" value="ASRC2L" />
       <ctl name="HPOUT1R Input 2" value="ASRC2R" />
+      <ctl name="HPOUT1 Digital Volume" value="100" />
   </path>
 
   <path name="media-speaker">
@@ -333,6 +336,7 @@ INPUT_CHANNEL_MAP {
   <path name="speaker-and-headphones">
       <path name="speaker" />
       <path name="headphones" />
+      <ctl name="HPOUT1 Digital Volume" value="80" />
   </path>
 
   <path name="bt-sco-headset">
