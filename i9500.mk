@@ -55,9 +55,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth/bcm4335_prepatch.hcd:system/vendor/firmware/bcm4335_prepatch.hcd
 
 # Camera
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/init.exynos.cam.sh:system/etc/init.exynos.cam.sh
-
 PRODUCT_PACKAGES += \
     camera.universal5410 \
     libhwjpeg

@@ -55,6 +55,9 @@ on post-fs-data
 # create data/gps for GPS daemon
     mkdir /data/system/gps 771 gps system
 
+# create camera directory
+    mkdir /data/camera 0700 media media
+
 # restore permissions for gps
     mkdir /data/system 0775 system system
 
@@ -415,12 +418,6 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     disabled
-
-service camera_id /system/bin/sh /system/etc/init.exynos.cam.sh
-    class main
-    user root
-    disabled
-    oneshot
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     disabled
