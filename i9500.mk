@@ -47,6 +47,7 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.primary.universal5410 \
     audio.usb.default \
+    audio.r_submix.default \
     mixer_paths.xml \
     tinymix
 
