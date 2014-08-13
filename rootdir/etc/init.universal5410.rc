@@ -447,7 +447,7 @@ on property:sys.mobicoredaemon.enable=true
 
 # MobiCore startup
 service mobicore /system/bin/mcDriverDaemon \
-    -r /system/vendor/firmware/mcRegistry/FFFFFFF000000000000000000000001.drbin \
+    -r /system/vendor/firmware/mcRegistry/FFFFFFFF000000000000000000000001.drbin \
     -r /system/vendor/firmware/mcRegistry/ffffffffd0000000000000000000000a.tlbin
     class core
     user system
