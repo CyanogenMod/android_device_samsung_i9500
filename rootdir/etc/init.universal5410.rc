@@ -364,9 +364,27 @@ on boot
     chown system radio /sys/class/audio/earjack/state
 
 # Audio 2 MIC (Audience)
-    chown media audio /sys/class/2mic/es325/preset
-    chown media audio /sys/class/2mic/es325/sleep
-    chown media audio /sys/class/2mic/es325/veq
+    # global switch for voice processing effects
+    chown root audio /sys/class/2mic/es325/voice_processing
+    chmod 0660 /sys/class/2mic/es325/voice_processing
+    # voice processing chip sleep
+    chown root audio /sys/class/2mic/es325/sleep
+    chmod 0660 /sys/class/2mic/es325/sleep
+    # voice processing usecase preset
+    chown root audio /sys/class/2mic/es325/preset
+    chmod 0660 /sys/class/2mic/es325/preset
+    # voice processing noise suppression level
+    chown root audio /sys/class/2mic/es325/tx_ns_level
+    chmod 0660 /sys/class/2mic/es325/tx_ns_level
+    # voice processing AGC enable (TX)
+    chown root audio /sys/class/2mic/es325/tx_agc_enable
+    chmod 0660 /sys/class/2mic/es325/tx_agc_enable
+    # voice processing AEC enable
+    chown root audio /sys/class/2mic/es325/aec_enable
+    chmod 0660 /sys/class/2mic/es325/aec_enable
+    # voice processing VEQ
+    chown root audio /sys/class/2mic/es325/veq
+    chmod 0660 /sys/class/2mic/es325/veq
 
 # GPS
     chown root system /sys/class/sec/gps/GPS_PWR_EN/value
