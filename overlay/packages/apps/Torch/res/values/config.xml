@@ -25,9 +25,13 @@
 
     <!-- Lowest setting -->
     <integer name="valueOn">5</integer>
+
     <!-- Middle setting -->
     <integer name="valueHigh">15</integer>
-    <!-- Highest setting, leave -1 if it doesn't exist -->
-    <integer name="valueDeathRay">-1</integer>
 
+    <!-- Highest setting, leave -1 if it doesn't exist -->
+    <integer name="valueDeathRay">1</integer>
+
+    <!-- If the device supports high brightness mode, enable this -->
+    <bool name="hasHighBrightness">true</bool>
 </resources>
