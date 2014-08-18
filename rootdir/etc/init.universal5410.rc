@@ -396,6 +396,10 @@ on boot
 
     chown system system /sys/class/timed_output/vibrator/enable
 
+# Vibrator
+    chmod 0644 /sys/vibrator/pwm_val
+    chown system system /sys/vibrator/pwm_val
+
 # Torch
     chown system system /sys/class/leds/torch-sec1/brightness
     chmod 0660 /sys/class/leds/torch-sec1/brightness
