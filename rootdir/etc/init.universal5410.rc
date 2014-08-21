@@ -409,7 +409,7 @@ on boot
     chown system system /sys/class/timed_output/vibrator/pwm_threshold
 
 # Torch
-    chown system system /sys/class/leds/torch-sec1/brightness
+    chown system camera /sys/class/leds/torch-sec1/brightness
     chmod 0660 /sys/class/leds/torch-sec1/brightness
 
 # Service begin here
