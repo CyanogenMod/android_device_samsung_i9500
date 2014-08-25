@@ -2,47 +2,27 @@ on early-init
     start ueventd
 
 on init
-    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-    export LD_LIBRARY_PATH /vendor/lib:/system/lib
-    export ANDROID_ROOT /system
-    export ANDROID_DATA /data
-    export EXTERNAL_STORAGE /sdcard
 
-    symlink /system/etc /etc
+sysclktz 0
 
-    # Right now vendor lives on the same filesystem as system,
-    # but someday that may change.
-    symlink /system/vendor /vendor
+# Set cpu governor to powersave while in charging mode
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor powersave
 
-    mkdir /sdcard
-    mkdir /preload
-    mkdir /system
-    mkdir /data
-    mkdir /cache
-    mkdir /efs
-    mkdir /tmp
-    mkdir /mnt 0775 root root
-    #mount /tmp /tmp tmpfs
+# Set lowest cpu freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 250000
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 250000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 250000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 250000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 250000
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 250000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 250000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 250000
+    write /sys/devices/system/cpu/cpufreq/iks-cpufreq/max_freq 250000
+    write /sys/devices/system/cpu/cpufreq/iks-cpufreq/min_freq 250000
 
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 18D1
-    write /sys/class/android_usb/android0/idProduct D001
-    write /sys/class/android_usb/android0/functions adb
-    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
-
-on early-fs
-    mount ext4 /dev/block/mmcblk0p20 /system ro wait noatime
-    mount ext4 /dev/block/mmcblk0p3 /efs noatime nosuid nodev journal_async_commit
-
-    mkdir /data/log 0777
-
-    chmod 0666 /dev/log/radio
-    chmod 0666 /dev/log/main
-    chmod 0666 /dev/log/event
-
-on boot
 # Disable extra CPUs
     write /sys/devices/system/cpu/cpu1/online 0
     write /sys/devices/system/cpu/cpu2/online 0
@@ -51,19 +31,25 @@ on boot
     chmod 444 /sys/devices/system/cpu/cpu2/online
     chmod 444 /sys/devices/system/cpu/cpu3/online
 
-# CPU Frequency Governor
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
-
 # EHCI runtime enable for LPA
     write /sys/devices/platform/s5p-ehci/power/control auto
 
-    start playlpm
+# Required by KNOX bootloader
+on charger
+    class_start core
 
-# Services
+# Required by KNOX-free bootloader
+on boot
+    class_start core
+
+###
+# Daemon processes to be run by init.
+###
 
 service ueventd /sbin/ueventd
+    class core
     critical
 
-service playlpm /system/bin/lpm
+service charger /charger
+    class core
     user root
-    disabled
