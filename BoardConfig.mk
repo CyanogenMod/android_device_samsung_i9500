@@ -77,6 +77,9 @@ COMMON_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
 # CMHW
 BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
 
+# CMHW
+BOARD_HARDWARE_CLASS += device/samsung/i9500/cmhw
+
 # Graphics
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
