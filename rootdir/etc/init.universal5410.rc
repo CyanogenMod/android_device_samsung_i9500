@@ -104,7 +104,12 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
 
 # Permissions for TouchScreen
+    chmod 0660 /sys/class/sec/tsp/cmd
+    chmod 0660 /sys/class/sec/tsp/cmd_result
+    chmod 0660 /sys/class/sec/tsp/cmd_list
     chown system radio /sys/class/sec/tsp/cmd
+    chown system radio /sys/class/sec/tsp/cmd_result
+    chown system radio /sys/class/sec/tsp/cmd_list
     chown system radio /sys/class/sec/sec_touchkey/glove_mode
     chown system radio /sys/class/sec/sec_touchkey/flip_mode
 
