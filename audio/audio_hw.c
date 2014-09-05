@@ -309,6 +309,7 @@ static void adev_set_call_audio_path(struct audio_device *adev);
  * stream_out mutexes.
  */
 
+/* must be called with hw device mutex locked */
 static void select_devices(struct audio_device *adev)
 {
     int output_device_id = get_output_device_id(adev->out_device);
@@ -831,6 +832,7 @@ static audio_devices_t output_devices(struct stream_out *out)
     return devices;
 }
 
+/* must be called with out stream and hw device mutex locked */
 static int do_out_standby(struct stream_out *out)
 {
     struct audio_device *adev = out->dev;
@@ -1126,6 +1128,7 @@ static int in_set_format(struct audio_stream *stream, audio_format_t format)
     return -ENOSYS;
 }
 
+/* must be called with in stream and hw device mutex locked */
 static int do_in_standby(struct stream_in *in)
 {
     struct audio_device *adev = in->dev;
