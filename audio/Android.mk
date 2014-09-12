@@ -41,7 +41,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libaudience_voicefx
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_SRC_FILES:= eS325VoiceProcessing.cpp
+LOCAL_SRC_FILES := eS325VoiceProcessing.cpp
 
 LOCAL_C_INCLUDES += \
 	$(call include-path-for, audio-effects)
