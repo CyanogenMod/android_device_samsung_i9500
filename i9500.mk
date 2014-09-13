@@ -137,6 +137,13 @@ PRODUCT_PACKAGES += \
     libsecril-client \
     libsecril-client-sap
 
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.ril_class=SamsungExynos4RIL \
+    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
+    ro.telephony.call_ring.multiple=false \
+    ro.telephony.call_ring.delay=3000
+
 # Samsung
 PRODUCT_PACKAGES += \
     SamsungServiceMode
