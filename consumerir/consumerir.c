@@ -40,9 +40,9 @@ static int consumerir_transmit(struct consumerir_device *dev,
 {
     int strlen;
     int i;
-    char buffer[1024];
+    char buffer[2048];
 
-    memset(buffer, 0, 1024);
+    memset(buffer, 0, 2048);
 
     /* write the header */
     strlen = sprintf(buffer, "%d,", carrier_freq);
