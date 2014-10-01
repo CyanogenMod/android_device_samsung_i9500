@@ -47,10 +47,13 @@ static int consumerir_transmit(struct consumerir_device *dev,
     /* write the header */
     strlen = sprintf(buffer, "%d,", carrier_freq);
 
+    /* calculate factor of conversion from microseconds to pulses */
+    float factor = 1000000 / carrier_freq;
+
     /* write out the timing pattern */
     for (i = 0; i < pattern_len; i++)
     {
-        strlen += sprintf(buffer + strlen, "%d,", pattern[i]);
+        strlen += sprintf(buffer + strlen, "%d,", (int) (pattern[i]/factor));
     }
 
     buffer[strlen - 1] = 0;
