@@ -476,6 +476,11 @@ service scranton_RD /system/bin/scranton_RD
      disabled
      oneshot
 
+service sensorhubservice /system/bin/sensorhubservice
+    class main
+    user system
+    group input
+
 # start for TZPR provisioning version check app
 on property:sys.mobicoredaemon.enable=true
     start scranton_RD
