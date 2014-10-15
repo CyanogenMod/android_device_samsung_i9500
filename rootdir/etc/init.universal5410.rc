@@ -417,6 +417,9 @@ on boot
     chown system camera /sys/class/leds/torch-sec1/brightness
     chmod 0660 /sys/class/leds/torch-sec1/brightness
 
+# Set Standard mDNIe mode	
+    write /sys/class/mdnie/mdnie/mode 0
+
 # Service begin here
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
