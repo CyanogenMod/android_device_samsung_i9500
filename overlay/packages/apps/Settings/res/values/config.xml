@@ -15,6 +15,13 @@
 -->
 
 <resources>
+    <!-- Galaxy S4 Exynos SAR Levels -->
+    <bool name="config_show_sar_enable" translatable="false">true</bool>
+    <!-- Maximum Specific Absorption Rate for head -->
+    <string name="sar_head_level" translatable="false">0.85</string>
+    <!-- Maximum Specific Absorption Rate for body -->
+    <string name="sar_body_level" translatable="false">1.55</string>
+
     <!-- Volume Rocker Wake -->
     <bool name="config_show_volumeRockerWake">true</bool>
 </resources>
