@@ -3494,6 +3494,67 @@ typedef struct {
  */
 #define RIL_REQUEST_SET_UNSOL_CELL_INFO_LIST_RATE 110
 
+/**
+ * RIL_REQUEST_SET_INITIAL_ATTACH_APN
+ *
+ * Set an apn to initial attach network
+ * "response" is NULL
+ *
+ * Valid errors:
+ *  SUCCESS
+ *  RADIO_NOT_AVAILABLE (radio resetting)
+ *  GENERIC_FAILURE
+ *  SUBSCRIPTION_NOT_AVAILABLE
+ */
+#define RIL_REQUEST_SET_INITIAL_ATTACH_APN 111
+
+/**
+ * RIL_REQUEST_IMS_REGISTRATION_STATE
+ *
+ * Request current IMS registration state
+ *
+ * "data" is NULL
+ *
+ * "response" is int *
+ * ((int *)response)[0] is registration state:
+ *              0 - Not registered
+ *              1 - Registered
+ *
+ * If ((int*)response)[0] is = 1, then ((int *) response)[1]
+ * must follow with IMS SMS format:
+ *
+ * ((int *) response)[1] is of type RIL_RadioTechnologyFamily
+ *
+ * Valid errors:
+ *  SUCCESS
+ *  RADIO_NOT_AVAILABLE
+ *  GENERIC_FAILURE
+ */
+#define RIL_REQUEST_IMS_REGISTRATION_STATE 112
+
+/**
+ * RIL_REQUEST_IMS_SEND_SMS
+ *
+ * Send a SMS message over IMS
+ *
+ * "data" is const RIL_IMS_SMS_Message *
+ *
+ * "response" is a const RIL_SMS_Response *
+ *
+ * Based on the return error, caller decides to resend if sending sms
+ * fails. SMS_SEND_FAIL_RETRY means retry, and other errors means no retry.
+ * In case of retry, data is encoded based on Voice Technology available.
+ *
+ * Valid errors:
+ *  SUCCESS
+ *  RADIO_NOT_AVAILABLE
+ *  SMS_SEND_FAIL_RETRY
+ *  FDN_CHECK_FAILURE
+ *  GENERIC_FAILURE
+ *
+ */
+
+
 /* SAMSUNG REQUESTS */
 #define RIL_REQUEST_GET_CELL_BROADCAST_CONFIG 10002
 
@@ -4139,6 +4200,14 @@ typedef struct {
     RIL_Cancel onCancel;
     RIL_GetVersion getVersion;
 } RIL_RadioFunctions;
+
+typedef struct {
+    char *apn;
+    char *protocol;
+    int authtype;
+    char *username;
+    char *password;
+} RIL_InitialAttachApn;
 
 #ifdef RIL_SHLIB
 struct RIL_Env {
