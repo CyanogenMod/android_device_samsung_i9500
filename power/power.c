@@ -25,12 +25,35 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
+#define TSP_POWER "/sys/class/input/input1/enabled"
+
+static void sysfs_write(char *path, char *s) {
+    char buf[80];
+    int len;
+    int fd = open(path, O_WRONLY);
+
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+        return;
+    }
+
+    len = write(fd, s, strlen(s));
+    if (len < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error writing to %s: %s\n", path, buf);
+    }
+
+    close(fd);
+}
+
 static void power_init(struct power_module *module)
 {
 }
 
 static void power_set_interactive(struct power_module *module, int on)
 {
+    sysfs_write(TSP_POWER, on ? "1" : "0");
 }
 
 static void power_hint(struct power_module *module, power_hint_t hint,
