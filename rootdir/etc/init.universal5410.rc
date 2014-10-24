@@ -107,11 +107,13 @@ on boot
     chmod 0660 /sys/class/sec/tsp/cmd
     chmod 0660 /sys/class/sec/tsp/cmd_result
     chmod 0660 /sys/class/sec/tsp/cmd_list
+    chmod 0660 /sys/class/input/input1/enabled
     chown system radio /sys/class/sec/tsp/cmd
     chown system radio /sys/class/sec/tsp/cmd_result
     chown system radio /sys/class/sec/tsp/cmd_list
     chown system radio /sys/class/sec/sec_touchkey/glove_mode
     chown system radio /sys/class/sec/sec_touchkey/flip_mode
+    chown system system /sys/class/input/input1/enabled
 
 # Permissions for Touchkey
     chown system radio /sys/class/sec/sec_touchkey/enable_disable
