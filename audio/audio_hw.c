@@ -517,12 +517,9 @@ static void adev_set_wb_amr_callback(void *data, int enable)
 
         /* reopen the modem PCMs at the new rate */
         if (adev->in_call) {
-#if 0
-            /* TODO: set rate properly */
             end_voice_call(adev);
             select_devices(adev);
             start_voice_call(adev);
-#endif
         }
     }
     pthread_mutex_unlock(&adev->lock);
