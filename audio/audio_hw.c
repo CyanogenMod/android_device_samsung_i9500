@@ -1706,8 +1706,11 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->hw_device.set_master_mute = NULL;
     adev->hw_device.get_master_mute = NULL;
 
+    /* Set the default route before the PCM stream is opened */
+    pthread_mutex_lock(&adev->lock);
     adev->ar = audio_route_init(MIXER_CARD, NULL);
     adev->input_source = AUDIO_SOURCE_DEFAULT;
+    select_devices(adev);
     /* adev->cur_route_id initial value is 0 and such that first device
      * selection is always applied by select_devices() */
 
@@ -1717,9 +1720,11 @@ static int adev_open(const hw_module_t* module, const char* name,
 
     adev->mode = AUDIO_MODE_NORMAL;
     adev->voice_volume = 1.0f;
+    adev->wb_amr = false;
 
     /* RIL */
     ril_open(&adev->ril);
+    pthread_mutex_unlock(&adev->lock);
     /* register callback for wideband AMR setting */
     ril_register_set_wb_amr_callback(adev_set_wb_amr_callback, (void *)adev);
 
