@@ -125,6 +125,9 @@
          config to 7. -->
     <integer name="config_deviceHardwareKeys">7</integer>
 
+     <!-- Hardware keys on/off option -->
+     <bool name="config_hwKeysPref">true</bool>
+
     <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- Enable flashlight -->
