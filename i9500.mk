@@ -87,6 +87,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     pvrsrvctl
 
+# HWC
+PRODUCT_PACKAGES += \
+    libcorkscrew
+
 # IR
 PRODUCT_PACKAGES += \
     consumerir.universal5410
