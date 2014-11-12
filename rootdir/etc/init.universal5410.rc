@@ -424,7 +424,7 @@ service watchdogd /sbin/watchdogd 10 20
     class core
 
 # 3D init
-service pvrsrvctl /system/vendor/bin/pvrsrvctl --start --no-module
+service pvrsrvctl /system/bin/pvrsrvctl
     class core
     user root
     group root

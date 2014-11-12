@@ -29,7 +29,6 @@ vendor/lib/libPVRScopeServices.so
 vendor/lib/libsrv_init.so
 vendor/lib/libsrv_um.so
 vendor/lib/libusc.so
-vendor/bin/pvrsrvctl
 
 # GPS
 bin/gpsd

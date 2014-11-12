@@ -83,6 +83,10 @@ PRODUCT_PACKAGES += \
     hwcomposer.exynos5 \
     libion
 
+# GPU
+PRODUCT_PACKAGES += \
+    pvrsrvctl
+
 # IR
 PRODUCT_PACKAGES += \
     consumerir.universal5410
