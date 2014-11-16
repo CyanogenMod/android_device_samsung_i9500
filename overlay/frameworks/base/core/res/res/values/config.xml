@@ -127,9 +127,6 @@
 
     <bool name="config_enableWifiDisplay">true</bool>
 
-    <!-- Enable flashlight -->
-    <bool name="config_enableTorch">true</bool>
-
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
             1 - Menu key
