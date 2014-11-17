@@ -35,6 +35,7 @@ extern "C" {
 #define RIL_VERSION_MIN 6 /* Minimum RIL_VERSION supported */
 #endif
 
+#define MAX_SOCKET_NAME_LENGTH 6
 #define CDMA_ALPHA_INFO_BUFFER_LENGTH 64
 #define CDMA_NUMBER_INFO_BUFFER_LENGTH 81
 
