@@ -386,6 +386,9 @@ static void start_bt_sco(struct audio_device *adev)
 
     ALOGV("%s: Opening SCO PCMs", __func__);
 
+    //Remove this once WB_AMR audio rate switching works !
+    adev->wb_amr = 1;
+
     if (adev->wb_amr)
         sco_config = &pcm_config_sco_wide;
     else
@@ -449,6 +452,9 @@ static int start_voice_call(struct audio_device *adev)
     }
 
     ALOGV("%s: Opening voice PCMs", __func__);
+
+    //Remove this once WB_AMR audio rate switching works !
+    adev->wb_amr = 1;
 
     if (adev->wb_amr)
         voice_config = &pcm_config_voice_wide;
@@ -515,12 +521,15 @@ static void adev_set_wb_amr_callback(void *data, int enable)
     if (adev->wb_amr != enable) {
         adev->wb_amr = enable;
 
+
         /* reopen the modem PCMs at the new rate */
-        if (adev->in_call) {
+	//FIX ME. THIS DOESN'T WORK CORRECTLY YET, AUDIO IS MUTED VERY OFTEN WHEN SWITCHING RATE
+     /*   if (adev->in_call) {
             end_voice_call(adev);
             select_devices(adev);
             start_voice_call(adev);
         }
+     */
     }
     pthread_mutex_unlock(&adev->lock);
 }
