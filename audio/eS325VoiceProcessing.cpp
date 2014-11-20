@@ -1089,7 +1089,7 @@ int Adnc_SetAutomaticGainControlInt_l(bool agc_on)
     if (agc_on) {
         write(eS325_ctrl.fd[ES325_CTRL_TX_AGC_ENABLE], ES325_AGC_ON, strlen(ES325_AGC_ON));
     } else {
-        write(eS325_ctrl.fd[ES325_CTRL_TX_AGC_ENABLE], ES325_AEC_OFF, strlen(ES325_AGC_OFF));
+        write(eS325_ctrl.fd[ES325_CTRL_TX_AGC_ENABLE], ES325_AGC_OFF, strlen(ES325_AGC_OFF));
     }
     return 0;
 }
