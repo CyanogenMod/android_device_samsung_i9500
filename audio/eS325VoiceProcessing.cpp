@@ -38,7 +38,7 @@ extern "C" {
 // types of pre processing modules
 enum adnc_pfx_id
 {
-    PFX_ID_AEC = 0,  // Acoustic Echo Cancellation
+    PFX_ID_AEC,      // Acoustic Echo Cancellation
     PFX_ID_NS,       // Noise Suppression
     PFX_ID_AGC,      // Automatic Gain Control
     PFX_ID_CNT
