@@ -690,8 +690,7 @@ static int get_next_buffer(struct resampler_buffer_provider *buffer_provider,
     buffer->frame_count = (buffer->frame_count > in->frames_in) ?
                                 in->frames_in : buffer->frame_count;
     buffer->i16 = in->buffer +
-            (pcm_config_in.period_size - in->frames_in) *
-                audio_channel_count_from_in_mask(in->channel_mask);
+            (pcm_config_in.period_size - in->frames_in) * popcount(in->channel_mask);
 
     return in->read_status;
 
@@ -1055,7 +1054,7 @@ static size_t in_get_buffer_size(const struct audio_stream *stream)
 
     return get_input_buffer_size(in->requested_rate,
                                  AUDIO_FORMAT_PCM_16_BIT,
-                                 audio_channel_count_from_in_mask(in_get_channels(stream)));
+                                 popcount(in_get_channels(stream)));
 }
 
 static audio_format_t in_get_format(const struct audio_stream *stream)
@@ -1549,7 +1548,7 @@ static size_t adev_get_input_buffer_size(const struct audio_hw_device *dev,
                                          const struct audio_config *config)
 {
     return get_input_buffer_size(config->sample_rate, config->format,
-                                 audio_channel_count_from_in_mask(config->channel_mask));
+                                 popcount(config->channel_mask));
 }
 
 static int adev_open_input_stream(struct audio_hw_device *dev,
@@ -1612,7 +1611,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
 
         ret = create_resampler(pcm_config_in.rate,
                                in->requested_rate,
-                               audio_channel_count_from_in_mask(in->channel_mask),
+                               popcount(in->channel_mask),
                                RESAMPLER_QUALITY_DEFAULT,
                                &in->buf_provider,
                                &in->resampler);
