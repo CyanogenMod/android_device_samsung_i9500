@@ -19,7 +19,7 @@ LOCAL_PATH := device/samsung/i9500
 BOARD_VENDOR := samsung
 
 # Include path
-TARGET_SPECIFIC_HEADER_PATH += $(LOCAL_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := ja3g,i9500,GT-I9500
