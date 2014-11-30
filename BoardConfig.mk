@@ -80,6 +80,10 @@ COMMON_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
 # CMHW
 BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
 
+# Compatibility with pre-lollipop / legacy blobs
+TARGET_NEEDS_BIONIC_MD5 := true
+TARGET_NEEDS_NON_PIE_SUPPORT := true
+
 # Graphics
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
