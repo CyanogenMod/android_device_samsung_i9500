@@ -43,7 +43,6 @@ const char CameraParameters::PAF_ON[] = "on"; \
 const char CameraParameters::PAF_OFF[] = "off"; \
 const char CameraParameters::RTHDR_ON[] = "on"; \
 const char CameraParameters::RTHDR_OFF[] = "off"; \
-CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER \
 const char CameraParameters::EFFECT_CARTOONIZE[] = "cartoonize"; \
 const char CameraParameters::EFFECT_POINT_RED_YELLOW[] = "point-red-yellow"; \
 const char CameraParameters::EFFECT_POINT_GREEN[] = "point-green"; \
@@ -54,6 +53,7 @@ const char CameraParameters::EFFECT_WASHED[] = "washed"; \
 \
 int CameraParameters::getInt64(const char *key) const { return -1; } \
 \
+CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER
 
 
 #define CAMERA_PARAMETERS_EXTRA_H \
@@ -92,6 +92,5 @@ int CameraParameters::getInt64(const char *key) const { return -1; } \
     static const char EFFECT_WASHED[]; \
 \
     int getInt64(const char *key) const; \
-\
     
 
