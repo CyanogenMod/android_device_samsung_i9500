@@ -66,6 +66,10 @@ PRODUCT_PACKAGES += \
     camera.universal5410 \
     libhwjpeg
 
+# Data workaround
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/enable_data:system/bin/enable_data
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
