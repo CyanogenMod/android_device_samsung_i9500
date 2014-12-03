@@ -165,9 +165,6 @@
     <!-- Is the device LTE capable -->
     <bool name="config_lte_capable">false</bool>
 
-    <!-- display for radio tech -->
-    <bool name="config_display_rat">true</bool>
-
     <!-- Configuration that determines if ACTIVATE_REJECT_GGSN is to be treated as
          a permanent error -->
     <bool name="config_reject_ggsn_perm_failure">false</bool>
