@@ -52,6 +52,10 @@ const char CameraParameters::EFFECT_VINTAGE_WARM[] = "vintage-warm"; \
 const char CameraParameters::EFFECT_WASHED[] = "washed"; \
 \
 int CameraParameters::getInt64(const char *key) const { return -1; } \
+extern "C" { \
+    void acquire_dvfs_lock(void) { } \
+    void release_dvfs_lock(void) { } \
+} \
 \
 CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER
 
