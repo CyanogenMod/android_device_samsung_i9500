@@ -35,6 +35,21 @@ on init
 
     symlink /sys/devices/platform/s5p-ehci/ehci_power /dev/ehci_power
 
+on charger
+    # Disable extra CPUs
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+    chmod 444 /sys/devices/system/cpu/cpu1/online
+    chmod 444 /sys/devices/system/cpu/cpu2/online
+    chmod 444 /sys/devices/system/cpu/cpu3/online
+
+    # CPU Frequency Governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+
+    # EHCI runtime enable for LPA
+    write /sys/devices/platform/s5p-ehci/power/control auto
+
 on fs
     mount_all /fstab.universal5410
     setprop ro.crypto.fuse_sdcard true
@@ -418,6 +433,11 @@ on boot
     chmod 0660 /sys/class/leds/torch-sec1/brightness
 
 # Service begin here
+
+service charger /sbin/healthd -c
+    class charger
+    critical
+    seclabel u:r:healthd:s0
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /sbin/watchdogd 10 20
