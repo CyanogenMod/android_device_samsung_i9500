@@ -28,4 +28,14 @@
 
     <!-- Doze: should the pickup sensor be used as a pulse signal? -->
     <bool name="doze_pulse_on_pick_up">true</bool>
+        
+    <!-- Use camera interface for camera. Must specify config_flashDevice and config_torchBrightness  -->
+    <bool name="config_useCameraInterface">false</bool>
+
+    <!-- Torch led brightness value for led on (1 - 255). Usable with config_useCameraInterface=true -->
+    <integer name="config_torchBrightness">10</integer>
+
+    <!-- Defines the sysfs path to the torch led to be used as a flashlight. Usable with config_useCameraInterface=true -->
+    <string name="config_flashDevice">/sys/class/leds/torch-sec1/brightness</string>
+
 </resources>

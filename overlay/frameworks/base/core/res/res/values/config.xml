@@ -27,6 +27,17 @@
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
+    <!-- This string array should be overridden by the device to present a list of radio
+         attributes.  This is used by the connectivity manager to decide which networks can coexist
+         based on the hardware -->
+    <!-- An Array of "[ConnectivityManager connectionType],
+                      [# simultaneous connection types]"  -->
+    <string-array translatable="false" name="radioAttributes">
+       <item>"1,1"</item>
+       <item>"0,1"</item>
+       <item>"7,1"</item>
+    </string-array>
+
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
 
@@ -128,6 +139,12 @@
     
     <!-- Is the device LTE capable -->
     <bool name="config_lte_capable">false</bool>
+
+    <!-- Whether cpu boost is enabled for overscroller fling. -->
+    <bool name="config_enableCpuBoostForOverScrollerFling">true</bool>
+
+    <!-- Whether cpu boost is enabled for horizontal scroll. -->
+    <bool name="config_enableCpuBoostForScroller">true</bool>
     
     <!-- Flag indicating whether we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
@@ -281,9 +298,6 @@
          Refer to autosuspend.h for details.
     -->
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
-
-    <!-- True if the gesture service should be started at system start -->
-    <bool name="config_enableGestureService">true</bool>
 
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
