@@ -199,6 +199,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     wifi.interface=wlan0
 
+# Our proprietary camera blob uses a deprecated camera API level (API_LEVEL_OVERRIDE_API1),
+# this should be fixed with lollipop release from samsung
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
+
 # Audio Configuration
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.handset.mic.type=digital \
