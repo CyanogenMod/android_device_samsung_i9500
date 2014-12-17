@@ -87,14 +87,17 @@ USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
-# BOARD_USE_BGRA_8888 := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
+
+# HEALTH DAEMON (CHARGER) DEFINES
+RED_LED_PATH := "/sys/class/leds/led_r/brightness"
+GREEN_LED_PATH := "/sys/class/leds/led_g/brightness"
+BLUE_LED_PATH := "/sys/class/leds/led_b/brightness"
+BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
+CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
 
 # Media
 COMMON_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED # use format from fw/native
-
-# NFC
-# BOARD_NFC_HAL_SUFFIX := universal5410
 
 # Radio
 BOARD_PROVIDES_LIBRIL := true
