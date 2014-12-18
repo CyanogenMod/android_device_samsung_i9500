@@ -111,3 +111,24 @@
 /dev/mobicore             0660   system     system
 /dev/mobicore-user        0660   radio      system
 /dev/s5p-smem             0660   system     system
+
+# On demand
+/sys/devices/system/cpu/cpufreq/ondemand/boost_mode            0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/conservative_step     0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/cpu_utilization       0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/down_step_level       0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/high_freq_zone        0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/ignore_nice_load      0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_h        0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/io_is_busy            0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/max_freq_blank        0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/power_save_bias       0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor  0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate         0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate_min     0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_conservative_mod   0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_step_level_b       0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_step_level_l       0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_threshold          0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_h        0660    system    system
+/sys/devices/system/cpu/cpufreq/ondemand/up_threshold_l        0660    system    system
