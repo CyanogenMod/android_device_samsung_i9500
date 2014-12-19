@@ -1,6 +1,0 @@
-#!/system/bin/sh
-
-IP=$(ip a sh dev rmnet0 | grep rmnet0$ | busybox awk '{print $2}' | busybox cut -d'/' -f1)
-VALID_IP="$(echo $IP | busybox awk -F'.' '$1 <=255 && $2 <= 255 && $3 <= 255 && $4 <= 255')"
-ip r add default via $IP table rmnet0
-
