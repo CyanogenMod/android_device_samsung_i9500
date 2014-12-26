@@ -64,7 +64,6 @@ on post-fs
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
 
-    mkdir /data/misc/radio 0775 radio system
     mkdir /efs/imei 0775 radio system
 
 # create data/gps for GPS daemon
@@ -386,8 +385,6 @@ on boot
 # MTP device permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system system /dev/usb_mtp_gadget
-
-    chown system system /sys/class/timed_output/vibrator/enable
 
 # Vibrator
     chmod 0644 /sys/class/timed_output/vibrator/pwm_value
