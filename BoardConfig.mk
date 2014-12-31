@@ -102,7 +102,6 @@ COMMON_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED # use format from fw/native
 # Radio
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6360
-BOARD_RIL_CLASS := ../../../device/samsung/i9500/ril
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
