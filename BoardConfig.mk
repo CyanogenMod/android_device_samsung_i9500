@@ -117,6 +117,30 @@ WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/wifi/bcmdhd_p2p.bin"
 WIFI_BAND                        := 802_11_ABG
 
+# EAP PEAP / AKA / SIM AUTH for WPA_SUPPLICANT_8
+CONFIG_EAP_UNAUTH_TLS            := true
+CONFIG_EAP_TLS                   := true
+CONFIG_EAP_TTLS                  := true
+CONFIG_EAP_PEAP                  := true
+CONFIG_EAP_MD5                   := true
+CONFIG_EAP_MSCHAPV2              := true
+CONFIG_EAP_OTP                   := true
+CONFIG_EAP_GTC                   := true
+CONFIG_EAP_SIM                   := true
+CONFIG_EAP_LEAP                  := true
+CONFIG_EAP_PSK                   := true
+CONFIG_EAP_AKA                   := true
+CONFIG_EAP_AKA_PRIME             := true
+CONFIG_EAP_SIM_COMMON            := true
+CONFIG_EAP_FAST                  := true
+CONFIG_EAP_PAX                   := true
+CONFIG_EAP_SAKE                  := true
+CONFIG_EAP_GPSK                  := true
+CONFIG_EAP_PWD                   := true
+CONFIG_EAP_EKE                   := true
+CONFIG_EAP_IKEV2                 := true
+CONFIG_EAP_TNC                   := true
+
 # Webkit
 ENABLE_WEBGL := true
 
