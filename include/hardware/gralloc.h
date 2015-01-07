@@ -132,6 +132,13 @@ enum {
     GRALLOC_USAGE_PRIVATE_1             = 0x20000000,
     GRALLOC_USAGE_PRIVATE_2             = 0x40000000,
     GRALLOC_USAGE_PRIVATE_3             = 0x80000000,
+    /* Private usage, for HWC to set HDMI S3D format */
+    /* HDMI should display this buffer as S3D SBS LR/RL*/
+    GRALLOC_USAGE_PRIVATE_SBS_LR        = 0x00400000,
+    GRALLOC_USAGE_PRIVATE_SBS_RL        = 0x00200000,
+    /* HDMI should display this buffer as 3D TB LR/RL*/
+    GRALLOC_USAGE_PRIVATE_TB_LR         = 0x00100000,
+    GRALLOC_USAGE_PRIVATE_TB_RL         = 0x00080000,
     GRALLOC_USAGE_PRIVATE_MASK          = 0xF0000000,
 
 #ifdef EXYNOS4_ENHANCEMENTS
