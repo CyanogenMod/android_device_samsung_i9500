@@ -52,6 +52,8 @@ on post-fs-data
     mkdir /data/misc/radio 0775 radio system
     mkdir /efs/imei 0775 radio system
 
+    setprop vold.post_fs_data_done 1
+
 # create data/gps for GPS daemon
     mkdir /data/system/gps 771 gps system
 
