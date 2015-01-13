@@ -26,7 +26,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <dlfcn.h>
 
 #include <cutils/log.h>
 #include <cutils/properties.h>
