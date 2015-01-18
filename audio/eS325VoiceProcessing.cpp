@@ -141,7 +141,7 @@ struct eS325_ctrl_s {
 typedef struct eS325_ctrl_s eS325_ctrl_t;
 
 static eS325_ctrl_t eS325_ctrl = {
-        { -1/*vp*/, -1/*preset*/, -1/*ns*/, -1/*agc*/, -1/*aec*/, -1/*sleep*/},
+        { -1/*vp*/, -1/*veq*/, -1/*preset*/, -1/*ns*/, -1/*agc*/, -1/*aec*/, -1/*sleep*/},
         ES325_PRESET_OFF  /*current_preset*/,
         ES325_PRESET_INIT /*requested_preset, an invalid preset, different from current_preset*/,
         ES325_IO_HANDLE_NONE
