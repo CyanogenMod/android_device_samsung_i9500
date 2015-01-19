@@ -4,6 +4,8 @@
 /dev/ion                  0666   system     system
 /dev/video6               0660   media      media
 /dev/video7               0660   media      media
+/dev/video8               0660   media      media
+/dev/video9               0660   media      media
 
 # gscalers
 /dev/video23              0660   media      graphics
@@ -63,7 +65,7 @@
 /dev/ssp_sensorhub		  0660	 system     system
 
 # TTY
-/dev/ttySAC0              0600   bluetooth  bluetooth
+/dev/ttySAC0              0660   bluetooth  net_bt_stack
 /dev/ttySAC1              0660   root       system
 /dev/ttySAC2              0660   root       system
 /dev/ttySAC3              0660   root       system
@@ -108,6 +110,6 @@
 /dev/tspdrv               0660   root       shell
 
 # Mobicore
-/dev/mobicore             0660   system     system
-/dev/mobicore-user        0660   radio      system
-/dev/s5p-smem             0660   system     system
+/dev/mobicore             0700   system     system
+/dev/mobicore-user        0666   radio      system
+/dev/s5p-smem             0660   drm        drmrpc
