@@ -1,4 +1,4 @@
-# Copyright (C) 2013 The CyanogenMod Project
+# Copyright (C) 2014, The CyanogenMod Project <http://www.cyanogenmod.org>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,15 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+LOCAL_PATH := $(call my-dir)
 
-# Inherit from i9500 device
-$(call inherit-product, device/samsung/i9500/i9500.mk)
+ifeq ($(TARGET_POWERHAL_VARIANT),universal5410)
 
-# Discard inherited values and use our own instead.
-PRODUCT_NAME := full_i9500
-PRODUCT_DEVICE := i9500
-PRODUCT_BRAND := samsung
-PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := GT-I9500
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := power.universal5410
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_SRC_FILES := power.c
+LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SHARED_LIBRARY)
+
+endif # TARGET_POWERHAL_VARIANT == universal5410
