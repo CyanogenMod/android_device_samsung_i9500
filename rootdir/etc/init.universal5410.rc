@@ -113,6 +113,14 @@ on boot
     chown system radio /sys/class/sec/sec_touchkey/glove_mode
     chown system radio /sys/class/sec/sec_touchkey/flip_mode
 
+# Permissions for JA3G PowerHAL
+    chown system system /sys/class/input/input1/enabled
+    chown system system /sys/class/input/input14/enabled
+    chown system system /sys/class/input/input15/enabled
+    chmod 0660 /sys/class/input/input1/enabled
+    chmod 0660 /sys/class/input/input14/enabled
+    chmod 0660 /sys/class/input/input15/enabled
+
 # Permissions for Touchkey
     chown system radio /sys/class/sec/sec_touchkey/enable_disable
     chown system radio /sys/class/sec/sec_touchkey/touchkey_brightness
@@ -417,6 +425,19 @@ on boot
     chown system camera /sys/class/leds/torch-sec1/brightness
     chmod 0660 /sys/class/leds/torch-sec1/brightness
 
+on charger
+# Set cpu governor to powersave while in charging mode
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor powersave
+
+# EHCI runtime enable for LPA
+    write /sys/devices/platform/s5p-ehci/power/control auto
+
+# Do not set any USB mode while charging
+    setprop sys.usb.config charging
+
 # Service begin here
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
@@ -424,7 +445,7 @@ service watchdogd /sbin/watchdogd 10 20
     class core
 
 # 3D init
-service pvrsrvctl /system/vendor/bin/pvrsrvctl --start --no-module
+service pvrsrvctl /system/bin/pvrsrvctl
     class core
     user root
     group root
@@ -454,11 +475,25 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     group system inet net_raw
     disabled
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+# BT Tethering
+service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
+    class late_start
     disabled
     oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+# USB Ethernet
+service dhcpcd_eth0 /system/bin/dhcpcd -aABDKL
+    class late_start
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class late_start
     disabled
     oneshot
 
@@ -484,9 +519,14 @@ on property:sys.mobicoredaemon.enable=true
 service mobicore /system/bin/mcDriverDaemon \
     -r /system/vendor/firmware/mcRegistry/FFFFFFFF000000000000000000000001.drbin \
     -r /system/vendor/firmware/mcRegistry/ffffffffd0000000000000000000000a.tlbin
-    class core
-    user system
-    group system
+    setenv MC_REGISTRY_PATH /system/vendor/firmware/mcRegistry
+    class main
+    user drmrpc
+    group drmrpc
+
+service battery_charger /charger
+    class charger
+    critical
 
 on property:init.svc.bootanim=stopped
     # start gpsd late to prevent it from changing /data/system
