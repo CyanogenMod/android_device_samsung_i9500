@@ -1,1 +1,1 @@
-allow mediaserver system:unix_stream_socket { read write setopt };
+allow mediaserver self:unix_stream_socket { read write setopt };
