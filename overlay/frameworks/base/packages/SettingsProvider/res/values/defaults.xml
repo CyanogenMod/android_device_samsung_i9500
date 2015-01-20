@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /**
- * Copyright (c) 2013, The CyanogenMod Project
+ * Copyright (c) 2015, The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
  */
 -->
 <resources>
-    <bool name="def_accelerometer_rotation">true</bool>
     <bool name="def_screen_brightness_automatic_mode">true</bool>
 </resources>
 
