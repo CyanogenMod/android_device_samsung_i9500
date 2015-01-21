@@ -505,3 +505,17 @@ on property:ro.debuggable=1
     chmod 666 /sys/class/mhl/timing
 on property:ro.debuggable=1
     chmod 666 /sys/class/mhl/swing
+
+# CyanogenMod Performance Profiles
+# Powersave
+on property:sys.perf.profile=0
+	write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+
+# Balanced
+on property:sys.perf.profile=1
+	write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+
+# Performance
+on property:sys.perf.profile=2
+	write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
+
