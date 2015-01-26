@@ -1471,8 +1471,27 @@ static int adev_set_voice_volume(struct audio_hw_device *dev, float volume)
 
     adev->voice_volume = volume;
 
-    if (adev->mode == AUDIO_MODE_IN_CALL)
-        ril_set_call_volume(&adev->ril, SOUND_TYPE_VOICE, volume);
+    if (adev->mode == AUDIO_MODE_IN_CALL) {
+        enum ril_sound_type sound_type;
+
+        switch (adev->out_device) {
+            case AUDIO_DEVICE_OUT_SPEAKER:
+                sound_type = SOUND_TYPE_SPEAKER;
+                break;
+            case AUDIO_DEVICE_OUT_WIRED_HEADSET:
+            case AUDIO_DEVICE_OUT_WIRED_HEADPHONE:
+                sound_type = SOUND_TYPE_HEADSET;
+                break;
+            case AUDIO_DEVICE_OUT_BLUETOOTH_SCO:
+            case AUDIO_DEVICE_OUT_ALL_SCO:
+                sound_type = SOUND_TYPE_BTVOICE;
+                break;
+            default:
+                sound_type = SOUND_TYPE_VOICE;
+        }
+
+        ril_set_call_volume(&adev->ril, sound_type, volume);
+    }
 
     return 0;
 }
