@@ -1380,7 +1380,8 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
                                    audio_devices_t devices,
                                    audio_output_flags_t flags,
                                    struct audio_config *config,
-                                   struct audio_stream_out **stream_out)
+                                   struct audio_stream_out **stream_out,
+                                   const char *address __unused)
 {
     struct audio_device *adev = (struct audio_device *)dev;
     struct stream_out *out;
@@ -1656,7 +1657,10 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
                                   audio_io_handle_t handle,
                                   audio_devices_t devices,
                                   struct audio_config *config,
-                                  struct audio_stream_in **stream_in)
+                                  struct audio_stream_in **stream_in,
+                                  audio_input_flags_t flags __unused,
+                                  const char *address __unused,
+                                  audio_source_t source __unused)
 {
     struct audio_device *adev = (struct audio_device *)dev;
     struct stream_in *in;
@@ -1698,6 +1702,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
     in->device = devices & ~AUDIO_DEVICE_BIT_IN;
     in->io_handle = handle;
     in->channel_mask = config->channel_mask;
+    /* TODO support low latency pcm config -> AUDIO_INPUT_FLAG_FAST */
 
     in->buffer = malloc(pcm_config_in.period_size *
                         pcm_config_in.channels *
