@@ -51,14 +51,11 @@ TARGET_KERNEL_SOURCE := kernel/samsung/exynos5410
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
-# Audio
-BOARD_USES_LIBMEDIA_WITH_AUDIOPARAMETER := true
-
 # Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/libbt_vndcfg.txt
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
@@ -66,35 +63,66 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Camera
 BOARD_NEEDS_MEMORYHEAPION := true
-BOARD_USE_STOREMETADATA := true
-BOARD_USE_METADATABUFFERTYPE := true
-BOARD_USE_DMA_BUF := true
 BOARD_USE_ANB_OUTBUF_SHARE := true
+BOARD_USE_DMA_BUF := true
 BOARD_USE_GSC_RGB_ENCODER := true
 BOARD_USE_IMPROVED_BUFFER := true
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+BOARD_USE_METADATABUFFERTYPE := true
+BOARD_USE_STOREMETADATA := true
 BOARD_USES_LEGACY_MMAP := true
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+
+# Charger
+BOARD_BATTERY_DEVICE_NAME := battery
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
+CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
 
 # CMHW
 BOARD_HARDWARE_CLASS := hardware/samsung/cmhw
+
+# Filesystems
+BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2898264064
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 9604956160
+BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
 # Graphics
-USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
+USE_OPENGL_RENDERER := true
 
 # NFC
 BOARD_NFC_HAL_SUFFIX := universal5410
 
 # Radio
-BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6360
+BOARD_PROVIDES_LIBRIL := true
 BOARD_RIL_CLASS := ../../../device/samsung/i9500/ril
+
+# Recovery
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5410
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+TARGET_USERIMAGES_USE_EXT4 := true
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/i9500/sepolicy
+
+BOARD_SEPOLICY_UNION := \
+    device.te \
+    domain.te \
+    file_contexts \
+    gpsd.te \
+    mediaserver.te \
+    surfaceflinger.te \
+    system.te
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
@@ -109,40 +137,6 @@ WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/wifi/bcmdhd_p2p.bin"
 WIFI_BAND                        := 802_11_ABG
-
-# Filesystems
-BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2898264064
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 9604956160
-BOARD_FLASH_BLOCK_SIZE := 4096
-
-# Recovery
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5410
-TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_RECOVERY_SWIPE := true
-
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/i9500/sepolicy
-
-BOARD_SEPOLICY_UNION := \
-    file_contexts \
-    device.te \
-    domain.te \
-    gpsd.te \
-    mediaserver.te \
-    surfaceflinger.te \
-    system.te
-
-# Charging mode
-BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-BOARD_BATTERY_DEVICE_NAME := battery
-CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
 
 # inherit from the proprietary version
 -include vendor/samsung/i9500/BoardConfigVendor.mk
