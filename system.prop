@@ -2,10 +2,21 @@
 # system.prop for i9500
 #
 
+# Camera
 camera2.portability.force_api=1
+
+# Graphics
+ro.opengles.version=131072 \
 ro.sf.lcd_density=480
-ro.telephony.ril_class=ExynosXMM6360RIL
 ro.zygote.disable_gl_preload=1
-rild.libpath=/system/lib/libsec-ril.so
-rild.libargs=-d /dev/ttyS0
+
+# NFC
 nfc.app_log_level=2
+
+# Radio
+rild.libargs=-d /dev/ttyS0
+rild.libpath=/system/lib/libsec-ril.so
+ro.telephony.ril_class=ExynosXMM6360RIL
+
+# WiFi
+wifi.interface=wlan0
