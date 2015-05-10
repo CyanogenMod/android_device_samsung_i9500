@@ -1,6 +1,6 @@
 # label graphics device with a new type, we need
 # to allow write operation from appdomain
-/dev/akm8963            u:object_r:akm_device:s0
+/dev/akm8963            u:object_r:sensors_device:s0
 
 /dev/bcm2079x           u:object_r:nfc_device:s0
 /dev/ttySAC0            u:object_r:hci_attach_dev:s0
