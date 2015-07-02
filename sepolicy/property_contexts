@@ -1,0 +1,5 @@
+# Camera
+persist.sys.camera                                      u:object_r:camera_prop:s0
+
+# Radio
+ril.cbd                                                 u:object_r:radio_prop:s0

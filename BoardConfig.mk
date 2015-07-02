@@ -116,12 +116,19 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION := \
     device.te \
-    domain.te \
+    drmserver.te \
     file_contexts \
+    file.te \
     gpsd.te \
     mediaserver.te \
-    surfaceflinger.te \
-    system.te
+    property_contexts \
+    property.te \
+    pvrsrvctl.te \
+    rild.te \
+    shell.te \
+    system_server.te \
+    ueventd.te \
+    wpa.te
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true

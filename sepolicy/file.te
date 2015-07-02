@@ -1,0 +1,4 @@
+type proc_radio, fs_type;
+type sensors_efs_file, file_type;
+type sysfs_radio, fs_type, sysfs_type;
+type wpa_efs_file, file_type;
