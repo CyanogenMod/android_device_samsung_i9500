@@ -129,11 +129,14 @@ BOARD_SEPOLICY_DIRS += \
     device/samsung/i9500/sepolicy
 
 BOARD_SEPOLICY_UNION := \
+    app.te \
     device.te \
+    domain.te \
     drmserver.te \
     file_contexts \
     file.te \
     gpsd.te \
+    init.te \
     mediaserver.te \
     property_contexts \
     property.te \
