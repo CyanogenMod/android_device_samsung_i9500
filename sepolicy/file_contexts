@@ -1,4 +1,5 @@
 # Bluetooth
+/dev/btlock                                             u:object_r:bluetooth_device:s0
 /dev/ttySAC0                                            u:object_r:hci_attach_dev:s0
 /efs/bluetooth(/.*)?                                    u:object_r:bluetooth_efs_file:s0
 /sys/devices/platform/bcm4335_bluetooth/rfkill/rfkill0/state    u:object_r:sysfs_bluetooth_writable:s0

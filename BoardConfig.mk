@@ -114,6 +114,7 @@ BOARD_SEPOLICY_DIRS += \
     device/samsung/i9500/sepolicy
 
 BOARD_SEPOLICY_UNION := \
+    bluetooth.te \
     device.te \
     drmserver.te \
     file_contexts \
