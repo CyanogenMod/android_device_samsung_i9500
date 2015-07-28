@@ -111,7 +111,7 @@ BOARD_RIL_CLASS := ../../../device/samsung/i9500/ril
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.universal5410
-TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # SELinux
