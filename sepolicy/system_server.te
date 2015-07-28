@@ -1,3 +1,4 @@
+allow system_server efs_file:dir search;
 allow system_server gps_data_file:dir rw_dir_perms;
 allow system_server gps_data_file:fifo_file create_file_perms;
 allow system_server sensors_efs_file:file r_file_perms;
