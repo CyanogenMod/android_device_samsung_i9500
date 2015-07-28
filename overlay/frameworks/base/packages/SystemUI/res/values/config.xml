@@ -25,6 +25,12 @@
     for devices where the java drawing of round rects may be slow -->
     <bool name="config_recents_use_hardware_layers">true</bool>
 
+    <!-- The number of app icons we keep in memory -->
+    <integer name="config_recents_max_icon_count">10</integer>
+
+    <!-- Whether to use cheap, less good looking shadows for recents -->
+    <bool name="config_recents_fake_shadows">true</bool>
+
     <!-- Control whether status bar should distinguish HSPA data icon form UMTS
     data icon on devices -->
     <bool name="config_hspa_data_distinguishable">true</bool>
