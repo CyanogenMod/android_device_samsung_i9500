@@ -23,14 +23,32 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := audio_hw.c ril_interface.c
 
+ifeq ($(BOARD_HDMI_INCAPABLE), true)
+	LOCAL_CFLAGS += -DHDMI_INCAPABLE
+endif
+
+ifeq ($(BOARD_DYNAMIC_WIDEBAND_SWITCHING), false)
+	LOCAL_CFLAGS += -DSTATIC_VOICE_CALL_WIDEBAND
+endif
+
 LOCAL_C_INCLUDES += \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
 	external/tinyalsa/include \
 	$(call include-path-for, audio-effects) \
 	$(call include-path-for, audio-utils) \
 	$(call include-path-for, audio-route)
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils libtinyalsa libaudioutils libdl \
-	libaudience_voicefx libaudioroute
+LOCAL_ADDITIONAL_DEPENDENCIES += \
+	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+
+LOCAL_SHARED_LIBRARIES := \
+	liblog \
+	libcutils \
+	libtinyalsa \
+	libaudioutils \
+	libdl \
+	libaudience_voicefx \
+	libaudioroute
 
 include $(BUILD_SHARED_LIBRARY)
 
