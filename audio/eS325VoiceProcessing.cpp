@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,7 +141,7 @@ struct eS325_ctrl_s {
 typedef struct eS325_ctrl_s eS325_ctrl_t;
 
 static eS325_ctrl_t eS325_ctrl = {
-        { -1/*vp*/, -1/*preset*/, -1/*ns*/, -1/*agc*/, -1/*aec*/, -1/*sleep*/},
+        { -1/*vp*/, -1/*veq*/, -1/*preset*/, -1/*ns*/, -1/*agc*/, -1/*aec*/, -1/*sleep*/},
         ES325_PRESET_OFF  /*current_preset*/,
         ES325_PRESET_INIT /*requested_preset, an invalid preset, different from current_preset*/,
         ES325_IO_HANDLE_NONE
@@ -1061,13 +1061,13 @@ int adnc_get_descriptor(const effect_uuid_t *uuid, effect_descriptor_t *pDescrip
 }
 
 audio_effect_library_t AUDIO_EFFECT_LIBRARY_INFO_SYM = {
-    tag : AUDIO_EFFECT_LIBRARY_TAG,
-    version : EFFECT_LIBRARY_API_VERSION,
-    name : "Audience Voice Preprocessing Library",
-    implementor : "The Android Open Source Project",
-    create_effect : adnc_create,
-    release_effect : adnc_release,
-    get_descriptor : adnc_get_descriptor
+    .tag = AUDIO_EFFECT_LIBRARY_TAG,
+    .version = EFFECT_LIBRARY_API_VERSION,
+    .name = "Audience Voice Preprocessing Library",
+    .implementor = "The Android Open Source Project",
+    .create_effect = adnc_create,
+    .release_effect = adnc_release,
+    .get_descriptor = adnc_get_descriptor
 };
 
 //-------------------------------------------------------
@@ -1283,17 +1283,21 @@ int Adnc_ApplySettingsFromSessionContextInt_l(adnc_pfx_session_t * session)
     status = Adnc_SetNoiseSuppressionInt_l(ns_on /*ns_on*/);
 
     // AEC
-    if ((session->createdMsk & (1 << PFX_ID_AEC))         /* the effect has been created */
-            && (session->activeMsk  & (1 << PFX_ID_AEC))) /* the effect is active        */
-    {
-        Adnc_SetEchoCancellationInt_l(true /*aec_on*/);
+    if (session->createdMsk & (1 << PFX_ID_AEC)) {        /* the effect has been created */
+        const bool aec_on = ((session->activeMsk & (1 << PFX_ID_AEC)) != 0);
+        int aec_status = Adnc_SetEchoCancellationInt_l(aec_on /*aec_on*/);
+        if (status == 0) {
+            status = aec_status;
+        }
     }
 
     // AGC
-    if ((session->createdMsk & (1 << PFX_ID_AGC))         /* the effect has been created */
-            && (session->activeMsk  & (1 << PFX_ID_AGC))) /* the effect is active        */
-    {
-        Adnc_SetAutomaticGainControlInt_l(true /*agc_on*/);
+    if (session->createdMsk & (1 << PFX_ID_AGC)) {        /* the effect has been created */
+        const bool agc_on = ((session->activeMsk & (1 << PFX_ID_AGC)) != 0);
+        int agc_status = Adnc_SetAutomaticGainControlInt_l(agc_on /*agc_on*/);
+        if (status == 0) {
+            status = agc_status;
+        }
     }
 
     return status;
