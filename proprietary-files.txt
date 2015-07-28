@@ -5,10 +5,7 @@ vendor/firmware/srp_data.bin
 vendor/firmware/srp_vliw.bin
 
 # Bluetooth
-vendor/firmware/bcm4335.hcd
-vendor/firmware/bcm4335_A0.hcd
-vendor/firmware/bcm4335_murata.hcd
-vendor/firmware/bcm4335_semco.hcd
+vendor/firmware/bcm4335_V0343.0347.hcd
 
 # Camera
 lib/hw/camera.universal5410.so:lib/hw/camera.vendor.universal5410.so
