@@ -1,5 +1,11 @@
+# gpsd uses /data/system/gps/.flp.interface.pipe.to_gpsd,
+# /data/system/gps/.gps.interface.pipe.to_jni,
+# /data/system/gps/.gpsd.lock and /data/system/gps/gldata.sto
+# Automatically label them as gps_data_file
+file_type_auto_trans(gpsd, system_data_file, gps_data_file)
+unix_socket_connect(gpsd, property, rild)
+
+binder_call(gpsd, system_server)
 allow gpsd sysfs_wake_lock:file rw_file_perms;
-
-file_type_auto_trans(gpsd, system_data_file, gps_data_file);
-
-unix_socket_connect(gpsd, rild, rild)
+allow gpsd system_data_file:fifo_file rw_file_perms;
+allow gpsd system_data_file:file { lock rw_file_perms };

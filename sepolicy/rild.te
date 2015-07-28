@@ -1,3 +1,8 @@
+# Allow additiional efs access
+allow rild bin_nv_data_efs_file:file create_file_perms;
+allow rild imei_efs_file:dir r_dir_perms;
+allow rild imei_efs_file:file r_file_perms;
+allow rild app_efs_file:file { getattr read open };
 allow rild block_device:dir search;
 allow rild gpsd:dir search;
 allow rild gpsd:file r_file_perms;
@@ -7,5 +12,6 @@ allow rild proc_net:file rw_file_perms;
 allow rild proc_radio:file rw_file_perms;
 allow rild radio_block_device:blk_file r_file_perms;
 allow rild radio_device:chr_file rw_file_perms;
+allow rild sysfs:file rw_file_perms;
 allow rild sysfs_radio:dir search;
 allow rild sysfs_radio:file rw_file_perms;

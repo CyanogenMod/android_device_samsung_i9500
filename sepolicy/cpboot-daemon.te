@@ -1,0 +1,18 @@
+# modem daemon sec label
+type cpboot-daemon, domain;
+type cpboot-daemon_exec, exec_type, file_type;
+
+tmpfs_domain(cpboot-daemon)
+wakelock_use(cpboot-daemon)
+unix_socket_connect(cpboot-daemon, property, init)
+
+allow cpboot-daemon self:capability { dac_override setuid setgid };
+
+# FIXME neverallow rule
+# allow cpboot-daemon self:capability mknod;
+allow cpboot-daemon device:dir w_dir_perms;
+allow cpboot-daemon device:file rw_file_perms;
+allow cpboot-daemon kernel:system syslog_read;
+allow cpboot-daemon cgroup:dir create_dir_perms;
+allow cpboot-daemon radio_device:chr_file rw_file_perms;
+allow cpboot-daemon emmcblk_device:blk_file r_file_perms;

@@ -1,4 +1,15 @@
+# rild types
+type bin_nv_data_efs_file, file_type;
+type imei_efs_file, file_type;
+type wifi_efs_file, file_type;
+type app_efs_file, file_type;
+type baro_delta_factoryapp_efs_file, file_type;
+type factorymode_factoryapp_efs_file, file_type;
+type radio_factoryapp_efs_file, file_type;
+type emmcblk_device, file_type;
 type proc_radio, fs_type;
 type sensors_efs_file, file_type;
 type sysfs_radio, fs_type, sysfs_type;
 type wpa_efs_file, file_type;
+
+allow sysfs_type tmpfs:filesystem associate;
