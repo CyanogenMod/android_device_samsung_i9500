@@ -2,6 +2,9 @@
 # system.prop for i9500
 #
 
+# Audio
+audio.offload.disable=1
+
 # Camera
 camera2.portability.force_api=1
 
