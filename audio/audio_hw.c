@@ -925,8 +925,8 @@ static int out_set_parameters(struct audio_stream *stream, const char *kvpairs)
             /* Force standby if moving to/from SPDIF or if the output
              * device changes when in SPDIF mode */
             if (((val & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) ^
-                 (adev->devices & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) ||
-                (adev->devices & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) {
+                 (adev->out_device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) ||
+                (adev->out_device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET)) {
                 do_out_standby(out);
             }
 
