@@ -47,6 +47,9 @@ BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_CONFIG := cyanogenmod_i9500_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos5410
 
+# Audio
+BOARD_DYNAMIC_WIDEBAND_SWITCHING := false
+
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 

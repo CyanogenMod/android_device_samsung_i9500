@@ -107,7 +107,11 @@ struct pcm_config pcm_config_sco_wide = {
 
 struct pcm_config pcm_config_voice = {
     .channels = 2,
+#ifndef STATIC_VOICE_CALL_WIDEBAND
     .rate = 8000,
+#else
+    .rate = 16000,
+#endif
     .period_size = 960,
     .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
@@ -517,7 +521,7 @@ static void adev_set_wb_amr_callback(void *data, int enable)
 
         /* reopen the modem PCMs at the new rate */
         if (adev->in_call) {
-#if 0
+#ifndef STATIC_VOICE_CALL_WIDEBAND
             /* TODO: set rate properly */
             end_voice_call(adev);
             select_devices(adev);
