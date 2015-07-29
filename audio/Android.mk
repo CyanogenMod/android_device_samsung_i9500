@@ -23,6 +23,8 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := audio_hw.c ril_interface.c
 
+LOCAL_CFLAGS += -DSTATIC_VOICE_CALL_WIDEBAND
+
 LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	$(call include-path-for, audio-effects) \
