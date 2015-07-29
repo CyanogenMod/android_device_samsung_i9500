@@ -66,7 +66,7 @@
 
 #define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a[0])))
 
-struct pcm_config pcm_config_fast = {
+struct pcm_config pcm_config = {
     .channels = 2,
     .rate = 48000,
     .period_size = 256,
@@ -1446,7 +1446,7 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
         out->pcm_device = PCM_DEVICE;
         type = OUTPUT_DEEP_BUF;
     } else {
-        out->config = pcm_config_fast;
+        out->config = pcm_config;
         out->pcm_device = PCM_DEVICE;
         type = OUTPUT_LOW_LATENCY;
     }
