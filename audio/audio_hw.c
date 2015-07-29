@@ -84,8 +84,16 @@ struct pcm_config pcm_config_deep = {
 
 struct pcm_config pcm_config_in = {
     .channels = 2,
-    .rate = 48000,
-    .period_size = 240,
+    .rate = 44100,
+    .period_size = 512,
+    .period_count = 2,
+    .format = PCM_FORMAT_S16_LE,
+};
+
+struct pcm_config pcm_config_in_low_latency = {
+    .channels = 2,
+    .rate = 44100,
+    .period_size = 256,
     .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
 };
@@ -218,6 +226,8 @@ struct stream_in {
     uint16_t ramp_frames;
 
     audio_channel_mask_t channel_mask;
+    audio_input_flags_t flags;
+    struct pcm_config *config;
 
     struct audio_device *dev;
 };
@@ -628,7 +638,7 @@ static int start_input_stream(struct stream_in *in)
 {
     struct audio_device *adev = in->dev;
 
-    in->pcm = pcm_open(PCM_CARD, PCM_DEVICE_IN, PCM_IN, &pcm_config_in);
+    in->pcm = pcm_open(PCM_CARD, PCM_DEVICE_IN, PCM_IN, in->config);
 
     if (in->pcm && !pcm_is_ready(in->pcm)) {
         ALOGE("pcm_open() failed: %s", pcm_get_error(in->pcm));
@@ -664,8 +674,11 @@ static int start_input_stream(struct stream_in *in)
 
 static size_t get_input_buffer_size(unsigned int sample_rate,
                                     audio_format_t format,
-                                    unsigned int channel_count)
+                                    unsigned int channel_count,
+                                    bool is_low_latency)
 {
+    const struct pcm_config *config = is_low_latency ?
+            &pcm_config_in_low_latency : &pcm_config_in;
     size_t size;
 
     /*
@@ -673,7 +686,7 @@ static size_t get_input_buffer_size(unsigned int sample_rate,
      * multiple of 16 frames, as audioflinger expects audio buffers to
      * be a multiple of 16 frames
      */
-    size = (pcm_config_in.period_size * sample_rate) / pcm_config_in.rate;
+    size = (config->period_size * sample_rate) / config->rate;
     size = ((size + 15) / 16) * 16;
 
     return size * channel_count * audio_bytes_per_sample(format);
@@ -701,7 +714,7 @@ static int get_next_buffer(struct resampler_buffer_provider *buffer_provider,
     if (in->frames_in == 0) {
         in->read_status = pcm_read(in->pcm,
                                    (void*)in->buffer,
-                                   pcm_frames_to_bytes(in->pcm, pcm_config_in.period_size));
+                                   pcm_frames_to_bytes(in->pcm, in->config->period_size));
         if (in->read_status != 0) {
             ALOGE("get_next_buffer() pcm_read error %d", in->read_status);
             buffer->raw = NULL;
@@ -709,7 +722,7 @@ static int get_next_buffer(struct resampler_buffer_provider *buffer_provider,
             return in->read_status;
         }
 
-        in->frames_in = pcm_config_in.period_size;
+        in->frames_in = in->config->period_size;
 
         /* Do stereo to mono conversion in place by discarding right channel */
         if (in->channel_mask == AUDIO_CHANNEL_IN_MONO)
@@ -720,7 +733,7 @@ static int get_next_buffer(struct resampler_buffer_provider *buffer_provider,
     buffer->frame_count = (buffer->frame_count > in->frames_in) ?
                                 in->frames_in : buffer->frame_count;
     buffer->i16 = in->buffer +
-            (pcm_config_in.period_size - in->frames_in) *
+            (in->config->period_size - in->frames_in) *
                 audio_channel_count_from_in_mask(in->channel_mask);
 
     return in->read_status;
@@ -1132,7 +1145,8 @@ static size_t in_get_buffer_size(const struct audio_stream *stream)
 
     return get_input_buffer_size(in->requested_rate,
                                  AUDIO_FORMAT_PCM_16_BIT,
-                                 audio_channel_count_from_in_mask(in_get_channels(stream)));
+                                 audio_channel_count_from_in_mask(in_get_channels(stream)),
+                                 (in->flags & AUDIO_INPUT_FLAG_FAST) != 0);
 }
 
 static audio_format_t in_get_format(const struct audio_stream *stream)
@@ -1650,7 +1664,8 @@ static size_t adev_get_input_buffer_size(const struct audio_hw_device *dev,
                                          const struct audio_config *config)
 {
     return get_input_buffer_size(config->sample_rate, config->format,
-                                 audio_channel_count_from_in_mask(config->channel_mask));
+                                 audio_channel_count_from_in_mask(config->channel_mask),
+                                 false /* is_low_latency: since we don't know, be conservative */);
 }
 
 static int adev_open_input_stream(struct audio_hw_device *dev,
@@ -1702,22 +1717,24 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
     in->device = devices & ~AUDIO_DEVICE_BIT_IN;
     in->io_handle = handle;
     in->channel_mask = config->channel_mask;
-    /* TODO support low latency pcm config -> AUDIO_INPUT_FLAG_FAST */
+    in->flags = flags;
+    struct pcm_config *pcm_config = flags & AUDIO_INPUT_FLAG_FAST ?
+            &pcm_config_in_low_latency : &pcm_config_in;
+    in->config = pcm_config;
 
-    in->buffer = malloc(pcm_config_in.period_size *
-                        pcm_config_in.channels *
-                        audio_stream_in_frame_size(&in->stream));
+    in->buffer = malloc(pcm_config->period_size * pcm_config->channels
+                                               * audio_stream_in_frame_size(&in->stream));
 
     if (!in->buffer) {
         ret = -ENOMEM;
         goto err_malloc;
     }
 
-    if (in->requested_rate != pcm_config_in.rate) {
+    if (in->requested_rate != pcm_config->rate) {
         in->buf_provider.get_next_buffer = get_next_buffer;
         in->buf_provider.release_buffer = release_buffer;
 
-        ret = create_resampler(pcm_config_in.rate,
+        ret = create_resampler(pcm_config->rate,
                                in->requested_rate,
                                audio_channel_count_from_in_mask(in->channel_mask),
                                RESAMPLER_QUALITY_DEFAULT,
