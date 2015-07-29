@@ -50,7 +50,8 @@
 #include "ril_interface.h"
 
 #define PCM_CARD 0
-#define PCM_TOTAL 1
+#define PCM_CARD_SPDIF 1
+#define PCM_TOTAL 2
 
 #define PCM_DEVICE 0
 #define PCM_DEVICE_VOICE 1
@@ -178,7 +179,7 @@ struct stream_out {
     struct pcm *pcm[PCM_TOTAL];
     struct pcm_config config;
     unsigned int pcm_device;
-    bool standby;
+    bool standby; /* true if all PCMs are inactive */
     audio_devices_t device;
 
     struct resampler_itfe *resampler;
@@ -576,13 +577,32 @@ static int start_output_stream(struct stream_out *out)
 
     ALOGV("%s: starting stream", __func__);
 
-    out->pcm[PCM_CARD] = pcm_open(PCM_CARD, out->pcm_device,
-                                  PCM_OUT, &out->config);
-    if (out->pcm[PCM_CARD] && !pcm_is_ready(out->pcm[PCM_CARD])) {
-        ALOGE("pcm_open(PCM_CARD) failed: %s",
-                pcm_get_error(out->pcm[PCM_CARD]));
-        pcm_close(out->pcm[PCM_CARD]);
-        return -ENOMEM;
+    if (out->device & (AUDIO_DEVICE_OUT_SPEAKER |
+                       AUDIO_DEVICE_OUT_WIRED_HEADSET |
+                       AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
+                       AUDIO_DEVICE_OUT_AUX_DIGITAL)) {
+        out->pcm[PCM_CARD] = pcm_open(PCM_CARD, out->pcm_device,
+                                      PCM_OUT, &out->config);
+
+        if (out->pcm[PCM_CARD] && !pcm_is_ready(out->pcm[PCM_CARD])) {
+            ALOGE("pcm_open(PCM_CARD) failed: %s",
+                  pcm_get_error(out->pcm[PCM_CARD]));
+            pcm_close(out->pcm[PCM_CARD]);
+            return -ENOMEM;
+        }
+    }
+
+    if (out->device & AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET) {
+        out->pcm[PCM_CARD_SPDIF] = pcm_open(PCM_CARD_SPDIF, out->pcm_device,
+                                            PCM_OUT, &out->config);
+
+        if (out->pcm[PCM_CARD_SPDIF] &&
+                !pcm_is_ready(out->pcm[PCM_CARD_SPDIF])) {
+            ALOGE("pcm_open(PCM_CARD_SPDIF) failed: %s",
+                  pcm_get_error(out->pcm[PCM_CARD_SPDIF]));
+            pcm_close(out->pcm[PCM_CARD_SPDIF]);
+            return -ENOMEM;
+        }
     }
 
     /* in call routing must go through set_parameters */
@@ -1000,7 +1020,6 @@ static ssize_t out_write(struct audio_stream_out *stream, const void* buffer,
     for (i = 0; i < PCM_TOTAL; i++)
         if (out->pcm[i])
            pcm_write(out->pcm[i], (void *)buffer, bytes);
-
 
 exit:
     pthread_mutex_unlock(&out->lock);
