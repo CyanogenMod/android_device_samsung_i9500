@@ -333,6 +333,7 @@ static int get_input_source_id(audio_source_t source)
     }
 }
 
+static void do_out_standby(struct stream_out *out);
 static void adev_set_call_audio_path(struct audio_device *adev);
 
 /*
