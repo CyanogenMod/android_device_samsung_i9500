@@ -587,6 +587,7 @@ static void end_bt_sco(struct audio_device *adev)
 static int start_voice_call(struct audio_device *adev)
 {
     struct pcm_config *voice_config;
+    bool use_wide_voice = property_get_bool("persist.voice.use.16k", false);
 
     if (adev->pcm_voice_rx || adev->pcm_voice_tx) {
         ALOGW("%s: Voice PCMs already open!\n", __func__);
@@ -595,7 +596,7 @@ static int start_voice_call(struct audio_device *adev)
 
     ALOGV("%s: Opening voice PCMs", __func__);
 
-    if (adev->wb_amr)
+    if (adev->wb_amr || use_wide_voice)
         voice_config = &pcm_config_voice_wide;
     else
         voice_config = &pcm_config_voice;
