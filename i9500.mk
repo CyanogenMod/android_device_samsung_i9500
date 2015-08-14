@@ -142,11 +142,19 @@ PRODUCT_COPY_FILES += \
 # OMX
 PRODUCT_PACKAGES += \
     libExynosOMX_Core \
+    libOMX.Exynos.AAC.Decoder \
     libOMX.Exynos.AVC.Decoder \
+    libOMX.Exynos.AVC.Encoder \
+    libOMX.Exynos.FLAC.Decoder \
+    libOMX.Exynos.HEVC.Decoder \
+    libOMX.Exynos.MP3.Decoder \
     libOMX.Exynos.MPEG2.Decoder \
     libOMX.Exynos.MPEG4.Decoder \
-    libOMX.Exynos.AVC.Encoder \
     libOMX.Exynos.MPEG4.Encoder \
+    libOMX.Exynos.VP8.Decoder \
+    libOMX.Exynos.VP8.Encoder \
+    libOMX.Exynos.WMA.Decoder \
+    libOMX.Exynos.WMV.Decoder \
     libstagefrighthw
 
 # Radio
