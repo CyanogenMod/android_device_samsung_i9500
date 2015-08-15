@@ -187,15 +187,6 @@ Only the three quirks included above are recognized at this point:
             <Limit name="blocks-per-second" min="1" max="489600" />
             <Limit name="bitrate" range="1-40000000" />
         </MediaCodec>
-        <MediaCodec name="OMX.Exynos.VP8.Encoder" type="video/x-vnd.on2.vp8" >
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-            <Limit name="size" min="32x32" max="1920x1088" />
-            <Limit name="alignment" value="2x2" />
-            <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" min="1" max="489600" />
-            <Limit name="bitrate" range="1-40000000" />
-        </MediaCodec>
 
         <!-- Audio -->
     </Encoders>
