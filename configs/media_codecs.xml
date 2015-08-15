@@ -156,7 +156,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.Exynos.AAC.Decoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.Exynos.FLAC.Decoder" type="audio/flac" />
         <MediaCodec name="OMX.Exynos.MP3.Decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.Exynos.WMA.Decoder" type="audio/x-ms-wma" />
     </Decoders>
 
     <Encoders>

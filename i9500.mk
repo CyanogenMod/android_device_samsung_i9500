@@ -153,7 +153,6 @@ PRODUCT_PACKAGES += \
     libOMX.Exynos.MPEG4.Encoder \
     libOMX.Exynos.VP8.Decoder \
     libOMX.Exynos.VP8.Encoder \
-    libOMX.Exynos.WMA.Decoder \
     libOMX.Exynos.WMV.Decoder \
     libstagefrighthw
 
