@@ -155,11 +155,6 @@ Only the three quirks included above are recognized at this point:
         </MediaCodec>
 
         <!-- Audio -->
-        <MediaCodec name="OMX.Exynos.MP3.Decoder" type="audio/mpeg" >
-            <Limit name="channel-count" max="2" />
-            <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
-            <Limit name="bitrate" range="8000-960000" />
-        </MediaCodec>
     </Decoders>
 
     <Encoders>
