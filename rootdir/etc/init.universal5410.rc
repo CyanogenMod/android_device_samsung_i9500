@@ -52,6 +52,9 @@ on post-fs-data
     mkdir /data/misc/radio 0775 radio system
     mkdir /efs/imei 0775 radio system
 
+# Added for Mobicore
+    mkdir /data/app/mcRegistry 0775 system system
+
 # create data/gps for GPS daemon
     mkdir /data/system/gps 771 gps system
 
@@ -508,7 +511,6 @@ on property:sys.mobicoredaemon.enable=true
 service mobicore /system/bin/mcDriverDaemon \
     -r /system/vendor/firmware/mcRegistry/FFFFFFFF000000000000000000000001.drbin \
     -r /system/vendor/firmware/mcRegistry/ffffffffd0000000000000000000000a.tlbin
-    setenv MC_REGISTRY_PATH /system/vendor/firmware/mcRegistry
     class main
     user drmrpc
     group drmrpc
