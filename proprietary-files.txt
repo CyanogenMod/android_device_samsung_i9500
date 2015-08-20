@@ -43,6 +43,9 @@ vendor/firmware/setfile_6b2.bin
 vendor/firmware/setfile_gumi_imx135.bin
 vendor/firmware/setfile_sec_imx135.bin
 
+# Memtrack
+lib/hw/memtrack.exynos5.so:vendor/lib/hw/memtrack.exynos5.so
+
 # Mobicore
 app/FFFFFFFF000000000000000000000001.drbin:vendor/firmware/mcRegistry/FFFFFFFF000000000000000000000001.drbin
 app/mcRegistry/00060308060501020000000000000000.tlbin:vendor/firmware/mcRegistry/00060308060501020000000000000000.tlbin
