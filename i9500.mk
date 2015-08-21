@@ -88,7 +88,8 @@ PRODUCT_PACKAGES += \
 # HW composer
 PRODUCT_PACKAGES += \
     hwcomposer.exynos5 \
-    libion
+    libion \
+    memtrack.exynos5
 
 # IR
 PRODUCT_PACKAGES += \
