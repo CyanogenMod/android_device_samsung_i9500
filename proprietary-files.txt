@@ -33,7 +33,6 @@ lib/hw/gps.default.so
 lib/libwrappergps.so
 
 # HWC
-lib/hw/memtrack.exynos5.so
 vendor/lib/hw/gralloc.exynos5.so
 
 # Media
