@@ -14,6 +14,9 @@ ro.opengles.version=131072 \
 ro.sf.lcd_density=480
 ro.zygote.disable_gl_preload=1
 
+# Media
+persist.sys.media.use-awesome=true
+
 # NFC
 nfc.app_log_level=2
 
