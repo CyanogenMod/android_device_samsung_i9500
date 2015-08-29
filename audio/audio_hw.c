@@ -707,9 +707,7 @@ static void adev_set_call_audio_path(struct audio_device *adev)
     }
 
     ALOGV("%s: ril_set_call_audio_path(%d)", __func__, device_type);
-
-    /* TODO: Figure out which devices need EXTRA_VOLUME_PATH set */
-    ril_set_call_audio_path(&adev->ril, device_type, ORIGINAL_PATH);
+    ril_set_call_audio_path(&adev->ril, device_type);
 }
 
 /* Helper functions */
