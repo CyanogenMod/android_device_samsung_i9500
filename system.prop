@@ -10,7 +10,7 @@ audio.offload.disable=1
 camera2.portability.force_api=1
 
 # Graphics
-ro.opengles.version=131072 \
+ro.opengles.version=131072
 ro.sf.lcd_density=480
 ro.zygote.disable_gl_preload=1
 
