@@ -152,6 +152,10 @@ PRODUCT_PACKAGES += \
     libOMX.Exynos.WMV.Decoder \
     libstagefrighthw
 
+# Power
+PRODUCT_PACKAGES += \
+    power.universal5410
+
 # Radio
 PRODUCT_PACKAGES += \
     libsecril-client \
