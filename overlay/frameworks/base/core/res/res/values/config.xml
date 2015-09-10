@@ -303,4 +303,8 @@
     <!-- Boolean to enable STK functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
 
+    <!-- CyanogenMod Performance profiles -->
+    <string name="config_perf_profile_prop">sys.perf.profile</string>
+    <string name="config_perf_profile_default_entry">1</string>
+
 </resources>
