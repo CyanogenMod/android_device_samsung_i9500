@@ -519,7 +519,27 @@ service battery_charger /sbin/healthd -c
     class charger
     critical
 
+# CyanogenMod Performance Profiles
+# Powersave
+on property:sys.perf.profile=0
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpufreq/iks-cpufreq/max_freq 600000
+
+# Balanced
+on property:sys.perf.profile=1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpufreq/iks-cpufreq/max_freq 1600000
+
+# Performance
+on property:sys.perf.profile=2
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpufreq/iks-cpufreq/max_freq 1600000
+
 on property:init.svc.bootanim=stopped
     # start gpsd late to prevent it from changing /data/system
     start gpsd
     start camera_id
+
+on property:sys.boot_completed=1
+# Switch to balanced mode after boot for better UX
+    setprop sys.perf.profile 1
