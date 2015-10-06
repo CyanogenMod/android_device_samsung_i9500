@@ -72,24 +72,21 @@ BOARD_USE_DMA_BUF := true
 BOARD_USE_ANB_OUTBUF_SHARE := true
 BOARD_USE_GSC_RGB_ENCODER := true
 BOARD_USE_IMPROVED_BUFFER := true
-COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
+BOARD_USES_LEGACY_MMAP := true
 
 # CMHW
-BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
+BOARD_HARDWARE_CLASS := hardware/samsung/cmhw
+
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
-BOARD_USE_BGRA_8888 := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
-
-# Media
-COMMON_GLOBAL_CFLAGS += -DUSE_NATIVE_SEC_NV12TILED # use format from fw/native
 
 # NFC
 BOARD_NFC_HAL_SUFFIX := universal5410
@@ -97,6 +94,7 @@ BOARD_NFC_HAL_SUFFIX := universal5410
 # Radio
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6360
+BOARD_RIL_CLASS := ../../../device/samsung/i9500/ril
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI          := true
@@ -111,9 +109,6 @@ WIFI_DRIVER_FW_PATH_STA          := "/system/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/etc/wifi/bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/wifi/bcmdhd_p2p.bin"
 WIFI_BAND                        := 802_11_ABG
-
-# Webkit
-ENABLE_WEBGL := true
 
 # Filesystems
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
@@ -144,11 +139,10 @@ BOARD_SEPOLICY_UNION := \
     system.te
 
 # Charging mode
+BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 BOARD_BATTERY_DEVICE_NAME := battery
-
-# Releasetools
-#TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
+CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
 
 # inherit from the proprietary version
 -include vendor/samsung/i9500/BoardConfigVendor.mk
