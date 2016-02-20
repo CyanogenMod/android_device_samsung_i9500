@@ -70,6 +70,10 @@ bin/scranton_RD
 vendor/firmware/bcm2079xB4_firmware.ncd
 vendor/firmware/bcm2079xB4_pre_firmware.ncd
 
+# OMX
+lib/omx/libOMX.Exynos.AVC.Encoder.so
+lib/omx/libOMX.Exynos.MPEG4.Encoder.so
+
 # Radio
 bin/cbd
 lib/libsecnativefeature.so
