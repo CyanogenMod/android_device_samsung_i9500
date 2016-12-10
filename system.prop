@@ -2,9 +2,38 @@
 # system.prop for i9500
 #
 
-ro.sf.lcd_density=480
+## Graphics ##
+
+# Disable GL Library Preload
 ro.zygote.disable_gl_preload=1
-debug.sf.swaprect=0
+
+# Force GPU Rendering
+persist.sys.ui.hw=1
+
+## Screen ##
+
+# 1080p Screen Density
+ro.sf.lcd_density=480
+
+## Radio ##
+
+# Samsung RIL Config
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/ttyS0
+
+# Max Supported HSDPA Category
+ro.ril.hsdpa.category=24
+
+# Max Supported HSUPA Category
+ro.ril.hsupa.category=6
+
+# Max Supported GPRS/EDGE Category
+ro.ril.gprsclass=12
+
+# Enable HSPA+ 42 Mbps
+ro.ril.hsxpa=3
+
+## NFC ##
+
+# Reduce Debug Level
 nfc.app_log_level=2

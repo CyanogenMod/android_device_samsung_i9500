@@ -32,7 +32,7 @@ INPUT_CHANNEL_MAP {
   <ctl name="SPKOUTR NG SPKOUTR Switch" value="0" />
   <ctl name="SPKDAT1L NG SPKDAT1L Switch" value="0" />
   <ctl name="SPKDAT1R NG SPKDAT1R Switch" value="0" />
-  <ctl name="Noise Gate Threshold Volume" value="0" />
+  <ctl name="Noise Gate Threshold Volume" value="3" />
 
   <!-- Analog output AMP -->
   <!-- AP Side is mixed to Input 1 of each out mixer -->
@@ -174,6 +174,7 @@ INPUT_CHANNEL_MAP {
   <ctl name="Headset Mic Switch" value="0" />
 
   <ctl name="AIF2 Mode" value="Master" />
+  <ctl name="EPOUT DRE Switch" value="1" />
 
   <!-- Channels -->
 
@@ -209,14 +210,29 @@ INPUT_CHANNEL_MAP {
 
   <path name="speaker">
     <ctl name="SPK Switch" value="1" />
+    <ctl name="Speaker Digital Volume" value="118" />
+    <ctl name="SPKOUTL Input 1 Volume" value="32" />
+    <ctl name="SPKOUTL Input 2 Volume" value="32" />
+    <ctl name="SPKOUTL Input 3 Volume" value="32" />
+    <ctl name="SPKOUTL Input 4 Volume" value="32" />
   </path>
 
   <path name="earpiece">
     <ctl name="RCV Switch" value="1" />
+    <ctl name="EPOUT Digital Volume" value="112" />
+    <ctl name="EPOUT Input 1 Volume" value="32" />
+    <ctl name="EPOUT Input 2 Volume" value="32" />
+    <ctl name="EPOUT Input 3 Volume" value="32" />
+    <ctl name="EPOUT Input 4 Volume" value="32" />
   </path>
 
   <path name="headphones">
     <ctl name="HP Switch" value="1" />
+    <ctl name="HPOUT1 Digital Volume" value="93" />
+    <ctl name="HPOUT1L Input 1 Volume" value="32" />
+    <ctl name="HPOUT1R Input 1 Volume" value="32" />
+    <ctl name="HPOUT1L Input 2 Volume" value="32" />
+    <ctl name="HPOUT1R Input 2 Volume" value="32" />
   </path>
 
   <path name="sco-out">
@@ -226,6 +242,9 @@ INPUT_CHANNEL_MAP {
 
   <path name="dock">
     <ctl name="VPS Switch" value="1" />
+    <ctl name="OUT2 Digital Volume" value="124" />
+    <ctl name="HPOUT2L Input 1 Volume" value="32" />
+    <ctl name="HPOUT2R Input 1 Volume" value="32" />
   </path>
 
   <path name="aux-digital">
@@ -240,31 +259,37 @@ INPUT_CHANNEL_MAP {
   <path name="builtin-mic">
     <ctl name="Main Mic Switch" value="1" />
     <ctl name="LHPF1 Input 1" value="IN1L" />
-    <ctl name="IN1L Volume" value="18" />
+    <ctl name="IN1L Volume" value="25" />
     <ctl name="IN1L Digital Volume" value="150" />
+    <ctl name="LHPF1 Input 1 Volume" value="32" />
   </path>
 
   <path name="back-mic">
     <ctl name="Sub Mic Switch" value="1" />
     <ctl name="LHPF2 Input 1" value="IN2L" />
-    <ctl name="IN2L Volume" value="17" />
+    <ctl name="IN2L Volume" value="23" />
     <ctl name="IN2L Digital Volume" value="150" />
+    <ctl name="LHPF2 Input 1 Volume" value="32" />
   </path>
 
   <path name="third-mic">
     <ctl name="3rd Mic Switch" value="1" />
     <ctl name="LHPF1 Input 1" value="IN2R" />
-    <ctl name="IN2R Volume" value="20" />
+    <ctl name="IN2R Volume" value="23" />
     <ctl name="IN2R Digital Volume" value="150" />
+    <ctl name="LHPF1 Input 1 Volume" value="32" />
   </path>
 
   <path name="headset-in">
     <ctl name="Headset Mic Switch" value="1" />
     <ctl name="HPOUT1L Input 3" value="None" />
+    <ctl name="HPOUT1L Input 3 Volume" value="6" />
     <ctl name="HPOUT1R Input 3" value="None" />
+    <ctl name="HPOUT1R Input 3 Volume" value="6" />
     <ctl name="LHPF1 Input 1" value="IN1R" />
-    <ctl name="IN1R Volume" value="30" />
+    <ctl name="IN1R Volume" value="25" />
     <ctl name="IN1R Digital Volume" value="150" />
+    <ctl name="LHPF1 Input 1 Volume" value="32" />
   </path>
 
   <path name="sco-in">
@@ -283,56 +308,107 @@ INPUT_CHANNEL_MAP {
       <path name="speaker" />
       <ctl name="AIF2 Mode" value="Slave" />
       <ctl name="SPKOUTL Input 3" value="ASRC2L" />
+      <ctl name="Speaker Digital Volume" value="144" />
+      <ctl name="SPKOUTL Input 1 Volume" value="10" />
+      <ctl name="SPKOUTL Input 2 Volume" value="10" />
   </path>
 
   <path name="voice-earpiece">
       <path name="earpiece" />
       <ctl name="AIF2 Mode" value="Slave" />
+      <ctl name="EPOUT Digital Volume" value="112" />
+      <ctl name="EPOUT DRE Switch" value="0" />
       <ctl name="EPOUT Input 3" value="ASRC2L" />
   </path>
 
   <path name="voice-headphones">
       <path name="headphones" />
       <ctl name="AIF2 Mode" value="Slave" />
+      <ctl name="HPOUT1 Digital Volume" value="108" />
       <ctl name="HPOUT1L Input 2" value="ASRC2L" />
       <ctl name="HPOUT1R Input 2" value="ASRC2R" />
+      <ctl name="HPOUT1L Input 3" value="IN1R" />
+      <ctl name="HPOUT1R Input 3" value="IN1R" />
   </path>
 
   <path name="media-speaker">
       <path name="speaker" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="Speaker Digital Volume" value="118" />
+      <ctl name="SPKOUTL Input 1 Volume" value="32" />
+      <ctl name="SPKOUTL Input 2 Volume" value="32" />
+      <ctl name="SPKOUTL Input 3" value="none" />
   </path>
 
   <path name="media-earpiece">
       <path name="earpiece" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="EPOUT Digital Volume" value="112" />
+      <ctl name="EPOUT DRE Switch" value="1" />
+      <ctl name="EPOUT Input 3" value="none" />
   </path>
 
   <path name="media-headphones">
       <path name="headphones" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="HPOUT1 Digital Volume" value="112" />
+      <ctl name="HPOUT1L Input 2" value="none" />
+      <ctl name="HPOUT1L Input 3" value="None" />
+      <ctl name="HPOUT1R Input 3" value="None" />
   </path>
 
   <path name="voice-rec-speaker">
       <path name="speaker" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="SPKOUTL Input 1 Volume" value="32" />
+      <ctl name="SPKOUTL Input 2 Volume" value="32" />
+      <ctl name="SPKOUTL Input 3" value="none" />
   </path>
 
   <path name="voice-rec-headphones">
       <path name="headphones" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="HPOUT1L Input 2" value="none" />
+      <ctl name="HPOUT1L Input 3" value="None" />
+      <ctl name="HPOUT1R Input 3" value="None" />
   </path>
 
   <path name="communication-speaker">
       <path name="speaker" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="SPKOUTL Input 1 Volume" value="32" />
+      <ctl name="SPKOUTL Input 2 Volume" value="32" />
+      <ctl name="SPKOUTL Input 3" value="none" />
   </path>
 
   <path name="communication-earpiece">
       <path name="earpiece" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="EPOUT Digital Volume" value="112" />
+      <ctl name="EPOUT DRE Switch" value="1" />
+      <ctl name="EPOUT Input 3" value="none" />
   </path>
 
   <path name="communication-headphones">
       <path name="headphones" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="HPOUT1 Digital Volume" value="108" />
+      <ctl name="HPOUT1L Input 2" value="none" />
+      <ctl name="HPOUT1L Input 3" value="None" />
+      <ctl name="HPOUT1R Input 3" value="None" />
   </path>
 
   <path name="speaker-and-headphones">
       <path name="speaker" />
       <path name="headphones" />
+      <ctl name="AIF2 Mode" value="Master" />
+      <ctl name="SPKOUTL Input 1 Volume" value="32" />
+      <ctl name="SPKOUTL Input 2 Volume" value="32" />
+      <ctl name="SPKOUTL Input 3" value="none" />
+      <ctl name="HPOUT1L Input 2" value="none" />
+      <ctl name="HPOUT1R Input 2" value="none" />
+      <ctl name="HPOUT1L Input 3" value="None" />
+      <ctl name="HPOUT1R Input 3" value="None" />
   </path>
 
   <path name="bt-sco-headset">
@@ -347,42 +423,54 @@ INPUT_CHANNEL_MAP {
       <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
       <path name="back-mic" />
+      <ctl name="IN1L Volume" value="18" />
+      <ctl name="IN2L Volume" value="17" />
   </path>
 
   <path name="voice-headset-mic">
       <path name="channel-left" />
       <path name="aif2-stereo-mic" />
       <path name="headset-in" />
+      <ctl name="IN1R Volume" value="30" />
   </path>
 
   <path name="media-main-mic">
       <path name="channel-left" />
       <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
+      <ctl name="IN1L Volume" value="18" />
   </path>
 
   <path name="media-second-mic">
       <path name="channel-right" />
       <path name="aif2-stereo-mic" />
       <path name="back-mic" />
+      <ctl name="IN2L Volume" value="17" />
   </path>
 
   <path name="media-headset-mic">
       <path name="channel-left" />
       <path name="aif2-stereo-mic" />
       <path name="headset-in" />
+      <ctl name="IN1R Volume" value="30" />
   </path>
 
   <path name="voice-rec-main-mic">
-      <path name="channel-left" />
+      <path name="channel-stereo" />
       <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
+      <path name="back-mic" />
+      <ctl name="IN1L Volume" value="18" />
+      <ctl name="IN2L Volume" value="17" />
   </path>
 
   <path name="communication-main-mic">
-      <path name="channel-left" />
+      <path name="channel-stereo" />
       <path name="aif2-stereo-mic" />
       <path name="builtin-mic" />
+      <path name="back-mic" />
+      <ctl name="IN1L Volume" value="25" />
+      <ctl name="IN2L Volume" value="28" />      
   </path>
 
   <path name="bt-sco-mic">
@@ -394,12 +482,14 @@ INPUT_CHANNEL_MAP {
       <path name="channel-left" />
       <path name="aif2-stereo-mic" />
       <path name="headset-in" />
+      <ctl name="IN1R Volume" value="30" />
   </path>
 
   <path name="communication-headset-mic">
       <path name="channel-left" />
       <path name="aif2-stereo-mic" />
       <path name="headset-in" />
+      <ctl name="IN1R Volume" value="33" />
   </path>
 
   <path name="none">

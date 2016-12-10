@@ -106,7 +106,7 @@ struct pcm_config pcm_config_sco_wide = {
 
 struct pcm_config pcm_config_voice = {
     .channels = 2,
-    .rate = 8000,
+    .rate = 16000,
     .period_size = 960,
     .period_count = 2,
     .format = PCM_FORMAT_S16_LE,
@@ -1761,7 +1761,7 @@ struct audio_module HAL_MODULE_INFO_SYM = {
         .module_api_version = AUDIO_MODULE_API_VERSION_0_1,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = AUDIO_HARDWARE_MODULE_ID,
-        .name = "JA audio HW HAL",
+        .name = "JA3G audio HW HAL",
         .author = "The CyanogenMod Project",
         .methods = &hal_module_methods,
     },
