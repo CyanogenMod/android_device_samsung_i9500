@@ -1,0 +1,32 @@
+[
+    {
+        "remote": "cm",
+        "repository": "android_hardware_samsung_slsi_exynos",
+        "target_path": "hardware/samsung_slsi/exynos",
+        "revision": "cm-11.0"
+    },
+    {
+        "remote": "cm",
+        "repository": "android_hardware_samsung_slsi_exynos5-insignal",
+        "target_path": "hardware/samsung_slsi/exynos5-insignal",
+        "revision": "cm-11.0"
+    },
+    {
+        "remote": "cm",
+        "repository": "android_hardware_samsung_slsi_exynos5410",
+        "target_path": "hardware/samsung_slsi/exynos5410",
+        "revision": "cm-11.0"
+    },
+    {
+        "remote": "cm",
+        "repository": "android_hardware_samsung_slsi_openmax",
+        "target_path": "hardware/samsung_slsi/openmax",
+        "revision": "cm-11.0"
+    },
+    {
+        "remote": "AOGP-Devices",
+        "repository": "android_kernel_samsung_exynos5410",
+        "target_path": "kernel/samsung/exynos5410",
+        "revision": "kitkat"
+    }
+]
